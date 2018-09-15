@@ -1,0 +1,39 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.desarrollandojuntos.ecolar",
+      "nativeLanguage": "es"
+    },
+    "jhipsterVersion": "5.3.1",
+    "applicationType": "monolith",
+    "baseName": "ecolar",
+    "packageName": "com.desarrollandojuntos.ecolar",
+    "packageFolder": "com/desarrollandojuntos/ecolar",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "OTVkNzFhYjVjMGM4NGYwMWQ5NDMxNThhNDI0ZjY1YWQzODZkY2UwYjk4ZmM2MzZkYWI0M2I1OTU2MGM4YmIzYmI3ZWVjZWRmMWVkNWU4OTFlZDExZDFlMjUyNmJiY2ViY2FkY2M3MjA0ZjA2MjIxZGI2OTI3OGFhNmI4NGE1ZmM=",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "enableTranslation": true,
+    "nativeLanguage": "es",
+    "languages": [
+      "es",
+      "en",
+      "gl"
+    ]
+  }
+}
