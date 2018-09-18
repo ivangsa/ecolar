@@ -1,0 +1,23 @@
+
+{
+    "ecolarApp": {
+        "accounts" : {
+            "home": {
+                "title": "Accounts",
+                "createLabel": "Crear novo Accounts",
+                "createOrEditLabel": "Crear ou editar Accounts"
+            },
+            "created": "Un novo Accounts foi creado co identificador {{ param }}",
+            "updated": "Un Accounts foi actualizado co identificador {{ param }}",
+            "deleted": "Un Accounts foi eliminado co identificador {{ param }}",
+            "delete": {
+                "question": "Seguro que desexa eliminar Accounts {{ id }}?"
+            },
+            "detail": {
+                "title": "Accounts"
+            },
+            "accountCode": "Account Code",
+            "accountName": "Account Name"
+        }
+    }
+}

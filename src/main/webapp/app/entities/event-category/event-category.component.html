@@ -1,0 +1,62 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="ecolarApp.eventCategory.home.title">Event Categories</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-event-category" [routerLink]="['/event-category/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="ecolarApp.eventCategory.home.createLabel">
+            Create new Event Category
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="eventCategories">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="ecolarApp.eventCategory.name">Name</span></th>
+            <th><span jhiTranslate="ecolarApp.eventCategory.description">Description</span></th>
+            <th><span jhiTranslate="ecolarApp.eventCategory.mainCategory">Main Category</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let eventCategory of eventCategories ;trackBy: trackId">
+                <td><a [routerLink]="['/event-category', eventCategory.id, 'view' ]">{{eventCategory.id}}</a></td>
+                <td>{{eventCategory.name}}</td>
+                <td>{{eventCategory.description}}</td>
+                <td>
+                    <div *ngIf="eventCategory.mainCategory">
+                        <a [routerLink]="['../event-category', eventCategory.mainCategory?.id, 'view' ]" >{{eventCategory.mainCategory?.name}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/event-category', eventCategory.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/event-category', eventCategory.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'event-category/'+ eventCategory.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

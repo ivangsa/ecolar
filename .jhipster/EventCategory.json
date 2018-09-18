@@ -1,0 +1,37 @@
+{
+    "name": "EventCategory",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "parentCategory",
+            "otherEntityName": "eventCategory",
+            "otherEntityRelationshipName": "mainCategory"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "mainCategory",
+            "otherEntityName": "eventCategory",
+            "otherEntityField": "name"
+        }
+    ],
+    "changelogDate": "20180916165536",
+    "javadoc": "Categoria",
+    "entityTableName": "event_category",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

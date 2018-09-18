@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="eventCategory">
+            <h2><span jhiTranslate="ecolarApp.eventCategory.detail.title">Event Category</span> {{eventCategory.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ecolarApp.eventCategory.name">Name</span></dt>
+                <dd>
+                    <span>{{eventCategory.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.eventCategory.description">Description</span></dt>
+                <dd>
+                    <span>{{eventCategory.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.eventCategory.mainCategory">Main Category</span></dt>
+                <dd>
+                    <div *ngIf="eventCategory.mainCategory">
+                        <a [routerLink]="['/event-category', eventCategory.mainCategory?.id, 'view']">{{eventCategory.mainCategory?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/event-category', eventCategory.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

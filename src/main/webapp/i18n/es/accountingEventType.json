@@ -1,0 +1,9 @@
+{
+    "ecolarApp": {
+        "AccountingEventType" : {
+            "null": "",
+            "CREDIT": "CREDIT",
+            "DEBIT": "DEBIT"
+        }
+    }
+}

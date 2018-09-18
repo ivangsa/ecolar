@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-accounting-event-heading" jhiTranslate="ecolarApp.accountingEvent.home.createOrEditLabel">Create or edit a Accounting Event</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!accountingEvent.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="accountingEvent.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.accountingEvent.eventTime" for="field_eventTime">Event Time</label>
+                    <div class="d-flex">
+                        <input id="field_eventTime" type="datetime-local" class="form-control" name="eventTime" [(ngModel)]="eventTime"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.accountingEvent.registrationTime" for="field_registrationTime">Registration Time</label>
+                    <div class="d-flex">
+                        <input id="field_registrationTime" type="datetime-local" class="form-control" name="registrationTime" [(ngModel)]="registrationTime"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.accountingEvent.eventType" for="field_eventType">Event Type</label>
+                    <select class="form-control" name="eventType" [(ngModel)]="accountingEvent.eventType" id="field_eventType" >
+                        <option value="CREDIT">{{'ecolarApp.AccountingEventType.CREDIT' | translate}}</option>
+                        <option value="DEBIT">{{'ecolarApp.AccountingEventType.DEBIT' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.accountingEvent.amount" for="field_amount">Amount</label>
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                        [(ngModel)]="accountingEvent.amount" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.accountingEvent.location" for="field_location">Location</label>
+                    <input type="text" class="form-control" name="location" id="field_location"
+                        [(ngModel)]="accountingEvent.location" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.accountingEvent.mainCategory" for="field_mainCategory">Main Category</label>
+                    <select class="form-control" id="field_mainCategory" name="mainCategory" [(ngModel)]="accountingEvent.mainCategory" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="eventCategoryOption.id === accountingEvent.mainCategory?.id ? accountingEvent.mainCategory : eventCategoryOption" *ngFor="let eventCategoryOption of eventcategories; trackBy: trackEventCategoryById">{{eventCategoryOption.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="ecolarApp.accountingEvent.eventLines" for="field_eventLines">Event Lines</label>
+                    <select class="form-control" id="field_eventLines" multiple name="eventLines" [(ngModel)]="accountingEvent.eventLines">
+                        <option [ngValue]="getSelected(accountingEvent.eventLines, accountingEventLineOption)" *ngFor="let accountingEventLineOption of accountingeventlines; trackBy: trackAccountingEventLineById">{{accountingEventLineOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="ecolarApp.accountingEvent.categories" for="field_categories">Categories</label>
+                    <select class="form-control" id="field_categories" multiple name="categories" [(ngModel)]="accountingEvent.categories">
+                        <option [ngValue]="getSelected(accountingEvent.categories, eventCategoryOption)" *ngFor="let eventCategoryOption of eventcategories; trackBy: trackEventCategoryById">{{eventCategoryOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+
+{
+    "ecolarApp": {
+        "accountingEvent" : {
+            "home": {
+                "title": "Accounting Events",
+                "createLabel": "Crear nuevo Accounting Event",
+                "createOrEditLabel": "Crear o editar Accounting Event"
+            },
+            "created": "Un nuevo Accounting Event ha sido creado con el identificador {{ param }}",
+            "updated": "Un Accounting Event ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Accounting Event ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Accounting Event {{ id }}?"
+            },
+            "detail": {
+                "title": "Accounting Event"
+            },
+            "eventTime": "Event Time",
+            "registrationTime": "Registration Time",
+            "eventType": "Event Type",
+            "amount": "Amount",
+            "location": "Location",
+            "mainCategory": "Main Category",
+            "eventLines": "Event Lines",
+            "categories": "Categories"
+        }
+    }
+}

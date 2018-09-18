@@ -1,0 +1,94 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="accountingEvent">
+            <h2><span jhiTranslate="ecolarApp.accountingEvent.detail.title">Accounting Event</span> {{accountingEvent.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ecolarApp.accountingEvent.eventTime">Event Time</span></dt>
+                <dd>
+                    <span>{{accountingEvent.eventTime}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.accountingEvent.registrationTime">Registration Time</span></dt>
+                <dd>
+                    <span>{{accountingEvent.registrationTime}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.accountingEvent.eventType">Event Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'ecolarApp.AccountingEventType.' + accountingEvent.eventType}}">{{accountingEvent.eventType}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.accountingEvent.amount">Amount</span></dt>
+                <dd>
+                    <span>{{accountingEvent.amount}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.accountingEvent.location">Location</span></dt>
+                <dd>
+                    <span>{{accountingEvent.location}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.accountingEvent.mainCategory">Main Category</span></dt>
+                <dd>
+                    <div *ngIf="accountingEvent.mainCategory">
+                        <a [routerLink]="['/event-category', accountingEvent.mainCategory?.id, 'view']">{{accountingEvent.mainCategory?.name}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.accountingEvent.eventLines">Event Lines</span></dt>
+                <dd>
+                    <span *ngFor="let eventLines of accountingEvent.eventLines; let last = last">
+                        <a [routerLink]="['/accounting-event-line', eventLines?.id, 'view' ]">{{eventLines.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                    <th><span jhiTranslate="ecolarApp.accountingEventLine.amount">Amount</span></th>
+                    <th><span jhiTranslate="ecolarApp.accounts.detail.title">Accounts</span></th>
+                    <th><span jhiTranslate="ecolarApp.accounts.detail.title">Accounts</span></th>
+                    <th><span jhiTranslate="ecolarApp.accountingEventLine.amount">Amount</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let accountingEventLine of accountingEvent.eventLines | filterDebitCredit: AccountingEventType.DEBIT">
+                            <td>{{accountingEventLine.amount}}</td>
+                            <td>{{accountingEventLine.account.accountCode}} - {{accountingEventLine.account.accountName}}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr *ngFor="let accountingEventLine of accountingEvent.eventLines">
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>{{accountingEventLine.account.accountCode}} - {{accountingEventLine.account.accountName}}</td>
+                            <td>{{accountingEventLine.amount}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>{{accountingEvent.amount}}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>{{accountingEvent.amount}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+        
+                <dt><span jhiTranslate="ecolarApp.accountingEvent.categories">Categories</span></dt>
+                <dd>
+                    <span *ngFor="let categories of accountingEvent.categories; let last = last">
+                        <a [routerLink]="['/event-category', categories?.id, 'view' ]">{{categories.name}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/accounting-event', accountingEvent.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

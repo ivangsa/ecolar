@@ -1,0 +1,33 @@
+{
+    "name": "AccountingEventLine",
+    "fields": [
+        {
+            "fieldName": "amount",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "eventType",
+            "fieldType": "AccountingEventType",
+            "fieldValues": "CREDIT,DEBIT"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "javadoc": "cuenta de una linea de asiento",
+            "relationshipName": "account",
+            "otherEntityName": "accounts",
+            "otherEntityField": "accountName"
+        }
+    ],
+    "changelogDate": "20180916165534",
+    "javadoc": "Linea de asiento",
+    "entityTableName": "accounting_event_line",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

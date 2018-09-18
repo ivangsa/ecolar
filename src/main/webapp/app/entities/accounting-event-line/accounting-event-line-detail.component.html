@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="accountingEventLine">
+            <h2><span jhiTranslate="ecolarApp.accountingEventLine.detail.title">Accounting Event Line</span> {{accountingEventLine.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ecolarApp.accountingEventLine.amount">Amount</span></dt>
+                <dd>
+                    <span>{{accountingEventLine.amount}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.accountingEventLine.eventType">Event Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'ecolarApp.AccountingEventType.' + accountingEventLine.eventType}}">{{accountingEventLine.eventType}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.accountingEventLine.account">Account</span></dt>
+                <dd>
+                    <div *ngIf="accountingEventLine.account">
+                        <a [routerLink]="['/accounts', accountingEventLine.account?.id, 'view']">{{accountingEventLine.account?.accountName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/accounting-event-line', accountingEventLine.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+{
+    "name": "AccountingEvent",
+    "fields": [
+        {
+            "fieldName": "eventTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "registrationTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "eventType",
+            "fieldType": "AccountingEventType",
+            "fieldValues": "CREDIT,DEBIT"
+        },
+        {
+            "fieldName": "amount",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "location",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "mainCategory",
+            "otherEntityName": "eventCategory",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "eventLines",
+            "otherEntityName": "accountingEventLine",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "categories",
+            "otherEntityName": "eventCategory",
+            "otherEntityField": "name",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20180916165533",
+    "javadoc": "Movimiento contable",
+    "entityTableName": "accounting_event",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

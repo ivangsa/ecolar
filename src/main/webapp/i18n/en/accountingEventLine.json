@@ -1,0 +1,24 @@
+
+{
+    "ecolarApp": {
+        "accountingEventLine" : {
+            "home": {
+                "title": "Accounting Event Lines",
+                "createLabel": "Create a new Accounting Event Line",
+                "createOrEditLabel": "Create or edit a Accounting Event Line"
+            },
+            "created": "A new Accounting Event Line is created with identifier {{ param }}",
+            "updated": "A Accounting Event Line is updated with identifier {{ param }}",
+            "deleted": "A Accounting Event Line is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Accounting Event Line {{ id }}?"
+            },
+            "detail": {
+                "title": "Accounting Event Line"
+            },
+            "amount": "Amount",
+            "eventType": "Event Type",
+            "account": "Account"
+        }
+    }
+}
