@@ -35,22 +35,21 @@ entity Accounts {
 /**
  * Categoria
  */
-entity EventCategory {
+entity AccountCategory {
 	name String,
 	description String
 }
 
 relationship OneToMany {
-	EventCategory{parentCategory(name)} to EventCategory{mainCategory(name)}
+	AccountCategory{accounts(name)} to Accounts{category(name)}
+	AccountCategory{categories(name)} to AccountCategory{parent(name)}
 }
 
 relationship ManyToOne {
 	/** cuenta de una linea de asiento */
 	AccountingEventLine{account(accountName)} to Accounts,
-	AccountingEvent{mainCategory(name)} to EventCategory
 }
 
 relationship ManyToMany {
 	AccountingEvent{eventLines} to AccountingEventLine,
-	AccountingEvent{categories(name)} to EventCategory,
 }
