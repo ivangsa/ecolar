@@ -1,6 +1,5 @@
 package com.desarrollandojuntos.ecolar.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -44,17 +43,8 @@ public class AccountingEvent implements Serializable {
     private String location;
 
     //@DBRef
-    @Field("mainCategory")
-    @JsonIgnoreProperties("")
-    private EventCategory mainCategory;
-
-    //@DBRef
     @Field("eventLines")
     private Set<AccountingEventLine> eventLines = new HashSet<>();
-
-    //@DBRef
-    @Field("categories")
-    private Set<EventCategory> categories = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -130,19 +120,6 @@ public class AccountingEvent implements Serializable {
         this.location = location;
     }
 
-    public EventCategory getMainCategory() {
-        return mainCategory;
-    }
-
-    public AccountingEvent mainCategory(EventCategory eventCategory) {
-        this.mainCategory = eventCategory;
-        return this;
-    }
-
-    public void setMainCategory(EventCategory eventCategory) {
-        this.mainCategory = eventCategory;
-    }
-
     public Set<AccountingEventLine> getEventLines() {
         return eventLines;
     }
@@ -164,29 +141,6 @@ public class AccountingEvent implements Serializable {
 
     public void setEventLines(Set<AccountingEventLine> accountingEventLines) {
         this.eventLines = accountingEventLines;
-    }
-
-    public Set<EventCategory> getCategories() {
-        return categories;
-    }
-
-    public AccountingEvent categories(Set<EventCategory> eventCategories) {
-        this.categories = eventCategories;
-        return this;
-    }
-
-    public AccountingEvent addCategories(EventCategory eventCategory) {
-        this.categories.add(eventCategory);
-        return this;
-    }
-
-    public AccountingEvent removeCategories(EventCategory eventCategory) {
-        this.categories.remove(eventCategory);
-        return this;
-    }
-
-    public void setCategories(Set<EventCategory> eventCategories) {
-        this.categories = eventCategories;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -4,27 +4,27 @@ import { HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { EcolarTestModule } from '../../../test.module';
-import { EventCategoryUpdateComponent } from 'app/entities/event-category/event-category-update.component';
-import { EventCategoryService } from 'app/entities/event-category/event-category.service';
-import { EventCategory } from 'app/shared/model/event-category.model';
+import { AccountCategoryUpdateComponent } from 'app/entities/account-category/account-category-update.component';
+import { AccountCategoryService } from 'app/entities/account-category/account-category.service';
+import { AccountCategory } from 'app/shared/model/account-category.model';
 
 describe('Component Tests', () => {
-    describe('EventCategory Management Update Component', () => {
-        let comp: EventCategoryUpdateComponent;
-        let fixture: ComponentFixture<EventCategoryUpdateComponent>;
-        let service: EventCategoryService;
+    describe('AccountCategory Management Update Component', () => {
+        let comp: AccountCategoryUpdateComponent;
+        let fixture: ComponentFixture<AccountCategoryUpdateComponent>;
+        let service: AccountCategoryService;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [EcolarTestModule],
-                declarations: [EventCategoryUpdateComponent]
+                declarations: [AccountCategoryUpdateComponent]
             })
-                .overrideTemplate(EventCategoryUpdateComponent, '')
+                .overrideTemplate(AccountCategoryUpdateComponent, '')
                 .compileComponents();
 
-            fixture = TestBed.createComponent(EventCategoryUpdateComponent);
+            fixture = TestBed.createComponent(AccountCategoryUpdateComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(EventCategoryService);
+            service = fixture.debugElement.injector.get(AccountCategoryService);
         });
 
         describe('save', () => {
@@ -32,9 +32,9 @@ describe('Component Tests', () => {
                 'Should call update service on save for existing entity',
                 fakeAsync(() => {
                     // GIVEN
-                    const entity = new EventCategory('123');
+                    const entity = new AccountCategory('123');
                     spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
-                    comp.eventCategory = entity;
+                    comp.accountCategory = entity;
                     // WHEN
                     comp.save();
                     tick(); // simulate async
@@ -49,9 +49,9 @@ describe('Component Tests', () => {
                 'Should call create service on save for new entity',
                 fakeAsync(() => {
                     // GIVEN
-                    const entity = new EventCategory();
+                    const entity = new AccountCategory();
                     spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
-                    comp.eventCategory = entity;
+                    comp.accountCategory = entity;
                     // WHEN
                     comp.save();
                     tick(); // simulate async

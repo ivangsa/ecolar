@@ -8,8 +8,6 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IAccountingEvent } from 'app/shared/model/accounting-event.model';
 import { AccountingEventService } from './accounting-event.service';
-import { IEventCategory } from 'app/shared/model/event-category.model';
-import { EventCategoryService } from 'app/entities/event-category';
 import { IAccountingEventLine } from 'app/shared/model/accounting-event-line.model';
 import { AccountingEventLineService } from 'app/entities/accounting-event-line';
 
@@ -21,8 +19,6 @@ export class AccountingEventUpdateComponent implements OnInit {
     private _accountingEvent: IAccountingEvent;
     isSaving: boolean;
 
-    eventcategories: IEventCategory[];
-
     accountingeventlines: IAccountingEventLine[];
     eventTime: string;
     registrationTime: string;
@@ -30,7 +26,6 @@ export class AccountingEventUpdateComponent implements OnInit {
     constructor(
         private jhiAlertService: JhiAlertService,
         private accountingEventService: AccountingEventService,
-        private eventCategoryService: EventCategoryService,
         private accountingEventLineService: AccountingEventLineService,
         private activatedRoute: ActivatedRoute
     ) {}
@@ -40,12 +35,6 @@ export class AccountingEventUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ accountingEvent }) => {
             this.accountingEvent = accountingEvent;
         });
-        this.eventCategoryService.query().subscribe(
-            (res: HttpResponse<IEventCategory[]>) => {
-                this.eventcategories = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.accountingEventLineService.query().subscribe(
             (res: HttpResponse<IAccountingEventLine[]>) => {
                 this.accountingeventlines = res.body;
@@ -84,10 +73,6 @@ export class AccountingEventUpdateComponent implements OnInit {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackEventCategoryById(index: number, item: IEventCategory) {
-        return item.id;
     }
 
     trackAccountingEventLineById(index: number, item: IAccountingEventLine) {

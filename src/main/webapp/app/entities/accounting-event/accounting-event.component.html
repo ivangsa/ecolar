@@ -20,9 +20,7 @@
             <th><span jhiTranslate="ecolarApp.accountingEvent.eventType">Event Type</span></th>
             <th><span jhiTranslate="ecolarApp.accountingEvent.amount">Amount</span></th>
             <th><span jhiTranslate="ecolarApp.accountingEvent.location">Location</span></th>
-            <th><span jhiTranslate="ecolarApp.accountingEvent.mainCategory">Main Category</span></th>
             <th><span jhiTranslate="ecolarApp.accountingEvent.eventLines">Event Lines</span></th>
-            <th><span jhiTranslate="ecolarApp.accountingEvent.categories">Categories</span></th>
             <th></th>
             </tr>
             </thead>
@@ -35,18 +33,8 @@
                 <td>{{accountingEvent.amount}}</td>
                 <td>{{accountingEvent.location}}</td>
                 <td>
-                    <div *ngIf="accountingEvent.mainCategory">
-                        <a [routerLink]="['../event-category', accountingEvent.mainCategory?.id, 'view' ]" >{{accountingEvent.mainCategory?.name}}</a>
-                    </div>
-                </td>
-                <td>
                     <span *ngFor="let eventLines of accountingEvent.eventLines; let last = last">
                             <a class="form-control-static" [routerLink]="['../accounting-event-line', eventLines?.id, 'view' ]">{{eventLines.id}}</a>{{last ? '' : ', '}}
-                        </span>
-                </td>
-                <td>
-                    <span *ngFor="let categories of accountingEvent.categories; let last = last">
-                            <a class="form-control-static" [routerLink]="['../event-category', categories?.id, 'view' ]">{{categories.name}}</a>{{last ? '' : ', '}}
                         </span>
                 </td>
                 <td class="text-right">

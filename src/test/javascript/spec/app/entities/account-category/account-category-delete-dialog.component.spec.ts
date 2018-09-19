@@ -5,27 +5,27 @@ import { Observable, of } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { EcolarTestModule } from '../../../test.module';
-import { EventCategoryDeleteDialogComponent } from 'app/entities/event-category/event-category-delete-dialog.component';
-import { EventCategoryService } from 'app/entities/event-category/event-category.service';
+import { AccountCategoryDeleteDialogComponent } from 'app/entities/account-category/account-category-delete-dialog.component';
+import { AccountCategoryService } from 'app/entities/account-category/account-category.service';
 
 describe('Component Tests', () => {
-    describe('EventCategory Management Delete Component', () => {
-        let comp: EventCategoryDeleteDialogComponent;
-        let fixture: ComponentFixture<EventCategoryDeleteDialogComponent>;
-        let service: EventCategoryService;
+    describe('AccountCategory Management Delete Component', () => {
+        let comp: AccountCategoryDeleteDialogComponent;
+        let fixture: ComponentFixture<AccountCategoryDeleteDialogComponent>;
+        let service: AccountCategoryService;
         let mockEventManager: any;
         let mockActiveModal: any;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [EcolarTestModule],
-                declarations: [EventCategoryDeleteDialogComponent]
+                declarations: [AccountCategoryDeleteDialogComponent]
             })
-                .overrideTemplate(EventCategoryDeleteDialogComponent, '')
+                .overrideTemplate(AccountCategoryDeleteDialogComponent, '')
                 .compileComponents();
-            fixture = TestBed.createComponent(EventCategoryDeleteDialogComponent);
+            fixture = TestBed.createComponent(AccountCategoryDeleteDialogComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(EventCategoryService);
+            service = fixture.debugElement.injector.get(AccountCategoryService);
             mockEventManager = fixture.debugElement.injector.get(JhiEventManager);
             mockActiveModal = fixture.debugElement.injector.get(NgbActiveModal);
         });

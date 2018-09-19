@@ -4,32 +4,29 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 
-import { IAccounts } from 'app/shared/model/accounts.model';
-import { AccountsService } from './accounts.service';
 import { IAccountCategory } from 'app/shared/model/account-category.model';
-import { AccountCategoryService } from 'app/entities/account-category';
+import { AccountCategoryService } from './account-category.service';
 
 @Component({
-    selector: 'jhi-accounts-update',
-    templateUrl: './accounts-update.component.html'
+    selector: 'jhi-account-category-update',
+    templateUrl: './account-category-update.component.html'
 })
-export class AccountsUpdateComponent implements OnInit {
-    private _accounts: IAccounts;
+export class AccountCategoryUpdateComponent implements OnInit {
+    private _accountCategory: IAccountCategory;
     isSaving: boolean;
 
     accountcategories: IAccountCategory[];
 
     constructor(
         private jhiAlertService: JhiAlertService,
-        private accountsService: AccountsService,
         private accountCategoryService: AccountCategoryService,
         private activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ accounts }) => {
-            this.accounts = accounts;
+        this.activatedRoute.data.subscribe(({ accountCategory }) => {
+            this.accountCategory = accountCategory;
         });
         this.accountCategoryService.query().subscribe(
             (res: HttpResponse<IAccountCategory[]>) => {
@@ -45,15 +42,15 @@ export class AccountsUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.accounts.id !== undefined) {
-            this.subscribeToSaveResponse(this.accountsService.update(this.accounts));
+        if (this.accountCategory.id !== undefined) {
+            this.subscribeToSaveResponse(this.accountCategoryService.update(this.accountCategory));
         } else {
-            this.subscribeToSaveResponse(this.accountsService.create(this.accounts));
+            this.subscribeToSaveResponse(this.accountCategoryService.create(this.accountCategory));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<IAccounts>>) {
-        result.subscribe((res: HttpResponse<IAccounts>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<IAccountCategory>>) {
+        result.subscribe((res: HttpResponse<IAccountCategory>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess() {
@@ -72,11 +69,11 @@ export class AccountsUpdateComponent implements OnInit {
     trackAccountCategoryById(index: number, item: IAccountCategory) {
         return item.id;
     }
-    get accounts() {
-        return this._accounts;
+    get accountCategory() {
+        return this._accountCategory;
     }
 
-    set accounts(accounts: IAccounts) {
-        this._accounts = accounts;
+    set accountCategory(accountCategory: IAccountCategory) {
+        this._accountCategory = accountCategory;
     }
 }

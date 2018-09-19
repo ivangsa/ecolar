@@ -13,6 +13,12 @@
                 <dd>
                     <span>{{accounts.accountName}}</span>
                 </dd>
+                <dt><span jhiTranslate="ecolarApp.accounts.category">Category</span></dt>
+                <dd>
+                    <div *ngIf="accounts.category">
+                        <a [routerLink]="['/account-category', accounts.category?.id, 'view']">{{accounts.category?.name}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

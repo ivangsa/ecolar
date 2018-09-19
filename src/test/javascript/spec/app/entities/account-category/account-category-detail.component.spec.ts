@@ -4,24 +4,24 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { EcolarTestModule } from '../../../test.module';
-import { EventCategoryDetailComponent } from 'app/entities/event-category/event-category-detail.component';
-import { EventCategory } from 'app/shared/model/event-category.model';
+import { AccountCategoryDetailComponent } from 'app/entities/account-category/account-category-detail.component';
+import { AccountCategory } from 'app/shared/model/account-category.model';
 
 describe('Component Tests', () => {
-    describe('EventCategory Management Detail Component', () => {
-        let comp: EventCategoryDetailComponent;
-        let fixture: ComponentFixture<EventCategoryDetailComponent>;
-        const route = ({ data: of({ eventCategory: new EventCategory('123') }) } as any) as ActivatedRoute;
+    describe('AccountCategory Management Detail Component', () => {
+        let comp: AccountCategoryDetailComponent;
+        let fixture: ComponentFixture<AccountCategoryDetailComponent>;
+        const route = ({ data: of({ accountCategory: new AccountCategory('123') }) } as any) as ActivatedRoute;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [EcolarTestModule],
-                declarations: [EventCategoryDetailComponent],
+                declarations: [AccountCategoryDetailComponent],
                 providers: [{ provide: ActivatedRoute, useValue: route }]
             })
-                .overrideTemplate(EventCategoryDetailComponent, '')
+                .overrideTemplate(AccountCategoryDetailComponent, '')
                 .compileComponents();
-            fixture = TestBed.createComponent(EventCategoryDetailComponent);
+            fixture = TestBed.createComponent(AccountCategoryDetailComponent);
             comp = fixture.componentInstance;
         });
 
@@ -33,7 +33,7 @@ describe('Component Tests', () => {
                 comp.ngOnInit();
 
                 // THEN
-                expect(comp.eventCategory).toEqual(jasmine.objectContaining({ id: '123' }));
+                expect(comp.accountCategory).toEqual(jasmine.objectContaining({ id: '123' }));
             });
         });
     });

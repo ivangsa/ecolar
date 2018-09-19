@@ -25,12 +25,6 @@
                 <dd>
                     <span>{{accountingEvent.location}}</span>
                 </dd>
-                <dt><span jhiTranslate="ecolarApp.accountingEvent.mainCategory">Main Category</span></dt>
-                <dd>
-                    <div *ngIf="accountingEvent.mainCategory">
-                        <a [routerLink]="['/event-category', accountingEvent.mainCategory?.id, 'view']">{{accountingEvent.mainCategory?.name}}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="ecolarApp.accountingEvent.eventLines">Event Lines</span></dt>
                 <dd>
                     <span *ngFor="let eventLines of accountingEvent.eventLines; let last = last">

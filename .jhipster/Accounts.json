@@ -10,7 +10,14 @@
             "fieldType": "String"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "category",
+            "otherEntityName": "accountCategory",
+            "otherEntityField": "name"
+        }
+    ],
     "changelogDate": "20180916165535",
     "entityTableName": "accounts",
     "dto": "no",

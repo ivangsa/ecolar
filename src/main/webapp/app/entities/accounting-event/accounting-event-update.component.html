@@ -42,22 +42,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="ecolarApp.accountingEvent.mainCategory" for="field_mainCategory">Main Category</label>
-                    <select class="form-control" id="field_mainCategory" name="mainCategory" [(ngModel)]="accountingEvent.mainCategory" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="eventCategoryOption.id === accountingEvent.mainCategory?.id ? accountingEvent.mainCategory : eventCategoryOption" *ngFor="let eventCategoryOption of eventcategories; trackBy: trackEventCategoryById">{{eventCategoryOption.name}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label jhiTranslate="ecolarApp.accountingEvent.eventLines" for="field_eventLines">Event Lines</label>
                     <select class="form-control" id="field_eventLines" multiple name="eventLines" [(ngModel)]="accountingEvent.eventLines">
                         <option [ngValue]="getSelected(accountingEvent.eventLines, accountingEventLineOption)" *ngFor="let accountingEventLineOption of accountingeventlines; trackBy: trackAccountingEventLineById">{{accountingEventLineOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label jhiTranslate="ecolarApp.accountingEvent.categories" for="field_categories">Categories</label>
-                    <select class="form-control" id="field_categories" multiple name="categories" [(ngModel)]="accountingEvent.categories">
-                        <option [ngValue]="getSelected(accountingEvent.categories, eventCategoryOption)" *ngFor="let eventCategoryOption of eventcategories; trackBy: trackEventCategoryById">{{eventCategoryOption.name}}</option>
                     </select>
                 </div>
             </div>

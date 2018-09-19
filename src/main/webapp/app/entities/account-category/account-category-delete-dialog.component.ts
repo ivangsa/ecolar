@@ -4,18 +4,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { IEventCategory } from 'app/shared/model/event-category.model';
-import { EventCategoryService } from './event-category.service';
+import { IAccountCategory } from 'app/shared/model/account-category.model';
+import { AccountCategoryService } from './account-category.service';
 
 @Component({
-    selector: 'jhi-event-category-delete-dialog',
-    templateUrl: './event-category-delete-dialog.component.html'
+    selector: 'jhi-account-category-delete-dialog',
+    templateUrl: './account-category-delete-dialog.component.html'
 })
-export class EventCategoryDeleteDialogComponent {
-    eventCategory: IEventCategory;
+export class AccountCategoryDeleteDialogComponent {
+    accountCategory: IAccountCategory;
 
     constructor(
-        private eventCategoryService: EventCategoryService,
+        private accountCategoryService: AccountCategoryService,
         public activeModal: NgbActiveModal,
         private eventManager: JhiEventManager
     ) {}
@@ -25,10 +25,10 @@ export class EventCategoryDeleteDialogComponent {
     }
 
     confirmDelete(id: string) {
-        this.eventCategoryService.delete(id).subscribe(response => {
+        this.accountCategoryService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
-                name: 'eventCategoryListModification',
-                content: 'Deleted an eventCategory'
+                name: 'accountCategoryListModification',
+                content: 'Deleted an accountCategory'
             });
             this.activeModal.dismiss(true);
         });
@@ -36,22 +36,22 @@ export class EventCategoryDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-event-category-delete-popup',
+    selector: 'jhi-account-category-delete-popup',
     template: ''
 })
-export class EventCategoryDeletePopupComponent implements OnInit, OnDestroy {
+export class AccountCategoryDeletePopupComponent implements OnInit, OnDestroy {
     private ngbModalRef: NgbModalRef;
 
     constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
 
     ngOnInit() {
-        this.activatedRoute.data.subscribe(({ eventCategory }) => {
+        this.activatedRoute.data.subscribe(({ accountCategory }) => {
             setTimeout(() => {
-                this.ngbModalRef = this.modalService.open(EventCategoryDeleteDialogComponent as Component, {
+                this.ngbModalRef = this.modalService.open(AccountCategoryDeleteDialogComponent as Component, {
                     size: 'lg',
                     backdrop: 'static'
                 });
-                this.ngbModalRef.componentInstance.eventCategory = eventCategory;
+                this.ngbModalRef.componentInstance.accountCategory = accountCategory;
                 this.ngbModalRef.result.then(
                     result => {
                         this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });

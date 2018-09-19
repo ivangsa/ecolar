@@ -1,16 +1,16 @@
 package com.desarrollandojuntos.ecolar.repository;
 
-import com.desarrollandojuntos.ecolar.domain.EventCategory;
+import com.desarrollandojuntos.ecolar.domain.AccountCategory;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 
 /**
- * Spring Data MongoDB repository for the EventCategory entity.
+ * Spring Data MongoDB repository for the AccountCategory entity.
  */
 @SuppressWarnings("unused")
 @Repository
-public interface EventCategoryRepository extends MongoRepository<EventCategory, String> {
+public interface AccountCategoryRepository extends MongoRepository<AccountCategory, String> {
 
 }

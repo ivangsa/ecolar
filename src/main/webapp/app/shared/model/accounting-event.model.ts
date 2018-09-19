@@ -1,5 +1,4 @@
 import { Moment } from 'moment';
-import { IEventCategory } from 'app/shared/model//event-category.model';
 import { IAccountingEventLine } from 'app/shared/model//accounting-event-line.model';
 
 export const enum AccountingEventType {
@@ -14,9 +13,7 @@ export interface IAccountingEvent {
     eventType?: AccountingEventType;
     amount?: number;
     location?: string;
-    mainCategory?: IEventCategory;
     eventLines?: IAccountingEventLine[];
-    categories?: IEventCategory[];
 }
 
 export class AccountingEvent implements IAccountingEvent {
@@ -27,8 +24,6 @@ export class AccountingEvent implements IAccountingEvent {
         public eventType?: AccountingEventType,
         public amount?: number,
         public location?: string,
-        public mainCategory?: IEventCategory,
-        public eventLines?: IAccountingEventLine[],
-        public categories?: IEventCategory[]
+        public eventLines?: IAccountingEventLine[]
     ) {}
 }

@@ -25,25 +25,11 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
-            "relationshipName": "mainCategory",
-            "otherEntityName": "eventCategory",
-            "otherEntityField": "name"
-        },
-        {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "",
             "relationshipName": "eventLines",
             "otherEntityName": "accountingEventLine",
             "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "",
-            "relationshipName": "categories",
-            "otherEntityName": "eventCategory",
-            "otherEntityField": "name",
             "ownerSide": true
         }
     ],

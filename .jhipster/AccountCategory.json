@@ -1,0 +1,43 @@
+{
+    "name": "AccountCategory",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "accounts",
+            "otherEntityName": "accounts",
+            "otherEntityRelationshipName": "category"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "categories",
+            "otherEntityName": "accountCategory",
+            "otherEntityRelationshipName": "parent"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "parent",
+            "otherEntityName": "accountCategory",
+            "otherEntityField": "name"
+        }
+    ],
+    "changelogDate": "20180919185240",
+    "javadoc": "Categoria",
+    "entityTableName": "account_category",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

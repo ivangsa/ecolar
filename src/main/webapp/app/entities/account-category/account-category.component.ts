@@ -3,30 +3,30 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { IEventCategory } from 'app/shared/model/event-category.model';
+import { IAccountCategory } from 'app/shared/model/account-category.model';
 import { Principal } from 'app/core';
-import { EventCategoryService } from './event-category.service';
+import { AccountCategoryService } from './account-category.service';
 
 @Component({
-    selector: 'jhi-event-category',
-    templateUrl: './event-category.component.html'
+    selector: 'jhi-account-category',
+    templateUrl: './account-category.component.html'
 })
-export class EventCategoryComponent implements OnInit, OnDestroy {
-    eventCategories: IEventCategory[];
+export class AccountCategoryComponent implements OnInit, OnDestroy {
+    accountCategories: IAccountCategory[];
     currentAccount: any;
     eventSubscriber: Subscription;
 
     constructor(
-        private eventCategoryService: EventCategoryService,
+        private accountCategoryService: AccountCategoryService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
     ) {}
 
     loadAll() {
-        this.eventCategoryService.query().subscribe(
-            (res: HttpResponse<IEventCategory[]>) => {
-                this.eventCategories = res.body;
+        this.accountCategoryService.query().subscribe(
+            (res: HttpResponse<IAccountCategory[]>) => {
+                this.accountCategories = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -37,19 +37,19 @@ export class EventCategoryComponent implements OnInit, OnDestroy {
         this.principal.identity().then(account => {
             this.currentAccount = account;
         });
-        this.registerChangeInEventCategories();
+        this.registerChangeInAccountCategories();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: IEventCategory) {
+    trackId(index: number, item: IAccountCategory) {
         return item.id;
     }
 
-    registerChangeInEventCategories() {
-        this.eventSubscriber = this.eventManager.subscribe('eventCategoryListModification', response => this.loadAll());
+    registerChangeInAccountCategories() {
+        this.eventSubscriber = this.eventManager.subscribe('accountCategoryListModification', response => this.loadAll());
     }
 
     private onError(errorMessage: string) {

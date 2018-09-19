@@ -1,0 +1,26 @@
+
+{
+    "ecolarApp": {
+        "accountCategory" : {
+            "home": {
+                "title": "Account Categories",
+                "createLabel": "Crear nuevo Account Category",
+                "createOrEditLabel": "Crear o editar Account Category"
+            },
+            "created": "Un nuevo Account Category ha sido creado con el identificador {{ param }}",
+            "updated": "Un Account Category ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Account Category ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Account Category {{ id }}?"
+            },
+            "detail": {
+                "title": "Account Category"
+            },
+            "name": "Name",
+            "description": "Description",
+            "accounts": "Accounts",
+            "categories": "Categories",
+            "parent": "Parent"
+        }
+    }
+}

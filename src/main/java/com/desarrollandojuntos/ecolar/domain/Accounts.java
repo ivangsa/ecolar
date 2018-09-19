@@ -1,5 +1,6 @@
 package com.desarrollandojuntos.ecolar.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,6 +25,11 @@ public class Accounts implements Serializable {
 
     @Field("account_name")
     private String accountName;
+
+    @DBRef
+    @Field("category")
+    @JsonIgnoreProperties("accounts")
+    private AccountCategory category;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -58,6 +64,19 @@ public class Accounts implements Serializable {
 
     public void setAccountName(String accountName) {
         this.accountName = accountName;
+    }
+
+    public AccountCategory getCategory() {
+        return category;
+    }
+
+    public Accounts category(AccountCategory accountCategory) {
+        this.category = accountCategory;
+        return this;
+    }
+
+    public void setCategory(AccountCategory accountCategory) {
+        this.category = accountCategory;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

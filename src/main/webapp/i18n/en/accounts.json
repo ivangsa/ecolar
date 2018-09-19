@@ -17,7 +17,8 @@
                 "title": "Accounts"
             },
             "accountCode": "Account Code",
-            "accountName": "Account Name"
+            "accountName": "Account Name",
+            "category": "Category"
         }
     }
 }

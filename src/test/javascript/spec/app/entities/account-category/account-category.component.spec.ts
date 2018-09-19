@@ -4,28 +4,28 @@ import { Observable, of } from 'rxjs';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { EcolarTestModule } from '../../../test.module';
-import { EventCategoryComponent } from 'app/entities/event-category/event-category.component';
-import { EventCategoryService } from 'app/entities/event-category/event-category.service';
-import { EventCategory } from 'app/shared/model/event-category.model';
+import { AccountCategoryComponent } from 'app/entities/account-category/account-category.component';
+import { AccountCategoryService } from 'app/entities/account-category/account-category.service';
+import { AccountCategory } from 'app/shared/model/account-category.model';
 
 describe('Component Tests', () => {
-    describe('EventCategory Management Component', () => {
-        let comp: EventCategoryComponent;
-        let fixture: ComponentFixture<EventCategoryComponent>;
-        let service: EventCategoryService;
+    describe('AccountCategory Management Component', () => {
+        let comp: AccountCategoryComponent;
+        let fixture: ComponentFixture<AccountCategoryComponent>;
+        let service: AccountCategoryService;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [EcolarTestModule],
-                declarations: [EventCategoryComponent],
+                declarations: [AccountCategoryComponent],
                 providers: []
             })
-                .overrideTemplate(EventCategoryComponent, '')
+                .overrideTemplate(AccountCategoryComponent, '')
                 .compileComponents();
 
-            fixture = TestBed.createComponent(EventCategoryComponent);
+            fixture = TestBed.createComponent(AccountCategoryComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(EventCategoryService);
+            service = fixture.debugElement.injector.get(AccountCategoryService);
         });
 
         it('Should call load all on init', () => {
@@ -34,7 +34,7 @@ describe('Component Tests', () => {
             spyOn(service, 'query').and.returnValue(
                 of(
                     new HttpResponse({
-                        body: [new EventCategory('123')],
+                        body: [new AccountCategory('123')],
                         headers
                     })
                 )
@@ -45,7 +45,7 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.query).toHaveBeenCalled();
-            expect(comp.eventCategories[0]).toEqual(jasmine.objectContaining({ id: '123' }));
+            expect(comp.accountCategories[0]).toEqual(jasmine.objectContaining({ id: '123' }));
         });
     });
 });

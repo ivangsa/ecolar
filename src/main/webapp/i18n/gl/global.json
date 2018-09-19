@@ -10,7 +10,7 @@
                 "accountingEvent": "Accounting Event",
                 "accountingEventLine": "Accounting Event Line",
                 "accounts": "Accounts",
-                "eventCategory": "Event Category",
+                "accountCategory": "Account Category",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -21,9 +21,7 @@
             "eventType": "Event Type",
             "amount": "Amount",
             "location": "Location",
-            "mainCategory": "Main Category",
-            "eventLines": "Event Lines",
-            "categories": "Categories"
+            "eventLines": "Event Lines"
         }
     }
 }

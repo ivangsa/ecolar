@@ -1,30 +1,30 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-event-category-heading" jhiTranslate="ecolarApp.eventCategory.home.createOrEditLabel">Create or edit a Event Category</h2>
+            <h2 id="jhi-account-category-heading" jhiTranslate="ecolarApp.accountCategory.home.createOrEditLabel">Create or edit a Account Category</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!eventCategory.id">
+                <div class="form-group" [hidden]="!accountCategory.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="eventCategory.id" readonly />
+                        [(ngModel)]="accountCategory.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="ecolarApp.eventCategory.name" for="field_name">Name</label>
+                    <label class="form-control-label" jhiTranslate="ecolarApp.accountCategory.name" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
-                        [(ngModel)]="eventCategory.name" />
+                        [(ngModel)]="accountCategory.name" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="ecolarApp.eventCategory.description" for="field_description">Description</label>
+                    <label class="form-control-label" jhiTranslate="ecolarApp.accountCategory.description" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="eventCategory.description" />
+                        [(ngModel)]="accountCategory.description" />
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="ecolarApp.eventCategory.mainCategory" for="field_mainCategory">Main Category</label>
-                    <select class="form-control" id="field_mainCategory" name="mainCategory" [(ngModel)]="eventCategory.mainCategory" >
+                    <label class="form-control-label" jhiTranslate="ecolarApp.accountCategory.parent" for="field_parent">Parent</label>
+                    <select class="form-control" id="field_parent" name="parent" [(ngModel)]="accountCategory.parent" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="eventCategoryOption.id === eventCategory.mainCategory?.id ? eventCategory.mainCategory : eventCategoryOption" *ngFor="let eventCategoryOption of eventcategories; trackBy: trackEventCategoryById">{{eventCategoryOption.name}}</option>
+                        <option [ngValue]="accountCategoryOption.id === accountCategory.parent?.id ? accountCategory.parent : accountCategoryOption" *ngFor="let accountCategoryOption of accountcategories; trackBy: trackAccountCategoryById">{{accountCategoryOption.name}}</option>
                     </select>
                 </div>
             </div>

@@ -1,14 +1,14 @@
 /* tslint:disable max-line-length */
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { EventCategoryService } from 'app/entities/event-category/event-category.service';
-import { EventCategory } from 'app/shared/model/event-category.model';
+import { AccountCategoryService } from 'app/entities/account-category/account-category.service';
+import { AccountCategory } from 'app/shared/model/account-category.model';
 import { SERVER_API_URL } from 'app/app.constants';
 
 describe('Service Tests', () => {
-    describe('EventCategory Service', () => {
+    describe('AccountCategory Service', () => {
         let injector: TestBed;
-        let service: EventCategoryService;
+        let service: AccountCategoryService;
         let httpMock: HttpTestingController;
 
         beforeEach(() => {
@@ -16,7 +16,7 @@ describe('Service Tests', () => {
                 imports: [HttpClientTestingModule]
             });
             injector = getTestBed();
-            service = injector.get(EventCategoryService);
+            service = injector.get(AccountCategoryService);
             httpMock = injector.get(HttpTestingController);
         });
 
@@ -26,12 +26,12 @@ describe('Service Tests', () => {
 
                 const req = httpMock.expectOne({ method: 'GET' });
 
-                const resourceUrl = SERVER_API_URL + 'api/event-categories';
+                const resourceUrl = SERVER_API_URL + 'api/account-categories';
                 expect(req.request.url).toEqual(resourceUrl + '/' + '123');
             });
 
-            it('should create a EventCategory', () => {
-                service.create(new EventCategory(null)).subscribe(received => {
+            it('should create a AccountCategory', () => {
+                service.create(new AccountCategory(null)).subscribe(received => {
                     expect(received.body.id).toEqual(null);
                 });
 
@@ -39,8 +39,8 @@ describe('Service Tests', () => {
                 req.flush({ id: null });
             });
 
-            it('should update a EventCategory', () => {
-                service.update(new EventCategory('123')).subscribe(received => {
+            it('should update a AccountCategory', () => {
+                service.update(new AccountCategory('123')).subscribe(received => {
                     expect(received.body.id).toEqual('123');
                 });
 
@@ -48,7 +48,7 @@ describe('Service Tests', () => {
                 req.flush({ id: '123' });
             });
 
-            it('should return a EventCategory', () => {
+            it('should return a AccountCategory', () => {
                 service.find('123').subscribe(received => {
                     expect(received.body.id).toEqual('123');
                 });
@@ -57,16 +57,16 @@ describe('Service Tests', () => {
                 req.flush({ id: '123' });
             });
 
-            it('should return a list of EventCategory', () => {
+            it('should return a list of AccountCategory', () => {
                 service.query(null).subscribe(received => {
                     expect(received.body[0].id).toEqual('123');
                 });
 
                 const req = httpMock.expectOne({ method: 'GET' });
-                req.flush([new EventCategory('123')]);
+                req.flush([new AccountCategory('123')]);
             });
 
-            it('should delete a EventCategory', () => {
+            it('should delete a AccountCategory', () => {
                 service.delete('123').subscribe(received => {
                     expect(received.url).toContain('/' + '123');
                 });
