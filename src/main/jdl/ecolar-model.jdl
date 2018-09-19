@@ -42,12 +42,12 @@ entity AccountCategory {
 
 relationship OneToMany {
 	AccountCategory{accounts(name)} to Accounts{category(name)}
-	AccountCategory{categories(name)} to AccountCategory{parent(name)}
 }
 
 relationship ManyToOne {
 	/** cuenta de una linea de asiento */
 	AccountingEventLine{account(accountName)} to Accounts,
+	AccountCategory{parent(name)} to AccountCategory{categories(name)},
 }
 
 relationship ManyToMany {
