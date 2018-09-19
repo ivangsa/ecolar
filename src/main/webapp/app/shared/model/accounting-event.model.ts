@@ -1,7 +1,6 @@
 import { Moment } from 'moment';
 import { IEventCategory } from 'app/shared/model//event-category.model';
-import { IAccountingEventLine, AccountingEventLine } from 'app/shared/model//accounting-event-line.model';
-import { Pipe, PipeTransform } from '@angular/core';
+import { IAccountingEventLine } from 'app/shared/model//accounting-event-line.model';
 
 export const enum AccountingEventType {
     CREDIT = 'CREDIT',
@@ -32,16 +31,4 @@ export class AccountingEvent implements IAccountingEvent {
         public eventLines?: IAccountingEventLine[],
         public categories?: IEventCategory[]
     ) {}
-}
-
-@Pipe({ name: 'filterDebitCredit' })
-export class FilterDebitCredit implements PipeTransform {
-    transform(items: AccountingEventLine[], eventType: AccountingEventType): AccountingEventLine[] {
-        if (!items || !eventType) {
-            return items;
-        }
-        // filter items array, items which match and return true will be
-        // kept, false will be filtered out
-        return items.filter(item => item.eventType === eventType);
-    }
 }

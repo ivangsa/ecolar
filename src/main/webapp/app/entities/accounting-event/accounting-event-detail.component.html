@@ -47,13 +47,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let accountingEventLine of accountingEvent.eventLines | filterDebitCredit: AccountingEventType.DEBIT">
+                        <tr *ngFor="let accountingEventLine of accountingEvent.eventLines | filterDebitCredit: DEBIT">
                             <td>{{accountingEventLine.amount}}</td>
                             <td>{{accountingEventLine.account.accountCode}} - {{accountingEventLine.account.accountName}}</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
-                        <tr *ngFor="let accountingEventLine of accountingEvent.eventLines">
+                        <tr *ngFor="let accountingEventLine of accountingEvent.eventLines | filterDebitCredit: CREDIT">
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>{{accountingEventLine.account.accountCode}} - {{accountingEventLine.account.accountName}}</td>
