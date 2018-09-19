@@ -18,16 +18,16 @@
             "otherEntityRelationshipName": "category"
         },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "categories",
-            "otherEntityName": "accountCategory",
-            "otherEntityRelationshipName": "parent"
-        },
-        {
             "relationshipType": "many-to-one",
             "relationshipName": "parent",
             "otherEntityName": "accountCategory",
             "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "categories",
+            "otherEntityName": "accountCategory",
+            "otherEntityRelationshipName": "parent"
         }
     ],
     "changelogDate": "20180919185240",

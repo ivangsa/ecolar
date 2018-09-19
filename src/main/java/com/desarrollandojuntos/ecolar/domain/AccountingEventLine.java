@@ -36,7 +36,7 @@ public class AccountingEventLine implements Serializable {
      * cuenta de una linea de asiento
      */
     @ApiModelProperty(value = "cuenta de una linea de asiento")
-    //@DBRef
+    @DBRef
     @Field("account")
     @JsonIgnoreProperties("")
     private Accounts account;

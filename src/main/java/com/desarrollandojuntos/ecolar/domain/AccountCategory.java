@@ -35,13 +35,13 @@ public class AccountCategory implements Serializable {
     @Field("accounts")
     private Set<Accounts> accounts = new HashSet<>();
     @DBRef
-    @Field("categories")
-    private Set<AccountCategory> categories = new HashSet<>();
-    @DBRef
     @Field("parent")
     @JsonIgnoreProperties("categories")
     private AccountCategory parent;
 
+    @DBRef
+    @Field("categories")
+    private Set<AccountCategory> categories = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -102,6 +102,19 @@ public class AccountCategory implements Serializable {
         this.accounts = accounts;
     }
 
+    public AccountCategory getParent() {
+        return parent;
+    }
+
+    public AccountCategory parent(AccountCategory accountCategory) {
+        this.parent = accountCategory;
+        return this;
+    }
+
+    public void setParent(AccountCategory accountCategory) {
+        this.parent = accountCategory;
+    }
+
     public Set<AccountCategory> getCategories() {
         return categories;
     }
@@ -125,19 +138,6 @@ public class AccountCategory implements Serializable {
 
     public void setCategories(Set<AccountCategory> accountCategories) {
         this.categories = accountCategories;
-    }
-
-    public AccountCategory getParent() {
-        return parent;
-    }
-
-    public AccountCategory parent(AccountCategory accountCategory) {
-        this.parent = accountCategory;
-        return this;
-    }
-
-    public void setParent(AccountCategory accountCategory) {
-        this.parent = accountCategory;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

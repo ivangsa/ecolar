@@ -31,45 +31,6 @@
                         <a [routerLink]="['/accounting-event-line', eventLines?.id, 'view' ]">{{eventLines.id}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                    <th><span jhiTranslate="ecolarApp.accountingEventLine.amount">Amount</span></th>
-                    <th><span jhiTranslate="ecolarApp.accounts.detail.title">Accounts</span></th>
-                    <th><span jhiTranslate="ecolarApp.accounts.detail.title">Accounts</span></th>
-                    <th><span jhiTranslate="ecolarApp.accountingEventLine.amount">Amount</span></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let accountingEventLine of accountingEvent.eventLines | filterDebitCredit: DEBIT">
-                            <td>{{accountingEventLine.amount}}</td>
-                            <td>{{accountingEventLine.account.accountCode}} - {{accountingEventLine.account.accountName}}</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr *ngFor="let accountingEventLine of accountingEvent.eventLines | filterDebitCredit: CREDIT">
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>{{accountingEventLine.account.accountCode}} - {{accountingEventLine.account.accountName}}</td>
-                            <td>{{accountingEventLine.amount}}</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td>{{accountingEvent.amount}}</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>{{accountingEvent.amount}}</td>
-                        </tr>
-                    </tfoot>
-                </table>
-        
-                <dt><span jhiTranslate="ecolarApp.accountingEvent.categories">Categories</span></dt>
-                <dd>
-                    <span *ngFor="let categories of accountingEvent.categories; let last = last">
-                        <a [routerLink]="['/event-category', categories?.id, 'view' ]">{{categories.name}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
             </dl>
 
             <button type="submit"

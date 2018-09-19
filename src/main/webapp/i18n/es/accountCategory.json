@@ -19,8 +19,8 @@
             "name": "Name",
             "description": "Description",
             "accounts": "Accounts",
-            "categories": "Categories",
-            "parent": "Parent"
+            "parent": "Parent",
+            "categories": "Categories"
         }
     }
 }

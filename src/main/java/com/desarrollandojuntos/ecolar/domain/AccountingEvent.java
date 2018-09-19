@@ -42,7 +42,7 @@ public class AccountingEvent implements Serializable {
     @Field("location")
     private String location;
 
-    //@DBRef
+    @DBRef
     @Field("eventLines")
     private Set<AccountingEventLine> eventLines = new HashSet<>();
 

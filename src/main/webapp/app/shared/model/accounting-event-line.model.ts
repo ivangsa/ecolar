@@ -1,5 +1,9 @@
 import { IAccounts } from 'app/shared/model//accounts.model';
-import { AccountingEventType } from 'app/shared/model/accounting-event.model';
+
+export const enum AccountingEventType {
+    CREDIT = 'CREDIT',
+    DEBIT = 'DEBIT'
+}
 
 export interface IAccountingEventLine {
     id?: string;

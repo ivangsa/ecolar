@@ -6,8 +6,8 @@ export interface IAccountCategory {
     name?: string;
     description?: string;
     accounts?: IAccounts[];
-    categories?: IAccountCategory[];
     parent?: IAccountCategory;
+    categories?: IAccountCategory[];
 }
 
 export class AccountCategory implements IAccountCategory {
@@ -16,7 +16,7 @@ export class AccountCategory implements IAccountCategory {
         public name?: string,
         public description?: string,
         public accounts?: IAccounts[],
-        public categories?: IAccountCategory[],
-        public parent?: IAccountCategory
+        public parent?: IAccountCategory,
+        public categories?: IAccountCategory[]
     ) {}
 }
