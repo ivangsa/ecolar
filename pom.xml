@@ -475,11 +475,11 @@
                 <configuration>
                     <mainClass>${start-class}</mainClass>
                     <executable>true</executable>
-                    <fork>true</fork>
+                    <fork>false</fork>
                     <!--
                     Enable the line below to have remote debugging of your application on port 5005
-                    <jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</jvmArguments>
                     -->
+                    <jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000</jvmArguments>
                 </configuration>
             </plugin>
             <plugin>
