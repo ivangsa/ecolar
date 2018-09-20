@@ -34,12 +34,13 @@ public class AccountCategory implements Serializable {
     @DBRef
     @Field("accounts")
     private Set<Accounts> accounts = new HashSet<>();
-    @DBRef
+    
+    //@DBRef
     @Field("parent")
     @JsonIgnoreProperties("categories")
     private AccountCategory parent;
 
-    @DBRef
+    //@DBRef
     @Field("categories")
     private Set<AccountCategory> categories = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

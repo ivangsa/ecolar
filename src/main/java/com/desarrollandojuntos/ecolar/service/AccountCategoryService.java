@@ -10,7 +10,29 @@ import java.util.Optional;
  */
 public interface AccountCategoryService {
 
-    /**
+	/**
+	 * 
+	 * @return
+	 */
+	AccountCategory getRootCategory();
+
+	/**
+	 * 
+	 * @param root
+	 * @param id
+	 * @return
+	 */
+	AccountCategory findChildInRootCategory(AccountCategory root, String id);
+
+	/**
+	 * 
+	 * @param root
+	 * @param id
+	 * @return
+	 */
+	AccountCategory findParentInRootCategory(AccountCategory root, String id);
+
+	/**
      * Save a accountCategory.
      *
      * @param accountCategory the entity to save
@@ -40,4 +62,7 @@ public interface AccountCategoryService {
      * @param id the id of the entity
      */
     void delete(String id);
+
+
+
 }

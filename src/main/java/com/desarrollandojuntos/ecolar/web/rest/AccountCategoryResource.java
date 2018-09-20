@@ -75,6 +75,13 @@ public class AccountCategoryResource {
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, accountCategory.getId().toString()))
             .body(result);
     }
+    
+    @GetMapping("/account-categories/root")
+    @Timed
+    public AccountCategory getRootAccountCategories() {
+        log.debug("REST request to get root AccountCategory");
+        return accountCategoryService.getRootCategory();
+    }
 
     /**
      * GET  /account-categories : get all the accountCategories.
