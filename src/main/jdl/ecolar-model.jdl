@@ -53,3 +53,5 @@ relationship ManyToOne {
 relationship ManyToMany {
 	AccountingEvent{eventLines} to AccountingEventLine,
 }
+
+service AccountCategory with serviceImpl
