@@ -4,6 +4,7 @@ import com.desarrollandojuntos.ecolar.EcolarApp;
 
 import com.desarrollandojuntos.ecolar.domain.AccountCategory;
 import com.desarrollandojuntos.ecolar.repository.AccountCategoryRepository;
+import com.desarrollandojuntos.ecolar.service.AccountCategoryService;
 import com.desarrollandojuntos.ecolar.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -45,6 +46,9 @@ public class AccountCategoryResourceIntTest {
 
     @Autowired
     private AccountCategoryRepository accountCategoryRepository;
+    
+    @Autowired
+    private AccountCategoryService accountCategoryService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -62,7 +66,7 @@ public class AccountCategoryResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final AccountCategoryResource accountCategoryResource = new AccountCategoryResource(accountCategoryRepository);
+        final AccountCategoryResource accountCategoryResource = new AccountCategoryResource(accountCategoryService);
         this.restAccountCategoryMockMvc = MockMvcBuilders.standaloneSetup(accountCategoryResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -163,7 +167,7 @@ public class AccountCategoryResourceIntTest {
     @Test
     public void updateAccountCategory() throws Exception {
         // Initialize the database
-        accountCategoryRepository.save(accountCategory);
+        accountCategoryService.save(accountCategory);
 
         int databaseSizeBeforeUpdate = accountCategoryRepository.findAll().size();
 
@@ -206,7 +210,7 @@ public class AccountCategoryResourceIntTest {
     @Test
     public void deleteAccountCategory() throws Exception {
         // Initialize the database
-        accountCategoryRepository.save(accountCategory);
+        accountCategoryService.save(accountCategory);
 
         int databaseSizeBeforeDelete = accountCategoryRepository.findAll().size();
 
