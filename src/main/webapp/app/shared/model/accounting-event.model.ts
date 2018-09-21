@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { IEventCategory } from 'app/shared/model//event-category.model';
 import { IAccountingEventLine } from 'app/shared/model//accounting-event-line.model';
 
 export const enum AccountingEventType {

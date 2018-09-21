@@ -1,13 +1,14 @@
 package com.desarrollandojuntos.ecolar.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import java.io.Serializable;
 import java.util.Objects;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Accounts.
@@ -28,7 +29,7 @@ public class Accounts implements Serializable {
 
     @DBRef
     @Field("category")
-    @JsonIgnoreProperties("accounts")
+    @JsonIgnoreProperties({"accounts", "categories"})
     private AccountCategory category;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
