@@ -21,6 +21,12 @@
                 </dd>
             </dl>
 
+            <jhi-tree-view 
+                [collection]="accountCategory.categories" 
+                [nameProperty]="'name'" 
+                [childrenProperty]="'categories'">
+            </jhi-tree-view>
+
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">

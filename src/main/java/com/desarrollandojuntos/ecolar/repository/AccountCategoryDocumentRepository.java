@@ -1,6 +1,8 @@
 package com.desarrollandojuntos.ecolar.repository;
 
 import com.desarrollandojuntos.ecolar.domain.AccountCategory;
+import com.desarrollandojuntos.ecolar.domain.AccountCategoryDocument;
+
 import org.springframework.data.mongodb.repository.Query;
 
 import java.util.Optional;
@@ -14,8 +16,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface AccountCategoryRepository extends MongoRepository<AccountCategory, String> {
+public interface AccountCategoryDocumentRepository extends MongoRepository<AccountCategoryDocument, String> {
 
-	@Query("{'name': 'root'}")
-	Optional<AccountCategory> getRootCategory();
+	Optional<AccountCategoryDocument> findOneByUsername(String username);
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { IAccountingEvent, AccountingEventType } from 'app/shared/model/accounting-event.model';
+import { IAccountingEvent } from 'app/shared/model/accounting-event.model';
+import { AccountingEventType } from 'app/shared/model/accounting-event-line.model';
 
 @Component({
     selector: 'jhi-accounting-event-detail',

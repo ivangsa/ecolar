@@ -1,29 +1,30 @@
 package com.desarrollandojuntos.ecolar.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import io.swagger.annotations.ApiModel;
 
 /**
  * Categoria
  */
 @ApiModel(description = "Categoria")
-@Document(collection = "account_category")
 public class AccountCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    @Field("id")
     private String id;
+
+    @Field("path")
+    private String path;
 
     @Field("name")
     private String name;
@@ -35,24 +36,36 @@ public class AccountCategory implements Serializable {
     @Field("accounts")
     private Set<Accounts> accounts = new HashSet<>();
     
-    //@DBRef
-    @Field("parent")
-    @JsonIgnoreProperties("categories")
-    private AccountCategory parent;
+    @Field("parentId")
+    private String parentId;
 
-    //@DBRef
     @Field("categories")
     private Set<AccountCategory> categories = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    
     public String getId() {
-        return id;
+    	return id;
     }
-
+    
     public void setId(String id) {
-        this.id = id;
+    	this.id = id;
     }
 
-    public String getName() {
+    public String getPath() {
+		return path;
+	}
+    
+
+	public AccountCategory path(String path) {
+		this.path = path;
+		return this;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getName() {
         return name;
     }
 
@@ -103,17 +116,17 @@ public class AccountCategory implements Serializable {
         this.accounts = accounts;
     }
 
-    public AccountCategory getParent() {
-        return parent;
+    public String getParentId() {
+        return parentId;
     }
 
-    public AccountCategory parent(AccountCategory accountCategory) {
-        this.parent = accountCategory;
+    public AccountCategory parentId(String parentId) {
+        this.parentId = parentId;
         return this;
     }
 
-    public void setParent(AccountCategory accountCategory) {
-        this.parent = accountCategory;
+    public void setParentId(String accountCategory) {
+        this.parentId = accountCategory;
     }
 
     public Set<AccountCategory> getCategories() {
@@ -125,15 +138,31 @@ public class AccountCategory implements Serializable {
         return this;
     }
 
-    public AccountCategory addCategories(AccountCategory accountCategory) {
+    public AccountCategory findCategory(String id) {
+    	if(StringUtils.equals(id, getId())) {
+    		return this;
+    	} else {
+    		for (AccountCategory accountCategory : categories) {
+				AccountCategory match = accountCategory.findCategory(id);
+				if(match != null) {
+					return match;
+				}
+			}
+    	}
+    	return null;
+    }
+    
+    public AccountCategory addCategory(AccountCategory accountCategory) {
         this.categories.add(accountCategory);
-        accountCategory.setParent(this);
+        accountCategory.setParentId(this.getId());
+        accountCategory.setPath(this.getPath() + accountCategory.getName() + "/");
         return this;
     }
 
-    public AccountCategory removeCategories(AccountCategory accountCategory) {
+    public AccountCategory removeCategory(AccountCategory accountCategory) {
         this.categories.remove(accountCategory);
-        accountCategory.setParent(null);
+        accountCategory.setParentId(null);
+        accountCategory.setPath(null);
         return this;
     }
 

@@ -80,7 +80,7 @@ public class AccountCategoryResource {
     @Timed
     public AccountCategory getRootAccountCategories() {
         log.debug("REST request to get root AccountCategory");
-        return accountCategoryService.getRootCategory();
+        return accountCategoryService.getRootAccountCategoryDocument();
     }
 
     /**

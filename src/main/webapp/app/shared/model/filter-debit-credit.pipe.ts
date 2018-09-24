@@ -1,5 +1,4 @@
-import { AccountingEventType } from 'app/shared/model//accounting-event.model';
-import { IAccountingEventLine } from 'app/shared/model//accounting-event-line.model';
+import { IAccountingEventLine, AccountingEventType } from 'app/shared/model//accounting-event-line.model';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'filterDebitCredit' })

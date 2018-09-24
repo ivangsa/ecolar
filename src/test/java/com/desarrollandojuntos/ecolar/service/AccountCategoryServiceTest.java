@@ -55,7 +55,7 @@ public class AccountCategoryServiceTest {
 
     @Test
     public void testCreateRootAccountCategory() {
-    	AccountCategory root = accountCategoryService.getRootCategory();
+    	AccountCategory root = accountCategoryService.getRootAccountCategoryDocument();
     	AccountCategory gastos = new AccountCategory().name("Gastos").description("Gastos");
     	AccountCategory ingresos = new AccountCategory().name("Ingresos").description("Ingresos");
     	AccountCategory alimentacion = new AccountCategory().name("Alimentacion").description("Alimentacion");
@@ -79,7 +79,7 @@ public class AccountCategoryServiceTest {
     	AccountCategory result = accountCategoryService.save(new AccountCategory().name("Nombre").description("Descripcion"));
     	assertNotNull(result);
     	log.info(ToStringBuilder.reflectionToString(result, ToStringStyle.MULTI_LINE_STYLE));
-    	AccountCategory root = accountCategoryService.getRootCategory();
+    	AccountCategory root = accountCategoryService.getRootAccountCategoryDocument();
     	log.info(ToStringBuilder.reflectionToString(root, ToStringStyle.MULTI_LINE_STYLE));
     }
 

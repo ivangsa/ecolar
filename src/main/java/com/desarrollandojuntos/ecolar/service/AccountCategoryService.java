@@ -1,6 +1,7 @@
 package com.desarrollandojuntos.ecolar.service;
 
 import com.desarrollandojuntos.ecolar.domain.AccountCategory;
+import com.desarrollandojuntos.ecolar.domain.AccountCategoryDocument;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,23 +15,7 @@ public interface AccountCategoryService {
 	 * 
 	 * @return
 	 */
-	AccountCategory getRootCategory();
-
-	/**
-	 * 
-	 * @param root
-	 * @param id
-	 * @return
-	 */
-	AccountCategory findChildInRootCategory(AccountCategory root, String id);
-
-	/**
-	 * 
-	 * @param root
-	 * @param id
-	 * @return
-	 */
-	AccountCategory findParentInRootCategory(AccountCategory root, String id);
+	AccountCategoryDocument getRootAccountCategoryDocument();
 
 	/**
      * Save a accountCategory.

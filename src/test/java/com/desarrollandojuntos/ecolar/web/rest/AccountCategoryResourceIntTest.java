@@ -3,7 +3,7 @@ package com.desarrollandojuntos.ecolar.web.rest;
 import com.desarrollandojuntos.ecolar.EcolarApp;
 
 import com.desarrollandojuntos.ecolar.domain.AccountCategory;
-import com.desarrollandojuntos.ecolar.repository.AccountCategoryRepository;
+import com.desarrollandojuntos.ecolar.repository.AccountCategoryDocumentRepository;
 import com.desarrollandojuntos.ecolar.service.AccountCategoryService;
 import com.desarrollandojuntos.ecolar.web.rest.errors.ExceptionTranslator;
 
@@ -45,7 +45,7 @@ public class AccountCategoryResourceIntTest {
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
     @Autowired
-    private AccountCategoryRepository accountCategoryRepository;
+    private AccountCategoryDocumentRepository accountCategoryRepository;
     
     @Autowired
     private AccountCategoryService accountCategoryService;
