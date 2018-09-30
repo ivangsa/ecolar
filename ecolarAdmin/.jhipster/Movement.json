@@ -1,0 +1,44 @@
+{
+    "name": "Movement",
+    "fields": [
+        {
+            "fieldName": "eventTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "registrationTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "amount",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "location",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "eventLines",
+            "otherEntityName": "movementLine",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20181012090520",
+    "javadoc": "Movimiento contable",
+    "entityTableName": "movement",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": [
+        "ecolarMobile",
+        "ecolarAdmin"
+    ]
+}

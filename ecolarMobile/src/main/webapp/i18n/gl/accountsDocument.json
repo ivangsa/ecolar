@@ -1,0 +1,23 @@
+
+{
+    "ecolarMobileApp": {
+        "accountsDocument" : {
+            "home": {
+                "title": "AccountsDocuments",
+                "createLabel": "Crear novo Accounts Document",
+                "createOrEditLabel": "Crear ou editar Accounts Document"
+            },
+            "created": "Un novo Accounts Document foi creado co identificador {{ param }}",
+            "updated": "Un Accounts Document foi actualizado co identificador {{ param }}",
+            "deleted": "Un Accounts Document foi eliminado co identificador {{ param }}",
+            "delete": {
+                "question": "Seguro que desexa eliminar Accounts Document {{ id }}?"
+            },
+            "detail": {
+                "title": "Accounts Document"
+            },
+            "categories": "Categories",
+            "household": "Household"
+        }
+    }
+}

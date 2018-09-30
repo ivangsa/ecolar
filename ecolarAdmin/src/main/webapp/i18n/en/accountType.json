@@ -1,0 +1,11 @@
+{
+    "ecolarAdminApp": {
+        "AccountType" : {
+            "null": "",
+            "ASSETS": "ASSETS",
+            "LIABILITIES": "LIABILITIES",
+            "REVENUE": "REVENUE",
+            "EXPENSE": "EXPENSE"
+        }
+    }
+}

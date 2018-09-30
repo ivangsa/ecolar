@@ -1,0 +1,26 @@
+
+{
+    "ecolarMobileApp": {
+        "movement" : {
+            "home": {
+                "title": "Movements",
+                "createLabel": "Crear nuevo Movement",
+                "createOrEditLabel": "Crear o editar Movement"
+            },
+            "created": "Un nuevo Movement ha sido creado con el identificador {{ param }}",
+            "updated": "Un Movement ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Movement ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Movement {{ id }}?"
+            },
+            "detail": {
+                "title": "Movement"
+            },
+            "eventTime": "Event Time",
+            "registrationTime": "Registration Time",
+            "amount": "Amount",
+            "location": "Location",
+            "eventLines": "Event Lines"
+        }
+    }
+}

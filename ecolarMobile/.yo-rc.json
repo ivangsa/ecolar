@@ -1,0 +1,47 @@
+{
+  "generator-jhipster": {
+    "clientPackageManager": "npm",
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "enableHibernateCache": false,
+    "enableSwaggerCodegen": false,
+    "enableTranslation": true,
+    "jhiPrefix": "eco",
+    "languages": [
+      "en",
+      "es",
+      "gl"
+    ],
+    "messageBroker": false,
+    "nativeLanguage": "en",
+    "packageName": "com.desarrollandojuntos.ecolar",
+    "packageFolder": "com/desarrollandojuntos/ecolar",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": false,
+    "serviceDiscoveryType": false,
+    "skipClient": false,
+    "skipServer": false,
+    "testFrameworks": [],
+    "websocket": false,
+    "baseName": "ecolarMobile",
+    "applicationType": "monolith",
+    "clientFramework": "react",
+    "jhipsterVersion": "5.4.2",
+    "buildTool": "maven",
+    "skipUserManagement": false,
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "serverPort": "8080",
+    "useSass": true,
+    "jwtSecretKey": "ZGQ4MzdlZWM3MjFiYjZlMmQ4NTQ3M2Y1MmVmODdjY2Y5Y2EwYWMxZDIxYTRiNzdmMjc3YTU5NTY4NjgwMTRiODUyNDMyYTFkMThlNDM2ZWU3Y2U2ODk2M2MyYWFlNGMwMDFlMGZjODEwMjVkNmQyNjRmOGJlMzM2Nzk5NjU0NmE="
+  },
+  "entities": [
+    "HouseHold",
+    "UserPreferences",
+    "AccountsDocument",
+    "Category",
+    "Movement",
+    "MovementLine",
+    "EAccount"
+  ]
+}

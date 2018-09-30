@@ -1,0 +1,31 @@
+{
+    "name": "AccountsDocument",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "categories",
+            "otherEntityName": "category",
+            "otherEntityRelationshipName": "document"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "household",
+            "otherEntityName": "houseHold",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "accountsDocument"
+        }
+    ],
+    "changelogDate": "20181012090518",
+    "entityTableName": "accounts_document",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": [
+        "ecolarMobile",
+        "ecolarAdmin"
+    ]
+}

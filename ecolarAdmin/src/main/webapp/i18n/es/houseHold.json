@@ -1,0 +1,24 @@
+
+{
+    "ecolarAdminApp": {
+        "houseHold" : {
+            "home": {
+                "title": "House Holds",
+                "createLabel": "Crear nuevo House Hold",
+                "createOrEditLabel": "Crear o editar House Hold"
+            },
+            "created": "Un nuevo House Hold ha sido creado con el identificador {{ param }}",
+            "updated": "Un House Hold ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un House Hold ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar House Hold {{ id }}?"
+            },
+            "detail": {
+                "title": "House Hold"
+            },
+            "name": "Name",
+            "accountsDocument": "Accounts Document",
+            "members": "Members"
+        }
+    }
+}

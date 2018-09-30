@@ -1,0 +1,66 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="ecolarAdminApp.houseHold.home.title">House Holds</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-house-hold" [routerLink]="['/house-hold/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="ecolarAdminApp.houseHold.home.createLabel">
+            Create new House Hold
+            </span>
+        </button>
+    </h2>
+    <eco-alert></eco-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="houseHolds">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="ecolarAdminApp.houseHold.name">Name</span></th>
+            <th><span jhiTranslate="ecolarAdminApp.houseHold.accountsDocument">Accounts Document</span></th>
+            <th><span jhiTranslate="ecolarAdminApp.houseHold.members">Members</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let houseHold of houseHolds ;trackBy: trackId">
+                <td><a [routerLink]="['/house-hold', houseHold.id, 'view' ]">{{houseHold.id}}</a></td>
+                <td>{{houseHold.name}}</td>
+                <td>
+                    <div *ngIf="houseHold.accountsDocument">
+                        <a [routerLink]="['../accounts-document', houseHold.accountsDocument?.id, 'view' ]" >{{houseHold.accountsDocument?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <span *ngFor="let members of houseHold.members; let last = last">
+                            {{members.login}}{{last ? '' : ', '}}
+                        </span>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/house-hold', houseHold.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/house-hold', houseHold.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'house-hold/'+ houseHold.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
