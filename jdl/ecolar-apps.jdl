@@ -1,0 +1,32 @@
+
+application {
+  config {
+    baseName ecolarMobile
+	packageName com.desarrollandojuntos.ecolar
+	jhiPrefix eco
+    applicationType monolith
+    clientFramework react
+    databaseType mongodb
+    devDatabaseType mongodb
+    prodDatabaseType mongodb
+    enableHibernateCache false
+	languages [en,es,gl]
+  }
+  entities * 
+}
+
+application {
+  config {
+    baseName ecolarAdmin
+	packageName com.desarrollandojuntos.ecolar
+	jhiPrefix eco
+    applicationType monolith
+    clientFramework angularX
+    databaseType mongodb
+    devDatabaseType mongodb
+    prodDatabaseType mongodb
+    enableHibernateCache false
+	languages [en,es,gl]
+  }
+  entities * 
+}
