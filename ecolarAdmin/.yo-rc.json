@@ -31,7 +31,7 @@
     "skipUserManagement": false,
     "authenticationType": "jwt",
     "cacheProvider": "ehcache",
-    "serverPort": "8080",
+    "serverPort": "8082",
     "useSass": true,
     "jwtSecretKey": "YzU3ZDNkYzdkMjBhMmQyNjZmZTNmNjBlZTJjNjk1ZTQ0NjNlOWRiNjljZjE0YTgyZWMyYjhhOGQ5YzAzZjBhOGIzNTZkNGQxYWNlYTFkMzU5NTExNDliOWNmMjU2Yzc3NTAwNDExMDA1ZDAyYmFlZGExZjljNjVkMDk0YjAzOTg="
   },
