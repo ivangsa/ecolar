@@ -1,28 +1,22 @@
 package com.desarrollandojuntos.ecolar.repository;
 
-import com.desarrollandojuntos.ecolar.domain.HouseHold;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.repository.Query;
+import java.util.Optional;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+import com.desarrollandojuntos.ecolar.domain.HouseHold;
 
 /**
  * Spring Data MongoDB repository for the HouseHold entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface HouseHoldRepository extends MongoRepository<HouseHold, String> {
-    @Query("{}")
-    Page<HouseHold> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("{}")
-    List<HouseHold> findAllWithEagerRelationships();
+    Optional<HouseHold> findOneByName(String name);
 
-    @Query("{'id': ?0}")
-    Optional<HouseHold> findOneWithEagerRelationships(String id);
+    @Query("{'members.username' : ?0}")
+    Optional<HouseHold> findOneByUsername(String username);
 
 }

@@ -1,23 +1,32 @@
 package com.desarrollandojuntos.ecolar.web.rest;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.codahale.metrics.annotation.Timed;
 import com.desarrollandojuntos.ecolar.domain.AccountsDocument;
 import com.desarrollandojuntos.ecolar.repository.AccountsDocumentRepository;
 import com.desarrollandojuntos.ecolar.web.rest.errors.BadRequestAlertException;
 import com.desarrollandojuntos.ecolar.web.rest.util.HeaderUtil;
+
 import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing AccountsDocument.
@@ -52,8 +61,8 @@ public class AccountsDocumentResource {
         }
         AccountsDocument result = accountsDocumentRepository.save(accountsDocument);
         return ResponseEntity.created(new URI("/api/accounts-documents/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -74,8 +83,8 @@ public class AccountsDocumentResource {
         }
         AccountsDocument result = accountsDocumentRepository.save(accountsDocument);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, accountsDocument.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, accountsDocument.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -90,9 +99,9 @@ public class AccountsDocumentResource {
         if ("household-is-null".equals(filter)) {
             log.debug("REST request to get all AccountsDocuments where household is null");
             return StreamSupport
-                .stream(accountsDocumentRepository.findAll().spliterator(), false)
-                .filter(accountsDocument -> accountsDocument.getHousehold() == null)
-                .collect(Collectors.toList());
+                    .stream(accountsDocumentRepository.findAll().spliterator(), false)
+                    // .filter(accountsDocument -> accountsDocument.getHousehold() == null)
+                    .collect(Collectors.toList());
         }
         log.debug("REST request to get all AccountsDocuments");
         return accountsDocumentRepository.findAll();

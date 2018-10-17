@@ -1,19 +1,20 @@
 package com.desarrollandojuntos.ecolar.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.desarrollandojuntos.ecolar.domain.enumeration.AccountType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.swagger.annotations.ApiModel;
 
 /**
  * Categoria
@@ -24,7 +25,7 @@ public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    @Field
     private String id;
 
     @Field("name")
@@ -45,6 +46,7 @@ public class Category implements Serializable {
     @DBRef
     @Field("accounts")
     private Set<EAccount> accounts = new HashSet<>();
+
     @DBRef
     @Field("parent")
     @JsonIgnoreProperties("categories")
@@ -59,6 +61,27 @@ public class Category implements Serializable {
     @Field("categories")
     private Set<Category> categories = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
+    public List<Category> getCategoriesAsList(List<Category> categories){
+        categories.add(this);
+        categories.addAll(this.getCategoriesAsList(categories));
+        return categories;
+    }
+
+    public Category findCategory(String id) {
+        if(StringUtils.equals(id, getId())) {
+            return this;
+        } else {
+            for (Category accountCategory : categories) {
+                Category match = accountCategory.findCategory(id);
+                if(match != null) {
+                    return match;
+                }
+            }
+        }
+        return null;
+    }
+
     public String getId() {
         return id;
     }
@@ -232,12 +255,12 @@ public class Category implements Serializable {
     @Override
     public String toString() {
         return "Category{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", path='" + getPath() + "'" +
-            ", parentId='" + getParentId() + "'" +
-            ", accountType='" + getAccountType() + "'" +
-            "}";
+                "id=" + getId() +
+                ", name='" + getName() + "'" +
+                ", description='" + getDescription() + "'" +
+                ", path='" + getPath() + "'" +
+                ", parentId='" + getParentId() + "'" +
+                ", accountType='" + getAccountType() + "'" +
+                "}";
     }
 }

@@ -1,17 +1,17 @@
 package com.desarrollandojuntos.ecolar.service.impl;
 
-import com.desarrollandojuntos.ecolar.service.HouseHoldService;
-import com.desarrollandojuntos.ecolar.domain.HouseHold;
-import com.desarrollandojuntos.ecolar.repository.HouseHoldRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.desarrollandojuntos.ecolar.domain.HouseHold;
+import com.desarrollandojuntos.ecolar.repository.HouseHoldRepository;
+import com.desarrollandojuntos.ecolar.service.HouseHoldService;
 
 /**
  * Service Implementation for managing HouseHold.
@@ -25,6 +25,14 @@ public class HouseHoldServiceImpl implements HouseHoldService {
 
     public HouseHoldServiceImpl(HouseHoldRepository houseHoldRepository) {
         this.houseHoldRepository = houseHoldRepository;
+    }
+
+    public Optional<HouseHold> findHouseHold(String name) {
+        return houseHoldRepository.findOneByName(name);
+    }
+
+    public Optional<HouseHold> findHouseHoldByUsername(String username) {
+        return houseHoldRepository.findOneByUsername(username);
     }
 
     /**
@@ -47,7 +55,7 @@ public class HouseHoldServiceImpl implements HouseHoldService {
     @Override
     public List<HouseHold> findAll() {
         log.debug("Request to get all HouseHolds");
-        return houseHoldRepository.findAllWithEagerRelationships();
+        return houseHoldRepository.findAll();
     }
 
     /**
@@ -55,10 +63,11 @@ public class HouseHoldServiceImpl implements HouseHoldService {
      *
      * @return the list of entities
      */
+    @Override
     public Page<HouseHold> findAllWithEagerRelationships(Pageable pageable) {
-        return houseHoldRepository.findAllWithEagerRelationships(pageable);
+        return houseHoldRepository.findAll(pageable);
     }
-    
+
 
     /**
      * Get one houseHold by id.
@@ -69,7 +78,7 @@ public class HouseHoldServiceImpl implements HouseHoldService {
     @Override
     public Optional<HouseHold> findOne(String id) {
         log.debug("Request to get HouseHold : {}", id);
-        return houseHoldRepository.findOneWithEagerRelationships(id);
+        return houseHoldRepository.findById(id);
     }
 
     /**

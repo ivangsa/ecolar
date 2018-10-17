@@ -1,107 +1,106 @@
 package com.desarrollandojuntos.ecolar.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.desarrollandojuntos.ecolar.domain.enumeration.AccountType;
 
 /**
  * A AccountsDocument.
  */
-@Document(collection = "accounts_document")
 public class AccountsDocument implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    private String id;
+    @Field
+    private Category assets;
 
-    @DBRef
-    @Field("categories")
-    private Set<Category> categories = new HashSet<>();
-    @DBRef
-    @Field("household")
-    @com.fasterxml.jackson.annotation.JsonBackReference
-    private HouseHold household;
+    @Field
+    private Category liabilities;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-    public String getId() {
-        return id;
-    }
+    @Field
+    private Category reveneu;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    @Field
+    private Category expenses;
 
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public AccountsDocument categories(Set<Category> categories) {
-        this.categories = categories;
-        return this;
-    }
-
-    public AccountsDocument addCategories(Category category) {
-        this.categories.add(category);
-        category.setDocument(this);
-        return this;
-    }
-
-    public AccountsDocument removeCategories(Category category) {
-        this.categories.remove(category);
-        category.setDocument(null);
-        return this;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
-
-    public HouseHold getHousehold() {
-        return household;
-    }
-
-    public AccountsDocument household(HouseHold houseHold) {
-        this.household = houseHold;
-        return this;
-    }
-
-    public void setHousehold(HouseHold houseHold) {
-        this.household = houseHold;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+    private Category getRootCategory(AccountType type) {
+        if(AccountType.ASSETS.equals(type)) {
+            return assets;
+        } else if(AccountType.LIABILITIES.equals(type)) {
+            return liabilities;
+        } else if(AccountType.REVENUE.equals(type)) {
+            return reveneu;
+        } else if(AccountType.EXPENSE.equals(type)) {
+            return expenses;
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        AccountsDocument accountsDocument = (AccountsDocument) o;
-        if (accountsDocument.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), accountsDocument.getId());
+        return null;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
+    public List<Category> getCategoriesAsList() {
+        List<Category> list = new ArrayList<>();
+        for(AccountType type: AccountType.values()) {
+            Category root = getRootCategory(type);
+            list.addAll(root.getCategoriesAsList(list));
+        }
+        return list;
     }
 
-    @Override
-    public String toString() {
-        return "AccountsDocument{" +
-            "id=" + getId() +
-            "}";
+    public AccountsDocument addCategory(Category accountCategory) {
+        Category root = getRootCategory(accountCategory.getAccountType());
+        Category parent = root.findCategory(accountCategory.getParentId());
+        if(parent != null) {
+            parent.addCategories(accountCategory);
+        } else {
+            root.addCategories(accountCategory);
+        }
+        return this;
     }
+
+    public AccountsDocument removeCategory(Category accountCategory) {
+        Category root = getRootCategory(accountCategory.getAccountType());
+        Category parent = root.findCategory(accountCategory.getParentId());
+        if(parent != null) {
+            parent.addCategories(accountCategory);
+        }
+        accountCategory.setParentId(null);
+        accountCategory.setPath(null);
+        return this;
+    }
+
+    public Category getAssets() {
+        return assets;
+    }
+
+    public void setAssets(Category assets) {
+        this.assets = assets;
+    }
+
+    public Category getLiabilities() {
+        return liabilities;
+    }
+
+    public void setLiabilities(Category liabilities) {
+        this.liabilities = liabilities;
+    }
+
+    public Category getReveneu() {
+        return reveneu;
+    }
+
+    public void setReveneu(Category reveneu) {
+        this.reveneu = reveneu;
+    }
+
+    public Category getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(Category expenses) {
+        this.expenses = expenses;
+    }
+
 }
