@@ -9,12 +9,6 @@
                 <dd>
                     <span>{{houseHold.name}}</span>
                 </dd>
-                <dt><span jhiTranslate="ecolarAdminApp.houseHold.accountsDocument">Accounts Document</span></dt>
-                <dd>
-                    <div *ngIf="houseHold.accountsDocument">
-                        <a [routerLink]="['/accounts-document', houseHold.accountsDocument?.id, 'view']">{{houseHold.accountsDocument?.id}}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="ecolarAdminApp.houseHold.members">Members</span></dt>
                 <dd>
                     <span *ngFor="let members of houseHold.members; let last = last">
