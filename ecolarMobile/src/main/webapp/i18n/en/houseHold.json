@@ -1,0 +1,24 @@
+
+{
+    "ecolarMobileApp": {
+        "houseHold" : {
+            "home": {
+                "title": "House Holds",
+                "createLabel": "Create a new House Hold",
+                "createOrEditLabel": "Create or edit a House Hold"
+            },
+            "created": "A new House Hold is created with identifier {{ param }}",
+            "updated": "A House Hold is updated with identifier {{ param }}",
+            "deleted": "A House Hold is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete House Hold {{ id }}?"
+            },
+            "detail": {
+                "title": "House Hold"
+            },
+            "name": "Name",
+            "accountCategories": "Account Categories",
+            "members": "Members"
+        }
+    }
+}

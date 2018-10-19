@@ -1,0 +1,9 @@
+{
+    "ecolarAdminApp": {
+        "LineType" : {
+            "null": "",
+            "CREDIT": "CREDIT",
+            "DEBIT": "DEBIT"
+        }
+    }
+}
