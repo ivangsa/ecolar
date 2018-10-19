@@ -80,13 +80,11 @@ public class HouseHold implements Serializable {
 
     public HouseHold addMembers(User user) {
         this.members.add(user);
-        user.getHouseholds().add(this);
         return this;
     }
 
     public HouseHold removeMembers(User user) {
         this.members.remove(user);
-        user.getHouseholds().remove(this);
         return this;
     }
 
