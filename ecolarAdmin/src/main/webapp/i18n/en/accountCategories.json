@@ -1,0 +1,23 @@
+
+{
+    "ecolarAdminApp": {
+        "accountCategories" : {
+            "home": {
+                "title": "Account Categories",
+                "createLabel": "Create a new Account Categories",
+                "createOrEditLabel": "Create or edit a Account Categories"
+            },
+            "created": "A new Account Categories is created with identifier {{ param }}",
+            "updated": "A Account Categories is updated with identifier {{ param }}",
+            "deleted": "A Account Categories is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Account Categories {{ id }}?"
+            },
+            "detail": {
+                "title": "Account Categories"
+            },
+            "categories": "Categories",
+            "household": "Household"
+        }
+    }
+}
