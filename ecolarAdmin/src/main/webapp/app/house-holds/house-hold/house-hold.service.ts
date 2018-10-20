@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IHouseHold } from 'app/shared/model/house-hold.model';
+import { ICategory } from 'app/shared/model/category.model';
 
 type EntityResponseType = HttpResponse<IHouseHold>;
 type EntityArrayResponseType = HttpResponse<IHouseHold[]>;
@@ -34,5 +35,25 @@ export class HouseHoldService {
 
     delete(id: string): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    getAllCategories(houseHoldId: string): Observable<EntityArrayResponseType> {
+        return this.http.get<ICategory[]>(`${this.resourceUrl}/${houseHoldId}/categories`, { observe: 'response' });
+    }
+
+    findCategory(houseHoldId: string, id: string): Observable<EntityResponseType> {
+        return this.http.get<ICategory>(`${this.resourceUrl}/${houseHoldId}/categories/${id}`, { observe: 'response' });
+    }
+
+    createCategory(houseHoldId: string, category: ICategory): Observable<EntityResponseType> {
+        return this.http.post<IHouseHold>(`${this.resourceUrl}/${houseHoldId}/categories`, category, { observe: 'response' });
+    }
+
+    updateCategory(houseHoldId: string, category: ICategory): Observable<EntityResponseType> {
+        return this.http.put<IHouseHold>(`${this.resourceUrl}/${houseHoldId}/categories`, category, { observe: 'response' });
+    }
+
+    deleteCategory(houseHoldId: string, id: string): Observable<HttpResponse<any>> {
+        return this.http.delete<IHouseHold>(`${this.resourceUrl}/${houseHoldId}/categories/${id}`, { observe: 'response' });
     }
 }

@@ -1,12 +1,13 @@
 package com.desarrollandojuntos.ecolar.service;
 
-import com.desarrollandojuntos.ecolar.domain.HouseHold;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-import java.util.Optional;
+import com.desarrollandojuntos.ecolar.domain.Category;
+import com.desarrollandojuntos.ecolar.domain.HouseHold;
 
 /**
  * Service Interface for managing HouseHold.
@@ -34,7 +35,7 @@ public interface HouseHoldService {
      * @return the list of entities
      */
     Page<HouseHold> findAllWithEagerRelationships(Pageable pageable);
-    
+
     /**
      * Get the "id" houseHold.
      *
@@ -49,4 +50,36 @@ public interface HouseHoldService {
      * @param id the id of the entity
      */
     void delete(String id);
+
+    /**
+     *
+     * @param houseHold
+     * @param category
+     * @return
+     */
+    Optional<Category> findCategory(HouseHold houseHold, String categoryId);
+
+    /**
+     *
+     * @param houseHoldId
+     * @return
+     */
+    List<Category> getCategoriesAsList(String houseHoldId);
+
+    /**
+     *
+     * @param houseHold
+     * @param category
+     * @return
+     */
+    HouseHold saveCategory(HouseHold houseHold, Category category);
+
+    /**
+     *
+     * @param houseHold
+     * @param categoryId
+     * @return
+     */
+    HouseHold removeCategory(HouseHold houseHold, String categoryId);
+
 }

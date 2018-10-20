@@ -7,7 +7,7 @@ import { JhiAlertService } from 'ng-jhipster';
 import { IHouseHold } from 'app/shared/model/house-hold.model';
 import { HouseHoldService } from './house-hold.service';
 import { IAccountCategories } from 'app/shared/model/account-categories.model';
-import { AccountCategoriesService } from 'app/entities/account-categories';
+import { AccountCategoriesService } from '../account-categories';
 import { IUser, UserService } from 'app/core';
 
 @Component({

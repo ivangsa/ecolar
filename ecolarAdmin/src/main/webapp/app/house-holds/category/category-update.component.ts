@@ -1,29 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 
 import { ICategory } from 'app/shared/model/category.model';
-import { CategoryService } from './category.service';
+import { HouseHoldService } from '../house-hold/house-hold.service';
 import { IAccountCategories } from 'app/shared/model/account-categories.model';
-import { AccountCategoriesService } from 'app/entities/account-categories';
+import { AccountCategoriesService } from '../account-categories';
 
 @Component({
     selector: 'eco-category-update',
     templateUrl: './category-update.component.html'
 })
 export class CategoryUpdateComponent implements OnInit {
+    houseHoldId: string;
     category: ICategory;
     isSaving: boolean;
 
-    categories: ICategory[];
-
-    accountcategories: IAccountCategories[];
-
     constructor(
         private jhiAlertService: JhiAlertService,
-        private categoryService: CategoryService,
+        private categoryService: HouseHoldService,
         private accountCategoriesService: AccountCategoriesService,
         private activatedRoute: ActivatedRoute
     ) {}
@@ -33,18 +30,6 @@ export class CategoryUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ category }) => {
             this.category = category;
         });
-        this.categoryService.query().subscribe(
-            (res: HttpResponse<ICategory[]>) => {
-                this.categories = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.accountCategoriesService.query().subscribe(
-            (res: HttpResponse<IAccountCategories[]>) => {
-                this.accountcategories = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -53,10 +38,11 @@ export class CategoryUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.houseHoldId = this.activatedRoute.params._value['houseHoldId'];
         if (this.category.id !== undefined) {
-            this.subscribeToSaveResponse(this.categoryService.update(this.category));
+            this.subscribeToSaveResponse(this.categoryService.updateCategory(this.houseHoldId, this.category));
         } else {
-            this.subscribeToSaveResponse(this.categoryService.create(this.category));
+            this.subscribeToSaveResponse(this.categoryService.createCategory(this.houseHoldId, this.category));
         }
     }
 

@@ -3,8 +3,6 @@ import { RouterModule } from '@angular/router';
 
 import { EcolarAdminSharedModule } from 'app/shared';
 import {
-    CategoryComponent,
-    CategoryDetailComponent,
     CategoryUpdateComponent,
     CategoryDeletePopupComponent,
     CategoryDeleteDialogComponent,
@@ -16,14 +14,8 @@ const ENTITY_STATES = [...categoryRoute, ...categoryPopupRoute];
 
 @NgModule({
     imports: [EcolarAdminSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [
-        CategoryComponent,
-        CategoryDetailComponent,
-        CategoryUpdateComponent,
-        CategoryDeleteDialogComponent,
-        CategoryDeletePopupComponent
-    ],
-    entryComponents: [CategoryComponent, CategoryUpdateComponent, CategoryDeleteDialogComponent, CategoryDeletePopupComponent],
+    declarations: [CategoryUpdateComponent, CategoryDeleteDialogComponent, CategoryDeletePopupComponent],
+    entryComponents: [CategoryUpdateComponent, CategoryDeleteDialogComponent, CategoryDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EcolarAdminCategoryModule {}

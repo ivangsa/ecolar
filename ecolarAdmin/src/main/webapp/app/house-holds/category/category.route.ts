@@ -5,21 +5,20 @@ import { UserRouteAccessService } from 'app/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Category } from 'app/shared/model/category.model';
-import { CategoryService } from './category.service';
-import { CategoryComponent } from './category.component';
-import { CategoryDetailComponent } from './category-detail.component';
 import { CategoryUpdateComponent } from './category-update.component';
 import { CategoryDeletePopupComponent } from './category-delete-dialog.component';
 import { ICategory } from 'app/shared/model/category.model';
+import { HouseHoldService } from '../house-hold/house-hold.service';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryResolve implements Resolve<ICategory> {
-    constructor(private service: CategoryService) {}
+    constructor(private service: HouseHoldService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        const houseHoldId = route.params['houseHoldId'];
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((category: HttpResponse<Category>) => category.body));
+            return this.service.findCategory(houseHoldId, id).pipe(map((category: HttpResponse<Category>) => category.body));
         }
         return of(new Category());
     }
@@ -27,40 +26,7 @@ export class CategoryResolve implements Resolve<ICategory> {
 
 export const categoryRoute: Routes = [
     {
-        path: 'category',
-        component: CategoryComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'ecolarAdminApp.category.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'category/:id/view',
-        component: CategoryDetailComponent,
-        resolve: {
-            category: CategoryResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'ecolarAdminApp.category.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'category/new',
-        component: CategoryUpdateComponent,
-        resolve: {
-            category: CategoryResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'ecolarAdminApp.category.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'category/:id/edit',
+        path: 'house-hold/:houseHoldId/categories',
         component: CategoryUpdateComponent,
         resolve: {
             category: CategoryResolve
@@ -75,7 +41,7 @@ export const categoryRoute: Routes = [
 
 export const categoryPopupRoute: Routes = [
     {
-        path: 'category/:id/delete',
+        path: 'house-hold/:houseHoldId/categories/:id/delete',
         component: CategoryDeletePopupComponent,
         resolve: {
             category: CategoryResolve

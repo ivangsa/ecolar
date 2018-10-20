@@ -10,9 +10,10 @@
                     <span>{{houseHold.name}}</span>
                 </dd>
                 <dt><span jhiTranslate="ecolarAdminApp.houseHold.accountCategories">Account Categories</span></dt>
-                <dd>
-                    <div *ngIf="houseHold.accountCategories">
-                        <a [routerLink]="['/account-categories', houseHold.accountCategories?.id, 'view']">{{houseHold.accountCategories?.id}}</a>
+                <dd>AQUI
+                    
+                    <div>
+                        <a [routerLink]="['/house-hold', houseHold.id, 'categories']">AQUI {{houseHold.accountCategories?.id}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="ecolarAdminApp.houseHold.members">Members</span></dt>
