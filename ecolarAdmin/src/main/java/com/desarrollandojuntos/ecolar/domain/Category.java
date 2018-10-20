@@ -1,19 +1,18 @@
 package com.desarrollandojuntos.ecolar.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.desarrollandojuntos.ecolar.domain.enumeration.AccountType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.swagger.annotations.ApiModel;
 
 /**
  * Categoria
@@ -24,7 +23,7 @@ public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    @Field
     private String id;
 
     @Field("name")
@@ -42,26 +41,48 @@ public class Category implements Serializable {
     @Field("account_type")
     private AccountType accountType;
 
-    @DBRef
     @Field("accounts")
     private Set<EAccount> accounts = new HashSet<>();
-    @DBRef
-    @Field("parent")
-    @JsonIgnoreProperties("categories")
+
+    @JsonIgnore
     private Category parent;
 
-    @DBRef
-    @Field("document")
-    @JsonIgnoreProperties("categories")
+    @JsonIgnore
     private AccountCategories document;
 
-    @DBRef
     @Field("categories")
     private Set<Category> categories = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
+    public Category findCategory(String id) {
+        if(StringUtils.equals(id, getId())) {
+            return this;
+        } else {
+            for (Category accountCategory : categories) {
+                Category match = accountCategory.findCategory(id);
+                if(match != null) {
+                    return match;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Category copy(Category category) {
+        this.name = category.name;
+        this.description = category.description;
+        return this;
+    }
+
     public String getId() {
         return id;
     }
+
+    public Category id(Object id) {
+        this.id = String.valueOf(id);
+        return this;
+    }
+
 
     public void setId(String id) {
         this.id = id;

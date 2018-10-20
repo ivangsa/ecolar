@@ -16,13 +16,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="ecolarAdminApp.houseHold.accountCategories" for="field_accountCategories">Account Categories</label>
-                    <select class="form-control" id="field_accountCategories" name="accountCategories" [(ngModel)]="houseHold.accountCategories">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="accountCategoriesOption.id === houseHold.accountCategories?.id ? houseHold.accountCategories : accountCategoriesOption" *ngFor="let accountCategoriesOption of accountcategories; trackBy: trackAccountCategoriesById">{{accountCategoriesOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label jhiTranslate="ecolarAdminApp.houseHold.members" for="field_members">Members</label>
                     <select class="form-control" id="field_members" multiple name="members" [(ngModel)]="houseHold.members">
                         <option [ngValue]="getSelected(houseHold.members, userOption)" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>

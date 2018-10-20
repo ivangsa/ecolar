@@ -1,37 +1,49 @@
 package com.desarrollandojuntos.ecolar.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.desarrollandojuntos.ecolar.domain.Category;
-import com.desarrollandojuntos.ecolar.repository.CategoryRepository;
-import com.desarrollandojuntos.ecolar.web.rest.errors.BadRequestAlertException;
-import com.desarrollandojuntos.ecolar.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.codahale.metrics.annotation.Timed;
+import com.desarrollandojuntos.ecolar.domain.Category;
+import com.desarrollandojuntos.ecolar.domain.HouseHold;
+import com.desarrollandojuntos.ecolar.service.HouseHoldService;
+import com.desarrollandojuntos.ecolar.web.rest.errors.BadRequestAlertException;
+import com.desarrollandojuntos.ecolar.web.rest.util.HeaderUtil;
+
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing Category.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/house-holds/{houseHoldId}")
 public class CategoryResource {
 
     private final Logger log = LoggerFactory.getLogger(CategoryResource.class);
 
-    private static final String ENTITY_NAME = "category";
+    private static final String CATEGORY_ENTITY_NAME = "category";
 
-    private CategoryRepository categoryRepository;
+    private HouseHoldService houseHoldService;
 
-    public CategoryResource(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public CategoryResource(HouseHoldService houseHoldService) {
+        super();
+        this.houseHoldService = houseHoldService;
     }
 
     /**
@@ -43,14 +55,18 @@ public class CategoryResource {
      */
     @PostMapping("/categories")
     @Timed
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) throws URISyntaxException {
-        log.debug("REST request to save Category : {}", category);
-        if (category.getId() != null) {
-            throw new BadRequestAlertException("A new category cannot already have an ID", ENTITY_NAME, "idexists");
+    public ResponseEntity<HouseHold> createCategory(@PathVariable("houseHoldId") String houseHoldId, @RequestBody Category category) throws URISyntaxException {
+        log.debug("REST request to save Category : {} {}", houseHoldId, category);
+        Optional<HouseHold> houseHold = houseHoldService.findOne(houseHoldId);
+        if(!houseHold.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Category result = categoryRepository.save(category);
+        if (category.getId() != null) {
+            throw new BadRequestAlertException("A new category cannot already have an ID", CATEGORY_ENTITY_NAME, "idexists");
+        }
+        HouseHold result = houseHoldService.saveCategory(houseHold.get(), category);
         return ResponseEntity.created(new URI("/api/categories/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(CATEGORY_ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -65,14 +81,18 @@ public class CategoryResource {
      */
     @PutMapping("/categories")
     @Timed
-    public ResponseEntity<Category> updateCategory(@RequestBody Category category) throws URISyntaxException {
+    public ResponseEntity<HouseHold> updateCategory(@PathVariable("houseHoldId") String houseHoldId, @RequestBody Category category) throws URISyntaxException {
         log.debug("REST request to update Category : {}", category);
-        if (category.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        Optional<HouseHold> houseHold = houseHoldService.findOne(houseHoldId);
+        if(!houseHold.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Category result = categoryRepository.save(category);
+        if (category.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", CATEGORY_ENTITY_NAME, "idnull");
+        }
+        HouseHold result = houseHoldService.saveCategory(houseHold.get(), category);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, category.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(CATEGORY_ENTITY_NAME, category.getId().toString()))
             .body(result);
     }
 
@@ -83,9 +103,13 @@ public class CategoryResource {
      */
     @GetMapping("/categories")
     @Timed
-    public List<Category> getAllCategories() {
-        log.debug("REST request to get all Categories");
-        return categoryRepository.findAll();
+    public List<Category> getAllCategories(@PathVariable("houseHoldId") String houseHoldId) {
+        log.debug("REST request to get all Categories for {}");
+        Optional<HouseHold> houseHold = houseHoldService.findOne(houseHoldId);
+        if(!houseHold.isPresent()) {
+            return Collections.emptyList();
+        }
+        return houseHoldService.getCategoriesAsList(houseHoldId);
     }
 
     /**
@@ -96,9 +120,13 @@ public class CategoryResource {
      */
     @GetMapping("/categories/{id}")
     @Timed
-    public ResponseEntity<Category> getCategory(@PathVariable String id) {
+    public ResponseEntity<Category> getCategory(@PathVariable("houseHoldId") String houseHoldId, @PathVariable String id) {
         log.debug("REST request to get Category : {}", id);
-        Optional<Category> category = categoryRepository.findById(id);
+        Optional<HouseHold> houseHold = houseHoldService.findOne(houseHoldId);
+        if(!houseHold.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Optional<Category> category = houseHoldService.findCategory(houseHold.get(), id);
         return ResponseUtil.wrapOrNotFound(category);
     }
 
@@ -108,12 +136,20 @@ public class CategoryResource {
      * @param id the id of the category to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/categories/{id}")
+    @DeleteMapping("/categories/{categoryId}")
     @Timed
-    public ResponseEntity<Void> deleteCategory(@PathVariable String id) {
-        log.debug("REST request to delete Category : {}", id);
-
-        categoryRepository.deleteById(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
+    public ResponseEntity<HouseHold> deleteCategory(@PathVariable("houseHoldId") String houseHoldId, @PathVariable String categoryId) {
+        log.debug("REST request to delete Category : {} {}", houseHoldId, categoryId);
+        Optional<HouseHold> houseHold = houseHoldService.findOne(houseHoldId);
+        if(!houseHold.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (categoryId == null) {
+            throw new BadRequestAlertException("Invalid id", CATEGORY_ENTITY_NAME, "idnull");
+        }
+        HouseHold result = houseHoldService.removeCategory(houseHold.get(), categoryId);
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityDeletionAlert(CATEGORY_ENTITY_NAME, categoryId))
+                .body(result);
     }
 }

@@ -7,7 +7,7 @@ import { JhiAlertService } from 'ng-jhipster';
 import { IAccountCategories } from 'app/shared/model/account-categories.model';
 import { AccountCategoriesService } from './account-categories.service';
 import { IHouseHold } from 'app/shared/model/house-hold.model';
-import { HouseHoldService } from 'app/entities/house-hold';
+import { HouseHoldService } from '../house-hold';
 
 @Component({
     selector: 'eco-account-categories-update',

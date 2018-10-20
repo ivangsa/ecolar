@@ -7,7 +7,7 @@ import { JhiAlertService } from 'ng-jhipster';
 import { IEAccount } from 'app/shared/model/e-account.model';
 import { EAccountService } from './e-account.service';
 import { ICategory } from 'app/shared/model/category.model';
-import { CategoryService } from 'app/entities/category';
+import { CategoryService } from '../category';
 
 @Component({
     selector: 'eco-e-account-update',

@@ -5,7 +5,7 @@ import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
 import { JhiEventManager } from 'ng-jhipster';
 
 import { ICategory } from 'app/shared/model/category.model';
-import { CategoryService } from './category.service';
+import { HouseHoldService } from '../house-hold/house-hold.service';
 
 @Component({
     selector: 'eco-category-delete-dialog',
@@ -14,7 +14,7 @@ import { CategoryService } from './category.service';
 export class CategoryDeleteDialogComponent {
     category: ICategory;
 
-    constructor(private categoryService: CategoryService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
+    constructor(private categoryService: HouseHoldService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');

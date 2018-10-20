@@ -7,7 +7,7 @@ import { JhiAlertService } from 'ng-jhipster';
 import { IMovementLine } from 'app/shared/model/movement-line.model';
 import { MovementLineService } from './movement-line.service';
 import { IEAccount } from 'app/shared/model/e-account.model';
-import { EAccountService } from 'app/entities/e-account';
+import { EAccountService } from 'app/house-holds/e-account';
 
 @Component({
     selector: 'eco-movement-line-update',
