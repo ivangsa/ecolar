@@ -5,7 +5,7 @@ import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
 import { JhiEventManager } from 'ng-jhipster';
 
 import { IHouseHold } from 'app/shared/model/house-hold.model';
-import { HouseHoldService } from './house-hold.service';
+import { HouseHoldService } from '../house-hold.service';
 
 @Component({
     selector: 'eco-house-hold-delete-dialog',

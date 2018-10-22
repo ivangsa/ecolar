@@ -2,33 +2,14 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { EcolarAdminSharedModule } from 'app/shared';
-import {
-    AccountCategoriesComponent,
-    AccountCategoriesDetailComponent,
-    AccountCategoriesUpdateComponent,
-    AccountCategoriesDeletePopupComponent,
-    AccountCategoriesDeleteDialogComponent,
-    accountCategoriesRoute,
-    accountCategoriesPopupRoute
-} from './';
+import { CategoryUpdateComponent, CategoryDeletePopupComponent, CategoryDeleteDialogComponent, categoryRoute, categoryPopupRoute } from '.';
 
-const ENTITY_STATES = [...accountCategoriesRoute, ...accountCategoriesPopupRoute];
+const ENTITY_STATES = [...categoryRoute, ...categoryPopupRoute];
 
 @NgModule({
     imports: [EcolarAdminSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [
-        AccountCategoriesComponent,
-        AccountCategoriesDetailComponent,
-        AccountCategoriesUpdateComponent,
-        AccountCategoriesDeleteDialogComponent,
-        AccountCategoriesDeletePopupComponent
-    ],
-    entryComponents: [
-        AccountCategoriesComponent,
-        AccountCategoriesUpdateComponent,
-        AccountCategoriesDeleteDialogComponent,
-        AccountCategoriesDeletePopupComponent
-    ],
+    declarations: [CategoryUpdateComponent, CategoryDeleteDialogComponent, CategoryDeletePopupComponent],
+    entryComponents: [CategoryUpdateComponent, CategoryDeleteDialogComponent, CategoryDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EcolarAdminAccountCategoriesModule {}

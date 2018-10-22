@@ -5,7 +5,7 @@ import { UserRouteAccessService } from 'app/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HouseHold } from 'app/shared/model/house-hold.model';
-import { HouseHoldService } from './house-hold.service';
+import { HouseHoldService } from '../house-hold.service';
 import { HouseHoldComponent } from './house-hold.component';
 import { HouseHoldDetailComponent } from './house-hold-detail.component';
 import { HouseHoldUpdateComponent } from './house-hold-update.component';

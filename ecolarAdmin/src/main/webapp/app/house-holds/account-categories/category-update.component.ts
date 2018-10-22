@@ -5,9 +5,8 @@ import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 
 import { ICategory } from 'app/shared/model/category.model';
-import { HouseHoldService } from '../house-hold/house-hold.service';
+import { HouseHoldService } from '../house-hold.service';
 import { IAccountCategories } from 'app/shared/model/account-categories.model';
-import { AccountCategoriesService } from '../account-categories';
 
 @Component({
     selector: 'eco-category-update',
@@ -21,7 +20,6 @@ export class CategoryUpdateComponent implements OnInit {
     constructor(
         private jhiAlertService: JhiAlertService,
         private categoryService: HouseHoldService,
-        private accountCategoriesService: AccountCategoriesService,
         private activatedRoute: ActivatedRoute
     ) {}
 

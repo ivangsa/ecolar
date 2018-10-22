@@ -5,7 +5,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { IHouseHold } from 'app/shared/model/house-hold.model';
 import { Principal } from 'app/core';
-import { HouseHoldService } from './house-hold.service';
+import { HouseHoldService } from '../house-hold.service';
 
 @Component({
     selector: 'eco-house-hold',

@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { Principal } from 'app/core';
 
 import { IAccountCategories } from 'app/shared/model/account-categories.model';
-import { Principal } from 'app/core';
-import { AccountCategoriesService } from './account-categories.service';
+import { HouseHoldService } from '../house-hold.service';
 
 @Component({
     selector: 'eco-account-categories',
@@ -17,7 +17,7 @@ export class AccountCategoriesComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     constructor(
-        private accountCategoriesService: AccountCategoriesService,
+        private accountCategoriesService: HouseHoldService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
@@ -56,3 +56,20 @@ export class AccountCategoriesComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 }
+
+// @Component ({
+//   selector: 'eco-account-category-tree',
+//   template: `
+//   <ul>
+//     <li *ngFor="let node of collection">
+//       {{node[nameProperty]}}
+//       <jhi-tree-view [collection]="node[childrenProperty]" [nameProperty]="nameProperty" [childrenProperty]="childrenProperty"></jhi-tree-view>
+//     </li>
+//   </ul>
+//   `
+// })
+// export class TreeViewComponent {
+//   @Input() collection: [];
+//   @Input() nameProperty: string;
+//   @Input() childrenProperty: string;
+// }

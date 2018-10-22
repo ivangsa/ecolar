@@ -4,85 +4,51 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@a
 import { UserRouteAccessService } from 'app/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AccountCategories } from 'app/shared/model/account-categories.model';
-import { AccountCategoriesService } from './account-categories.service';
-import { AccountCategoriesComponent } from './account-categories.component';
-import { AccountCategoriesDetailComponent } from './account-categories-detail.component';
-import { AccountCategoriesUpdateComponent } from './account-categories-update.component';
-import { AccountCategoriesDeletePopupComponent } from './account-categories-delete-dialog.component';
-import { IAccountCategories } from 'app/shared/model/account-categories.model';
+import { Category } from 'app/shared/model/category.model';
+import { CategoryUpdateComponent } from './category-update.component';
+import { CategoryDeletePopupComponent } from './category-delete-dialog.component';
+import { ICategory } from 'app/shared/model/category.model';
+import { HouseHoldService } from '../house-hold.service';
 
 @Injectable({ providedIn: 'root' })
-export class AccountCategoriesResolve implements Resolve<IAccountCategories> {
-    constructor(private service: AccountCategoriesService) {}
+export class CategoryResolve implements Resolve<ICategory> {
+    constructor(private service: HouseHoldService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        const houseHoldId = route.params['houseHoldId'];
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((accountCategories: HttpResponse<AccountCategories>) => accountCategories.body));
+            return this.service.findCategory(houseHoldId, id).pipe(map((category: HttpResponse<Category>) => category.body));
         }
-        return of(new AccountCategories());
+        return of(new Category());
     }
 }
 
-export const accountCategoriesRoute: Routes = [
+export const categoryRoute: Routes = [
     {
-        path: 'account-categories',
-        component: AccountCategoriesComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'ecolarAdminApp.accountCategories.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'account-categories/:id/view',
-        component: AccountCategoriesDetailComponent,
+        path: 'house-hold/:houseHoldId/categories',
+        component: CategoryUpdateComponent,
         resolve: {
-            accountCategories: AccountCategoriesResolve
+            category: CategoryResolve
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'ecolarAdminApp.accountCategories.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'account-categories/new',
-        component: AccountCategoriesUpdateComponent,
-        resolve: {
-            accountCategories: AccountCategoriesResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'ecolarAdminApp.accountCategories.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'account-categories/:id/edit',
-        component: AccountCategoriesUpdateComponent,
-        resolve: {
-            accountCategories: AccountCategoriesResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'ecolarAdminApp.accountCategories.home.title'
+            pageTitle: 'ecolarAdminApp.category.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
 ];
 
-export const accountCategoriesPopupRoute: Routes = [
+export const categoryPopupRoute: Routes = [
     {
-        path: 'account-categories/:id/delete',
-        component: AccountCategoriesDeletePopupComponent,
+        path: 'house-hold/:houseHoldId/categories/:id/delete',
+        component: CategoryDeletePopupComponent,
         resolve: {
-            accountCategories: AccountCategoriesResolve
+            category: CategoryResolve
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'ecolarAdminApp.accountCategories.home.title'
+            pageTitle: 'ecolarAdminApp.category.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

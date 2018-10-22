@@ -5,9 +5,8 @@ import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 
 import { IHouseHold } from 'app/shared/model/house-hold.model';
-import { HouseHoldService } from './house-hold.service';
+import { HouseHoldService } from '../house-hold.service';
 import { IAccountCategories } from 'app/shared/model/account-categories.model';
-import { AccountCategoriesService } from '../account-categories';
 import { IUser, UserService } from 'app/core';
 
 @Component({
@@ -25,7 +24,6 @@ export class HouseHoldUpdateComponent implements OnInit {
     constructor(
         private jhiAlertService: JhiAlertService,
         private houseHoldService: HouseHoldService,
-        private accountCategoriesService: AccountCategoriesService,
         private userService: UserService,
         private activatedRoute: ActivatedRoute
     ) {}
@@ -35,21 +33,6 @@ export class HouseHoldUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ houseHold }) => {
             this.houseHold = houseHold;
         });
-        this.accountCategoriesService.query({ filter: 'household(name)-is-null' }).subscribe(
-            (res: HttpResponse<IAccountCategories[]>) => {
-                if (!this.houseHold.accountCategories || !this.houseHold.accountCategories.id) {
-                    this.accountcategories = res.body;
-                } else {
-                    this.accountCategoriesService.find(this.houseHold.accountCategories.id).subscribe(
-                        (subRes: HttpResponse<IAccountCategories>) => {
-                            this.accountcategories = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.userService.query().subscribe(
             (res: HttpResponse<IUser[]>) => {
                 this.users = res.body;

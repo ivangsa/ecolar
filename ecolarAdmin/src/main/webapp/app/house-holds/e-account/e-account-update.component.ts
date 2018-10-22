@@ -7,7 +7,7 @@ import { JhiAlertService } from 'ng-jhipster';
 import { IEAccount } from 'app/shared/model/e-account.model';
 import { EAccountService } from './e-account.service';
 import { ICategory } from 'app/shared/model/category.model';
-import { CategoryService } from '../category';
+import { HouseHoldService } from '../house-hold.service';
 
 @Component({
     selector: 'eco-e-account-update',
@@ -22,7 +22,7 @@ export class EAccountUpdateComponent implements OnInit {
     constructor(
         private jhiAlertService: JhiAlertService,
         private eAccountService: EAccountService,
-        private categoryService: CategoryService,
+        private categoryService: HouseHoldService,
         private activatedRoute: ActivatedRoute
     ) {}
 
