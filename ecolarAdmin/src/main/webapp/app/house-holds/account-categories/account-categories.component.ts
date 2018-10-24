@@ -1,10 +1,12 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Principal } from 'app/core';
 
 import { IAccountCategories } from 'app/shared/model/account-categories.model';
+import { ICategory } from 'app/shared/model/category.model';
 import { HouseHoldService } from '../house-hold.service';
 
 @Component({
@@ -12,44 +14,27 @@ import { HouseHoldService } from '../house-hold.service';
     templateUrl: './account-categories.component.html'
 })
 export class AccountCategoriesComponent implements OnInit, OnDestroy {
-    accountCategories: IAccountCategories[];
-    currentAccount: any;
+    categories: IAccountCategories[];
     eventSubscriber: Subscription;
 
     constructor(
-        private accountCategoriesService: HouseHoldService,
+        private service: HouseHoldService,
         private jhiAlertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private principal: Principal
+        private activatedRoute: ActivatedRoute,
+        private eventManager: JhiEventManager
     ) {}
 
-    loadAll() {
-        this.accountCategoriesService.query().subscribe(
-            (res: HttpResponse<IAccountCategories[]>) => {
-                this.accountCategories = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
-
     ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
+        this.activatedRoute.data.subscribe(({ categories }) => {
+            this.categories = categories;
         });
-        this.registerChangeInAccountCategories();
     }
 
     ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
-    }
 
-    trackId(index: number, item: IAccountCategories) {
-        return item.id;
     }
 
     registerChangeInAccountCategories() {
-        this.eventSubscriber = this.eventManager.subscribe('accountCategoriesListModification', response => this.loadAll());
     }
 
     private onError(errorMessage: string) {
@@ -57,19 +42,10 @@ export class AccountCategoriesComponent implements OnInit, OnDestroy {
     }
 }
 
-// @Component ({
-//   selector: 'eco-account-category-tree',
-//   template: `
-//   <ul>
-//     <li *ngFor="let node of collection">
-//       {{node[nameProperty]}}
-//       <jhi-tree-view [collection]="node[childrenProperty]" [nameProperty]="nameProperty" [childrenProperty]="childrenProperty"></jhi-tree-view>
-//     </li>
-//   </ul>
-//   `
-// })
-// export class TreeViewComponent {
-//   @Input() collection: [];
-//   @Input() nameProperty: string;
-//   @Input() childrenProperty: string;
-// }
+@Component ({
+  selector: 'eco-account-category-tree',
+  templateUrl: './account-categories.component-tree.html'
+})
+export class AccountCategoryTreeComponent {
+  @Input() categories: ICategory[];
+}
