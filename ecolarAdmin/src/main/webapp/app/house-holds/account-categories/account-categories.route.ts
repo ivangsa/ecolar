@@ -13,14 +13,14 @@ import { CategoryDeletePopupComponent } from './category-delete-dialog.component
 import { HouseHoldService } from '../house-hold.service';
 
 @Injectable({ providedIn: 'root' })
-export class CategoriesResolve implements Resolve<IAccountCategories> {
+export class HouseHoldResolve implements Resolve<IHouseHold> {
     constructor(private service: HouseHoldService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const houseHoldId = route.params['houseHoldId'];
         return this.service.find(houseHoldId).pipe(
             // tap( response => console.log(response.body)),
-            map((houseHold: HttpResponse<IHouseHold>) => houseHold.body.accountCategories.categories),
+            map((houseHold: HttpResponse<IHouseHold>) => houseHold.body),
             tap(console.log)
         );
     }
@@ -45,7 +45,19 @@ export const categoryRoute: Routes = [
         path: 'house-hold/:houseHoldId/categories',
         component: AccountCategoriesComponent,
         resolve: {
-            categories: CategoriesResolve
+            houseHold: HouseHoldResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'ecolarAdminApp.category.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'house-hold/:houseHoldId/categories/new',
+        component: CategoryUpdateComponent,
+        resolve: {
+            category: CategoryResolve
         },
         data: {
             authorities: ['ROLE_USER'],
@@ -64,7 +76,7 @@ export const categoryRoute: Routes = [
             pageTitle: 'ecolarAdminApp.category.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }
+    },
 ];
 
 export const categoryPopupRoute: Routes = [

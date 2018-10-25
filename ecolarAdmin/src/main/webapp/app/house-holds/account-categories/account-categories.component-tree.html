@@ -1,6 +1,10 @@
-<ul class="list-group">
-    <li *ngFor="let category of categories" class="list-group-item d-flex justify-content-between align-items-right">
-      {{category.name}} <span><a href="#">E</a><a href="#">+</a></span>
-      <eco-account-category-tree [categories]="category.categories" ></eco-account-category-tree>
-    </li>
-  </ul>
+<div *ngFor="let category of categories" class="list-group-item">
+    <div class="d-flex justify-content-between align-items-right" style="padding: 0.75rem 1.25rem;" >
+        {{category.name}}
+        <span>
+            <a [routerLink]="['/house-hold', houseHoldId, 'categories', category.id]">Editar</a>
+            <a href="#">+</a>
+        </span>
+    </div>
+    <eco-account-category-tree [categories]="category.categories"  [houseHoldId]="houseHoldId" ></eco-account-category-tree>
+</div>

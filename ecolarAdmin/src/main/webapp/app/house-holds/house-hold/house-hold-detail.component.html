@@ -13,7 +13,7 @@
                 <dd>AQUI
                     
                     <div>
-                        <a [routerLink]="['/house-hold', houseHold.id, 'categories']">AQUI {{houseHold.accountCategories?.id}}</a>
+                        <a [routerLink]="['/house-hold', houseHold.id, 'categories']">Categorias {{houseHold.accountCategories?.categories.length}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="ecolarAdminApp.houseHold.members">Members</span></dt>

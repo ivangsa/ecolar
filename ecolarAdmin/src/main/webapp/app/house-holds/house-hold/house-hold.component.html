@@ -27,7 +27,7 @@
                 <td>{{houseHold.name}}</td>
                 <td>
                     <div *ngIf="houseHold.accountCategories">
-                        <a [routerLink]="['../account-categories', houseHold.accountCategories?.id, 'view' ]" >{{houseHold.accountCategories?.id}}</a>
+                        <a [routerLink]="['/house-hold', houseHold.id, 'categories']">Categorias {{houseHold.accountCategories?.categories.length}}</a>
                     </div>
                 </td>
                 <td>
