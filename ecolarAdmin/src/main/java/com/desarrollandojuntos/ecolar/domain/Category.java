@@ -45,9 +45,6 @@ public class Category implements Serializable {
     private Set<EAccount> accounts = new HashSet<>();
 
     @JsonIgnore
-    private Category parent;
-
-    @JsonIgnore
     private AccountCategories document;
 
     @Field("categories")
@@ -73,6 +70,11 @@ public class Category implements Serializable {
         this.description = category.description;
         return this;
     }
+
+    public Category flatCopy() {
+        return new Category().id(id).name(name).description(description).parentId(parentId).path(path);
+    }
+
 
     public String getId() {
         return id;
@@ -178,19 +180,6 @@ public class Category implements Serializable {
         this.accounts = eAccounts;
     }
 
-    public Category getParent() {
-        return parent;
-    }
-
-    public Category parent(Category category) {
-        this.parent = category;
-        return this;
-    }
-
-    public void setParent(Category category) {
-        this.parent = category;
-    }
-
     public AccountCategories getDocument() {
         return document;
     }
@@ -215,13 +204,11 @@ public class Category implements Serializable {
 
     public Category addCategories(Category category) {
         this.categories.add(category);
-        category.setParent(this);
         return this;
     }
 
     public Category removeCategories(Category category) {
         this.categories.remove(category);
-        category.setParent(null);
         return this;
     }
 

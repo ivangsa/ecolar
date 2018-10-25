@@ -15,11 +15,12 @@ import { IAccountCategories } from 'app/shared/model/account-categories.model';
 export class CategoryUpdateComponent implements OnInit {
     houseHoldId: string;
     category: ICategory;
+    categories: ICategory[];
     isSaving: boolean;
 
     constructor(
         private jhiAlertService: JhiAlertService,
-        private categoryService: HouseHoldService,
+        private service: HouseHoldService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -27,7 +28,14 @@ export class CategoryUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ category }) => {
             this.category = category;
+            this.houseHoldId = this.activatedRoute.params._value['houseHoldId'];
         });
+        this.service.getAllCategories(this.houseHoldId).subscribe(
+            (res: HttpResponse<ICategory[]>) => {
+                this.categories = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -36,11 +44,10 @@ export class CategoryUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.houseHoldId = this.activatedRoute.params._value['houseHoldId'];
         if (this.category.id !== undefined) {
-            this.subscribeToSaveResponse(this.categoryService.updateCategory(this.houseHoldId, this.category));
+            this.subscribeToSaveResponse(this.service.updateCategory(this.houseHoldId, this.category));
         } else {
-            this.subscribeToSaveResponse(this.categoryService.createCategory(this.houseHoldId, this.category));
+            this.subscribeToSaveResponse(this.service.createCategory(this.houseHoldId, this.category));
         }
     }
 
@@ -62,10 +69,6 @@ export class CategoryUpdateComponent implements OnInit {
     }
 
     trackCategoryById(index: number, item: ICategory) {
-        return item.id;
-    }
-
-    trackAccountCategoriesById(index: number, item: IAccountCategories) {
         return item.id;
     }
 }

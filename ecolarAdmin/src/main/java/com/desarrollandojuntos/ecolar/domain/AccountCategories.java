@@ -24,8 +24,6 @@ public class AccountCategories implements Serializable {
     @Field("categories")
     private Set<Category> categories = new HashSet<>();
 
-    @com.fasterxml.jackson.annotation.JsonBackReference
-    private HouseHold household;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
@@ -41,8 +39,8 @@ public class AccountCategories implements Serializable {
     public List<Category> buildCategoriesList(List<Category> result, Set<Category> categories){
         if(categories != null) {
             for (Category category : categories) {
-                result.add(category);
-                result.addAll(buildCategoriesList(result, category.getCategories()));
+                result.add(category.flatCopy());
+                buildCategoriesList(result, category.getCategories());
             }
         }
         return result;
@@ -58,6 +56,7 @@ public class AccountCategories implements Serializable {
         category.setPath(parentPath + "/" + category.getName());
         if(category.getCategories() != null && !category.getCategories().isEmpty()) {
             for (Category child : category.getCategories()) {
+                child.setParentId(category.getId());
                 rebuildCategoriesPath(category.getPath(), child);
             }
         } else {
@@ -98,18 +97,6 @@ public class AccountCategories implements Serializable {
         this.categories = categories;
     }
 
-    public HouseHold getHousehold() {
-        return household;
-    }
-
-    public AccountCategories household(HouseHold houseHold) {
-        this.household = houseHold;
-        return this;
-    }
-
-    public void setHousehold(HouseHold houseHold) {
-        this.household = houseHold;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
