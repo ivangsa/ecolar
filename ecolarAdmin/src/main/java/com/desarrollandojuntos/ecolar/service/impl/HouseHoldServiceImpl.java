@@ -56,7 +56,7 @@ public class HouseHoldServiceImpl implements HouseHoldService {
             .getAccountCategories()
                 .addCategories(new Category().id(id++).name("Ingresos").path("/Ingresos/").accountType(AccountType.REVENUE))
                 .addCategories(new Category().id(id++).name("Gastos").path("/Gastos/").accountType(AccountType.EXPENSE))
-                .addCategories(new Category().id(id++).name("Bienes").path("/Bienes/").accountType(AccountType.ASSETS))
+                .addCategories(new Category().id(id++).name("Activos").path("/Activos/").accountType(AccountType.ASSETS))
                 .addCategories(new Category().id(id++).name("Deudas").path("/Deudas/").accountType(AccountType.LIABILITIES));
 
         return houseHold;
@@ -105,13 +105,23 @@ public class HouseHoldServiceImpl implements HouseHoldService {
     }
 
     public HouseHold updateCategory(HouseHold houseHold, Category category) {
+        Category original = null;
+        for (Category root : houseHold.getAccountCategories().getCategories()) {
+            original = root.findCategory(category.getId());
+            if(original != null) {
+                Category oldParent = root.findCategory(original.getParentId());
+                if(oldParent != null) {
+                    oldParent.removeCategories(category);
+                }
+                break;
+            }
+        }
         Category root = houseHold.getAccountCategories().getRootCategory(category.getAccountType());
-        Category original = root.findCategory(category.getId());
         if(!StringUtils.equals(category.getParentId(), original.getParentId())) {
-            Category oldParent = root.findCategory(original.getParentId());
             Category newParent = root.findCategory(category.getParentId());
-            oldParent.removeCategories(category);
-            newParent.addCategories(category);
+            if(newParent != null) {
+                newParent.addCategories(category);
+            }
         }
         original.copy(category);
         return houseHold;
@@ -133,7 +143,7 @@ public class HouseHoldServiceImpl implements HouseHoldService {
         parent.removeCategories(category);
         Set<EAccount> accounts = category.getAccounts();
         ObjectUtils.firstNonNull(newParent, root).getAccounts().addAll(accounts);
-        return houseHold;
+        return houseHoldRepository.save(houseHold);
     }
 
     /**

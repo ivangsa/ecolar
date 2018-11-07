@@ -13,6 +13,7 @@ import { HouseHoldService } from '../house-hold.service';
 })
 export class CategoryDeleteDialogComponent {
     category: ICategory;
+    houseHoldId: string;
 
     constructor(private categoryService: HouseHoldService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
@@ -21,7 +22,7 @@ export class CategoryDeleteDialogComponent {
     }
 
     confirmDelete(id: string) {
-        this.categoryService.delete(id).subscribe(response => {
+        this.categoryService.deleteCategory(this.houseHoldId, id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'categoryListModification',
                 content: 'Deleted an category'
@@ -45,6 +46,7 @@ export class CategoryDeletePopupComponent implements OnInit, OnDestroy {
             setTimeout(() => {
                 this.ngbModalRef = this.modalService.open(CategoryDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
                 this.ngbModalRef.componentInstance.category = category;
+                this.ngbModalRef.componentInstance.houseHoldId = this.activatedRoute.params._value['houseHoldId'];
                 this.ngbModalRef.result.then(
                     result => {
                         this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
