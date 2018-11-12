@@ -21,7 +21,7 @@ public class EAccount implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    @Field
     private String id;
 
     @Field("account_code")
@@ -33,8 +33,8 @@ public class EAccount implements Serializable {
     @Field("type")
     private AccountType type;
 
-    @DBRef
-    @Field("category")
+    //@DBRef
+    //@Field("category")
     @JsonIgnoreProperties("accounts")
     private Category category;
 

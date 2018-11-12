@@ -146,6 +146,45 @@ public class HouseHoldServiceImpl implements HouseHoldService {
         return houseHoldRepository.save(houseHold);
     }
 
+        /**
+     *
+     * @param houseHold
+     * @param account
+     * @return
+     */
+    public Optional<EAccount> findEAccount(HouseHold houseHold, String accountId) {
+        return null;
+    }
+
+    /**
+     *
+     * @param houseHoldId
+     * @return
+     */
+    public List<EAccount> getEAccountsAsList(String houseHoldId) {
+        return null;
+    }
+
+    /**
+     *
+     * @param houseHold
+     * @param account
+     * @return
+     */
+    public HouseHold saveEAccount(HouseHold houseHold, EAccount account) {
+        return null;
+    }
+
+    /**
+     *
+     * @param houseHold
+     * @param accountId
+     * @return
+     */
+    public HouseHold removeEAccount(HouseHold houseHold, String accountId) {
+        return null;
+    }
+
     /**
      * Get all the houseHolds.
      *

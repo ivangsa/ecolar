@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.desarrollandojuntos.ecolar.domain.Category;
+import com.desarrollandojuntos.ecolar.domain.EAccount;
 import com.desarrollandojuntos.ecolar.domain.HouseHold;
 
 /**
@@ -81,5 +82,36 @@ public interface HouseHoldService {
      * @return
      */
     HouseHold removeCategory(HouseHold houseHold, String categoryId);
+
+        /**
+     *
+     * @param houseHold
+     * @param account
+     * @return
+     */
+    Optional<EAccount> findEAccount(HouseHold houseHold, String accountId);
+
+    /**
+     *
+     * @param houseHoldId
+     * @return
+     */
+    List<EAccount> getEAccountsAsList(String houseHoldId);
+
+    /**
+     *
+     * @param houseHold
+     * @param account
+     * @return
+     */
+    HouseHold saveEAccount(HouseHold houseHold, EAccount account);
+
+    /**
+     *
+     * @param houseHold
+     * @param accountId
+     * @return
+     */
+    HouseHold removeEAccount(HouseHold houseHold, String accountId);
 
 }

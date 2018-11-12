@@ -6,6 +6,7 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IHouseHold } from 'app/shared/model/house-hold.model';
 import { ICategory } from 'app/shared/model/category.model';
+import { IEAccount } from 'app/shared/model/e-account.model';
 
 type EntityResponseType = HttpResponse<IHouseHold>;
 type EntityArrayResponseType = HttpResponse<IHouseHold[]>;
@@ -56,4 +57,25 @@ export class HouseHoldService {
     deleteCategory(houseHoldId: string, id: string): Observable<HttpResponse<any>> {
         return this.http.delete<IHouseHold>(`${this.resourceUrl}/${houseHoldId}/categories/${id}`, { observe: 'response' });
     }
+
+    getAllEAccounts(houseHoldId: string): Observable<EntityArrayResponseType> {
+        return this.http.get<IEAccount[]>(`${this.resourceUrl}/${houseHoldId}/e-accounts`, { observe: 'response' });
+    }
+
+    findEAccount(houseHoldId: string, id: string): Observable<EntityResponseType> {
+        return this.http.get<IEAccount>(`${this.resourceUrl}/${houseHoldId}/e-accounts/${id}`, { observe: 'response' });
+    }
+
+    createEAccount(houseHoldId: string, eAccount: IEAccount): Observable<EntityResponseType> {
+        return this.http.post<IHouseHold>(`${this.resourceUrl}/${houseHoldId}/e-accounts`, eAccount, { observe: 'response' });
+    }
+
+    updateEAccount(houseHoldId: string, eAccount: IEAccount): Observable<EntityResponseType> {
+        return this.http.put<IHouseHold>(`${this.resourceUrl}/${houseHoldId}/e-accounts`, eAccount, { observe: 'response' });
+    }
+
+    deleteEAccount(houseHoldId: string, id: string): Observable<HttpResponse<any>> {
+        return this.http.delete<IHouseHold>(`${this.resourceUrl}/${houseHoldId}/e-accounts/${id}`, { observe: 'response' });
+    }
+
 }

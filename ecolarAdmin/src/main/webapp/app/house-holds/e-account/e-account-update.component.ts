@@ -18,11 +18,12 @@ export class EAccountUpdateComponent implements OnInit {
     isSaving: boolean;
 
     categories: ICategory[];
+    houseHoldId: string;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private eAccountService: EAccountService,
-        private categoryService: HouseHoldService,
+        private service: HouseHoldService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -30,8 +31,9 @@ export class EAccountUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ eAccount }) => {
             this.eAccount = eAccount;
+            this.houseHoldId = this.activatedRoute.params._value['houseHoldId'];
         });
-        this.categoryService.query().subscribe(
+        this.service.getAllCategories(this.houseHoldId).subscribe(
             (res: HttpResponse<ICategory[]>) => {
                 this.categories = res.body;
             },
