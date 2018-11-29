@@ -1,0 +1,33 @@
+{
+    "name": "MovementLine",
+    "fields": [
+        {
+            "fieldName": "amount",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "eventType",
+            "fieldType": "LineType",
+            "fieldValues": "CREDIT,DEBIT"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "javadoc": "cuenta de una linea de asiento",
+            "relationshipName": "account",
+            "otherEntityName": "eAccount",
+            "otherEntityField": "accountName"
+        }
+    ],
+    "changelogDate": "20181129204458",
+    "javadoc": "Linea de asiento.",
+    "entityTableName": "movement_line",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

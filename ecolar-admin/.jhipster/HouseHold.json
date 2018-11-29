@@ -1,0 +1,37 @@
+{
+    "name": "HouseHold",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "accountCategories",
+            "otherEntityName": "accountCategories",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "household(name)"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "households",
+            "relationshipName": "members",
+            "otherEntityName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20181129204453",
+    "javadoc": "Unidad econmica",
+    "entityTableName": "house_hold",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="eco-movement-heading" jhiTranslate="ecolarApp.movement.home.createOrEditLabel">Create or edit a Movement</h2>
+            <div>
+                <eco-alert-error></eco-alert-error>
+                <div class="form-group" [hidden]="!movement.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="movement.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.movement.eventTime" for="field_eventTime">Event Time</label>
+                    <div class="d-flex">
+                        <input id="field_eventTime" type="datetime-local" class="form-control" name="eventTime" [(ngModel)]="eventTime"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.movement.registrationTime" for="field_registrationTime">Registration Time</label>
+                    <div class="d-flex">
+                        <input id="field_registrationTime" type="datetime-local" class="form-control" name="registrationTime" [(ngModel)]="registrationTime"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.movement.amount" for="field_amount">Amount</label>
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                        [(ngModel)]="movement.amount" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.movement.location" for="field_location">Location</label>
+                    <input type="text" class="form-control" name="location" id="field_location"
+                        [(ngModel)]="movement.location" />
+                </div>
+
+                <div class="form-group">
+                    <label jhiTranslate="ecolarApp.movement.eventLines" for="field_eventLines">Event Lines</label>
+                    <select class="form-control" id="field_eventLines" multiple name="eventLines" [(ngModel)]="movement.eventLines">
+                        <option [ngValue]="getSelected(movement.eventLines, movementLineOption)" *ngFor="let movementLineOption of movementlines; trackBy: trackMovementLineById">{{movementLineOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
