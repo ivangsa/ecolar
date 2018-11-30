@@ -1,0 +1,64 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="ecolarApp.eAccount.home.title">E Accounts</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-e-account" [routerLink]="['/e-account/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="ecolarApp.eAccount.home.createLabel">
+            Create new E Account
+            </span>
+        </button>
+    </h2>
+    <eco-alert></eco-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="eAccounts">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="ecolarApp.eAccount.accountCode">Account Code</span></th>
+            <th><span jhiTranslate="ecolarApp.eAccount.accountName">Account Name</span></th>
+            <th><span jhiTranslate="ecolarApp.eAccount.type">Type</span></th>
+            <th><span jhiTranslate="ecolarApp.eAccount.category">Category</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let eAccount of eAccounts ;trackBy: trackId">
+                <td><a [routerLink]="['/e-account', eAccount.id, 'view' ]">{{eAccount.id}}</a></td>
+                <td>{{eAccount.accountCode}}</td>
+                <td>{{eAccount.accountName}}</td>
+                <td jhiTranslate="{{'ecolarApp.AccountType.' + eAccount.type}}">{{eAccount.type}}</td>
+                <td>
+                    <div *ngIf="eAccount.category">
+                        <a [routerLink]="['../category', eAccount.category?.id, 'view' ]" >{{eAccount.category?.name}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/e-account', eAccount.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/e-account', eAccount.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'e-account/'+ eAccount.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -17,6 +17,7 @@ import { EcolarAppRoutingModule } from './app-routing.module';
 import { EcolarHomeModule } from './home/home.module';
 import { EcolarAccountModule } from './account/account.module';
 import { EcolarEntityModule } from './entities/entity.module';
+import { EcolarHouseHoldsModule } from './house-holds/house-holds.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { EcoMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
@@ -37,6 +38,7 @@ import { EcoMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         EcolarCoreModule,
         EcolarHomeModule,
         EcolarAccountModule,
+        EcolarHouseHoldsModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         EcolarEntityModule
     ],

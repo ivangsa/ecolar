@@ -1,15 +1,15 @@
 package com.desarrollandojuntos.ecolar.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.desarrollandojuntos.ecolar.domain.enumeration.AccountType;
 
 /**
  * A AccountCategories.
@@ -19,18 +19,53 @@ public class AccountCategories implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
     private String id;
 
-    @DBRef
     @Field("categories")
     private Set<Category> categories = new HashSet<>();
-    @DBRef
-    @Field("household")
-    @com.fasterxml.jackson.annotation.JsonBackReference
-    private HouseHold household;
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
+    public Category getRootCategory(AccountType type) {
+        for (Category category : categories) {
+            if(category.getAccountType().equals(type)) {
+                return category;
+            }
+        }
+        return null;
+    }
+
+    public List<Category> buildCategoriesList(List<Category> result, Set<Category> categories){
+        if(categories != null) {
+            for (Category category : categories) {
+                result.add(category.flatCopy());
+                buildCategoriesList(result, category.getCategories());
+            }
+        }
+        return result;
+    }
+
+    public void rebuildCategoriesPath() {
+        for (Category category : categories) {
+            rebuildCategoriesPath("", category);
+        }
+    }
+
+    private void rebuildCategoriesPath(String parentPath, Category category){
+        category.setPath(parentPath + "/" + category.getName());
+        if(category.getCategories() != null && !category.getCategories().isEmpty()) {
+            for (Category child : category.getCategories()) {
+                child.setParentId(category.getId());
+                rebuildCategoriesPath(category.getPath(), child);
+            }
+        } else {
+            category.setPath(category.getPath() + "/");
+        }
+    }
+
+
+
     public String getId() {
         return id;
     }
@@ -50,13 +85,11 @@ public class AccountCategories implements Serializable {
 
     public AccountCategories addCategories(Category category) {
         this.categories.add(category);
-        category.setDocument(this);
         return this;
     }
 
     public AccountCategories removeCategories(Category category) {
         this.categories.remove(category);
-        category.setDocument(null);
         return this;
     }
 
@@ -64,18 +97,6 @@ public class AccountCategories implements Serializable {
         this.categories = categories;
     }
 
-    public HouseHold getHousehold() {
-        return household;
-    }
-
-    public AccountCategories household(HouseHold houseHold) {
-        this.household = houseHold;
-        return this;
-    }
-
-    public void setHousehold(HouseHold houseHold) {
-        this.household = houseHold;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

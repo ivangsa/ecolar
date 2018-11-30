@@ -1,15 +1,16 @@
 package com.desarrollandojuntos.ecolar.domain;
 
-import io.swagger.annotations.ApiModel;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import io.swagger.annotations.ApiModel;
 
 /**
  * Unidad econmica
@@ -26,11 +27,9 @@ public class HouseHold implements Serializable {
     @Field("name")
     private String name;
 
-    @DBRef
     @Field("accountCategories")
     private AccountCategories accountCategories;
 
-    @DBRef
     @Field("members")
     private Set<User> members = new HashSet<>();
 
@@ -80,13 +79,11 @@ public class HouseHold implements Serializable {
 
     public HouseHold addMembers(User user) {
         this.members.add(user);
-        user.getHouseholds().add(this);
         return this;
     }
 
     public HouseHold removeMembers(User user) {
         this.members.remove(user);
-        user.getHouseholds().remove(this);
         return this;
     }
 

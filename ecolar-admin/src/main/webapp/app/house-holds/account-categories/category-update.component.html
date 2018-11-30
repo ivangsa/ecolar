@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="eco-category-heading" jhiTranslate="ecolarApp.category.home.createOrEditLabel">Create or edit a Category</h2>
+            <div>
+                <eco-alert-error></eco-alert-error>
+                <div class="form-group hidden" [hidden]="true || !category.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="category.id" readonly />
+                </div>
+                <div class="form-group" [hidden]="!category.id">
+                    <input type="text" class="form-control" name="path" id="field_path" readonly="readonly"
+                        [(ngModel)]="category.path" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.category.name" for="field_name">Name {{category.parentId}}</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="category.name" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.category.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="category.description" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.category.accountType" for="field_accountType">Account Type</label>
+                    <select class="form-control" name="accountType" [(ngModel)]="category.accountType" id="field_accountType" >
+                        <option value="ASSETS">{{'ecolarApp.AccountType.ASSETS' | translate}}</option>
+                        <option value="LIABILITIES">{{'ecolarApp.AccountType.LIABILITIES' | translate}}</option>
+                        <option value="REVENUE">{{'ecolarApp.AccountType.REVENUE' | translate}}</option>
+                        <option value="EXPENSE">{{'ecolarApp.AccountType.EXPENSE' | translate}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ecolarApp.category.parent" for="field_parent">Parent</label>
+                    <select class="form-control" id="field_parent" name="parent" [(ngModel)]="category.parentId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="categoryOption.id" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.path}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

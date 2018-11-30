@@ -12,7 +12,7 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
                 ...LAYOUT_ROUTES,
                 {
                     path: 'admin',
-                    loadChildren: './admin/admin.module#EcolarAdminModule'
+                    loadChildren: './admin/admin.module#EcolarModule'
                 }
             ],
             { useHash: true, enableTracing: DEBUG_INFO_ENABLED }

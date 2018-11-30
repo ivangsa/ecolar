@@ -17,8 +17,6 @@ export interface ICategory {
     parentId?: string;
     accountType?: AccountType;
     accounts?: IEAccount[];
-    parent?: ICategory;
-    document?: IAccountCategories;
     categories?: ICategory[];
 }
 
@@ -31,8 +29,6 @@ export class Category implements ICategory {
         public parentId?: string,
         public accountType?: AccountType,
         public accounts?: IEAccount[],
-        public parent?: ICategory,
-        public document?: IAccountCategories,
         public categories?: ICategory[]
     ) {}
 }

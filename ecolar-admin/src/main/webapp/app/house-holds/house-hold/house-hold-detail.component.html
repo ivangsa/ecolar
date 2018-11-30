@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="houseHold">
+            <h2><span jhiTranslate="ecolarApp.houseHold.detail.title">House Hold</span> {{houseHold.id}}</h2>
+            <hr>
+            <eco-alert-error></eco-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ecolarApp.houseHold.name">Name</span></dt>
+                <dd>
+                    <span>{{houseHold.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.houseHold.accountCategories">Account Categories</span></dt>
+                <dd>AQUI
+                    
+                    <div>
+                        <a [routerLink]="['/house-hold', houseHold.id, 'categories']">Categorias {{houseHold.accountCategories?.categories.length}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.houseHold.members">Members</span></dt>
+                <dd>
+                    <span *ngFor="let members of houseHold.members; let last = last">
+                        {{members.login}}{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/house-hold', houseHold.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

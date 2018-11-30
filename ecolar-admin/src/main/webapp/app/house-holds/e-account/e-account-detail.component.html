@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="eAccount">
+            <h2><span jhiTranslate="ecolarApp.eAccount.detail.title">E Account</span> {{eAccount.id}}</h2>
+            <hr>
+            <eco-alert-error></eco-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ecolarApp.eAccount.accountCode">Account Code</span></dt>
+                <dd>
+                    <span>{{eAccount.accountCode}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.eAccount.accountName">Account Name</span></dt>
+                <dd>
+                    <span>{{eAccount.accountName}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.eAccount.type">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'ecolarApp.AccountType.' + eAccount.type}}">{{eAccount.type}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.eAccount.category">Category</span></dt>
+                <dd>
+                    <div *ngIf="eAccount.category">
+                        <a [routerLink]="['/category', eAccount.category?.id, 'view']">{{eAccount.category?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/e-account', eAccount.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

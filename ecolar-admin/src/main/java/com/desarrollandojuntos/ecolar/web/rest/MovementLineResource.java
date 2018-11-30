@@ -28,7 +28,7 @@ public class MovementLineResource {
 
     private static final String ENTITY_NAME = "movementLine";
 
-    private final MovementLineRepository movementLineRepository;
+    private MovementLineRepository movementLineRepository;
 
     public MovementLineResource(MovementLineRepository movementLineRepository) {
         this.movementLineRepository = movementLineRepository;

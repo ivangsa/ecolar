@@ -28,7 +28,7 @@ public class UserPreferencesResource {
 
     private static final String ENTITY_NAME = "userPreferences";
 
-    private final UserPreferencesRepository userPreferencesRepository;
+    private UserPreferencesRepository userPreferencesRepository;
 
     public UserPreferencesResource(UserPreferencesRepository userPreferencesRepository) {
         this.userPreferencesRepository = userPreferencesRepository;

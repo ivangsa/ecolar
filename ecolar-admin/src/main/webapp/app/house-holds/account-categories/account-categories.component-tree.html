@@ -1,0 +1,18 @@
+<div *ngFor="let category of categories" class="list-group-item">
+    <div class="d-flex justify-content-between align-items-right" style="padding: 0.75rem 1.25rem;" >
+        <span title="{{category.path}}">{{category.name}}</span>
+        <span>
+            <a [routerLink]="['/house-hold', houseHoldId, 'categories', category.id]">Editar</a>
+            <a [routerLink]="['/house-hold', houseHoldId, 'categories', category.id, 'delete']">Borrar</a>
+            <button type="submit"
+                    [routerLink]="['/', { outlets: { popup: 'house-hold/' + houseHoldId + '/categories/' + category.id + '/delete'} }]"
+                    replaceUrl="true"
+                    queryParamsHandling="merge"
+                    class="btn btn-danger btn-sm">
+                <fa-icon [icon]="'times'"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+            </button>
+        </span>
+    </div>
+    <eco-account-category-tree [categories]="category.categories"  [houseHoldId]="houseHoldId" ></eco-account-category-tree>
+</div>
