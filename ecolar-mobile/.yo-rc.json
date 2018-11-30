@@ -1,0 +1,55 @@
+{
+  "generator-jhipster": {
+    "clientPackageManager": "npm",
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "enableHibernateCache": false,
+    "enableSwaggerCodegen": false,
+    "enableTranslation": true,
+    "jhiPrefix": "eco",
+    "languages": [
+      "en",
+      "es",
+      "gl"
+    ],
+    "messageBroker": false,
+    "nativeLanguage": "en",
+    "packageName": "com.desarrollandojuntos.ecolar",
+    "packageFolder": "com/desarrollandojuntos/ecolar",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": false,
+    "serviceDiscoveryType": false,
+    "skipClient": false,
+    "skipServer": false,
+    "testFrameworks": [],
+    "websocket": false,
+    "baseName": "ecolar",
+    "applicationType": "monolith",
+    "clientFramework": "angularX",
+    "buildTool": "maven",
+    "skipUserManagement": false,
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "serverPort": "8082",
+    "useSass": true,
+    "jwtSecretKey": "YzU3ZDNkYzdkMjBhMmQyNjZmZTNmNjBlZTJjNjk1ZTQ0NjNlOWRiNjljZjE0YTgyZWMyYjhhOGQ5YzAzZjBhOGIzNTZkNGQxYWNlYTFkMzU5NTExNDliOWNmMjU2Yzc3NTAwNDExMDA1ZDAyYmFlZGExZjljNjVkMDk0YjAzOTg=",
+    "jhipsterVersion": "5.7.0",
+    "otherModules": [
+      {
+        "name": "generator-jhipster-vuejs",
+        "version": "0.0.0"
+      }
+    ],
+    "blueprint": "generator-jhipster-vuejs",
+    "blueprintVersion": "0.0.0"
+  },
+  "generator-jhipster-vuejs": {
+    "jhipsterVersion": "5.5.0",
+    "applicationType": "monolith",
+    "baseName": "ecolar",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "enableTranslation": true,
+    "clientPackageManager": "npm"
+  }
+}

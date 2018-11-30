@@ -1,0 +1,41 @@
+import { Component, Vue } from 'vue-property-decorator';
+import { mixins } from 'vue-class-component';
+
+import LogsService from './LogsService';
+
+@Component
+export default class EcoLogs extends mixins(LogsService) {
+  private loggers: any[];
+  public filtered: string;
+  public orderProp: string;
+  public reverse: boolean;
+
+  public constructor() {
+    super();
+    this.loggers = [];
+    this.filtered = '';
+    this.orderProp = 'name';
+    this.reverse = false;
+  }
+
+  public mounted(): void {
+    this.init();
+  }
+
+  public init(): void {
+    this.findAll().then(response => {
+      this.loggers = response.data;
+    });
+  }
+
+  public updateLevel(name, level): void {
+    this.changeLevel({ name: name, level: level }).then(() => {
+      this.init();
+    });
+  }
+
+  public changeOrder(orderProp): void {
+    this.orderProp = orderProp;
+    this.reverse = !this.reverse;
+  }
+}
