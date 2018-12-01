@@ -4,6 +4,7 @@ import Vue from 'vue';
 import setupAxiosInterceptors from './config/axios-interceptor';
 import App from './App.vue';
 import router from './router';
+import store from './store/store';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Modal, Pagination, Progress } from 'bootstrap-vue/es/components';
 import * as config from './shared/config';
@@ -17,7 +18,6 @@ Vue.config.productionTip = false;
 setupAxiosInterceptors(() => console.log('Unauthorized!'));
 
 const i18n = config.initI18N(Vue);
-const store = config.initVueXStore(Vue);
 config.initVueApp(Vue);
 config.initBootstrapVue(Vue);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
