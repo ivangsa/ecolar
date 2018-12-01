@@ -1,0 +1,62 @@
+{
+    "name": "Category",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "path",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "parentId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "accountType",
+            "fieldType": "AccountType",
+            "fieldValues": "ASSETS,LIABILITIES,REVENUE,EXPENSE"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "accounts",
+            "otherEntityName": "eAccount",
+            "otherEntityRelationshipName": "category"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "parent",
+            "otherEntityName": "category",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "document",
+            "otherEntityName": "accountCategories",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "categories",
+            "otherEntityName": "category",
+            "otherEntityRelationshipName": "parent"
+        }
+    ],
+    "changelogDate": "20181201124753",
+    "javadoc": "Categoria",
+    "entityTableName": "category",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

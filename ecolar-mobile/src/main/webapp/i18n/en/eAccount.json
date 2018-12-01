@@ -1,0 +1,24 @@
+{
+  "ecolarApp": {
+    "eAccount": {
+      "home": {
+        "title": "E Accounts",
+        "createLabel": "Create a new E Account",
+        "createOrEditLabel": "Create or edit a E Account"
+      },
+      "created": "A new E Account is created with identifier {{ param }}",
+      "updated": "A E Account is updated with identifier {{ param }}",
+      "deleted": "A E Account is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete E Account {{ id }}?"
+      },
+      "detail": {
+        "title": "E Account"
+      },
+      "accountCode": "Account Code",
+      "accountName": "Account Name",
+      "type": "Type",
+      "category": "Category"
+    }
+  }
+}

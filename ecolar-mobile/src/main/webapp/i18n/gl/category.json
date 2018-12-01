@@ -1,0 +1,29 @@
+{
+  "ecolarApp": {
+    "category": {
+      "home": {
+        "title": "Categories",
+        "createLabel": "Crear novo Category",
+        "createOrEditLabel": "Crear ou editar Category"
+      },
+      "created": "Un novo Category foi creado co identificador {{ param }}",
+      "updated": "Un Category foi actualizado co identificador {{ param }}",
+      "deleted": "Un Category foi eliminado co identificador {{ param }}",
+      "delete": {
+        "question": "Seguro que desexa eliminar Category {{ id }}?"
+      },
+      "detail": {
+        "title": "Category"
+      },
+      "name": "Name",
+      "description": "Description",
+      "path": "Path",
+      "parentId": "Parent Id",
+      "accountType": "Account Type",
+      "accounts": "Accounts",
+      "parent": "Parent",
+      "document": "Document",
+      "categories": "Categories"
+    }
+  }
+}

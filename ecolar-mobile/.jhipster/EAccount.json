@@ -1,0 +1,36 @@
+{
+    "name": "EAccount",
+    "fields": [
+        {
+            "fieldName": "accountCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "accountName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "AccountType",
+            "fieldValues": "ASSETS,LIABILITIES,REVENUE,EXPENSE"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "category",
+            "otherEntityName": "category",
+            "otherEntityField": "name"
+        }
+    ],
+    "changelogDate": "20181201124756",
+    "javadoc": "Cuenta contable.",
+    "entityTableName": "e_account",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

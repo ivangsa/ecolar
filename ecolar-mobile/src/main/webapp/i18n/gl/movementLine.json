@@ -1,0 +1,23 @@
+{
+  "ecolarApp": {
+    "movementLine": {
+      "home": {
+        "title": "MovementLines",
+        "createLabel": "Crear novo Movement Line",
+        "createOrEditLabel": "Crear ou editar Movement Line"
+      },
+      "created": "Un novo Movement Line foi creado co identificador {{ param }}",
+      "updated": "Un Movement Line foi actualizado co identificador {{ param }}",
+      "deleted": "Un Movement Line foi eliminado co identificador {{ param }}",
+      "delete": {
+        "question": "Seguro que desexa eliminar Movement Line {{ id }}?"
+      },
+      "detail": {
+        "title": "Movement Line"
+      },
+      "amount": "Amount",
+      "eventType": "Event Type",
+      "account": "Account"
+    }
+  }
+}

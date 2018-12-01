@@ -25,6 +25,34 @@
                         <font-awesome-icon icon="th-list" />
                         <span v-text="$t('global.menu.entities.main')">Entities</span>
                     </template>
+                    <b-dropdown-item to="/entity/house-hold" class="dropdown-item" v-on:click="collapseNavbar()">
+                    <font-awesome-icon icon="asterisk" />
+                    <span v-text="$t('global.menu.entities.houseHold')">HouseHold</span>
+              </b-dropdown-item>
+                    <b-dropdown-item to="/entity/user-preferences" class="dropdown-item" v-on:click="collapseNavbar()">
+                    <font-awesome-icon icon="asterisk" />
+                    <span v-text="$t('global.menu.entities.userPreferences')">UserPreferences</span>
+              </b-dropdown-item>
+                    <b-dropdown-item to="/entity/account-categories" class="dropdown-item" v-on:click="collapseNavbar()">
+                    <font-awesome-icon icon="asterisk" />
+                    <span v-text="$t('global.menu.entities.accountCategories')">AccountCategories</span>
+              </b-dropdown-item>
+                    <b-dropdown-item to="/entity/category" class="dropdown-item" v-on:click="collapseNavbar()">
+                    <font-awesome-icon icon="asterisk" />
+                    <span v-text="$t('global.menu.entities.category')">Category</span>
+              </b-dropdown-item>
+                    <b-dropdown-item to="/entity/movement" class="dropdown-item" v-on:click="collapseNavbar()">
+                    <font-awesome-icon icon="asterisk" />
+                    <span v-text="$t('global.menu.entities.movement')">Movement</span>
+              </b-dropdown-item>
+                    <b-dropdown-item to="/entity/movement-line" class="dropdown-item" v-on:click="collapseNavbar()">
+                    <font-awesome-icon icon="asterisk" />
+                    <span v-text="$t('global.menu.entities.movementLine')">MovementLine</span>
+              </b-dropdown-item>
+                    <b-dropdown-item to="/entity/e-account" class="dropdown-item" v-on:click="collapseNavbar()">
+                    <font-awesome-icon icon="asterisk" />
+                    <span v-text="$t('global.menu.entities.eAccount')">EAccount</span>
+              </b-dropdown-item>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </b-nav-item-dropdown>
                 <b-nav-item-dropdown id="admin-menu" v-if="hasAnyAuthority('ROLE_ADMIN')">
