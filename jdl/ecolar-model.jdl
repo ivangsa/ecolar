@@ -54,6 +54,7 @@ relationship OneToMany {
  * Movimiento contable
  */
 entity Movement {
+    type AccountType,
 	eventTime Instant,
 	registrationTime Instant,
 	amount BigDecimal,
