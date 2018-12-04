@@ -4,7 +4,7 @@ import Vue from 'vue';
 import setupAxiosInterceptors from './config/axios-interceptor';
 import App from './App.vue';
 import router from './router';
-import store from './store/store';
+import store from './ecolar/store';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Modal, Pagination, Progress } from 'bootstrap-vue/es/components';
 import * as config from './shared/config';

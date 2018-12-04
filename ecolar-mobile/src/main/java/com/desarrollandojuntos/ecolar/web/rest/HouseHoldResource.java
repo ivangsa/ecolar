@@ -28,7 +28,7 @@ public class HouseHoldResource {
 
     private static final String ENTITY_NAME = "houseHold";
 
-    private final HouseHoldService houseHoldService;
+    private HouseHoldService houseHoldService;
 
     public HouseHoldResource(HouseHoldService houseHoldService) {
         this.houseHoldService = houseHoldService;

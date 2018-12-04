@@ -1,4 +1,4 @@
-import { integer, required, minLength, maxLength, pattern } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 import MovementLineService from './movement-line.service.vue';
 import EAccountService from '../e-account/e-account.service.vue';

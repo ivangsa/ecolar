@@ -28,7 +28,7 @@ public class EAccountResource {
 
     private static final String ENTITY_NAME = "eAccount";
 
-    private final EAccountRepository eAccountRepository;
+    private EAccountRepository eAccountRepository;
 
     public EAccountResource(EAccountRepository eAccountRepository) {
         this.eAccountRepository = eAccountRepository;

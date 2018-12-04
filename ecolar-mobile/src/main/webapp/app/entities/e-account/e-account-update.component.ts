@@ -1,4 +1,4 @@
-import { integer, required, minLength, maxLength, pattern } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 import EAccountService from './e-account.service.vue';
 import CategoryService from '../category/category.service.vue';

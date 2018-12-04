@@ -20,11 +20,19 @@
                         <span v-text="$t('global.menu.home')">Home</span>
                     </span>
                 </b-nav-item>
+
                 <b-nav-item-dropdown id="entity-menu" v-if="authenticated" class="pointer">
                     <template slot="button-content">
                         <font-awesome-icon icon="th-list" />
                         <span v-text="$t('global.menu.entities.main')">Entities</span>
                     </template>
+
+                    <b-dropdown-item to="/entity/movement/new" class="dropdown-item" v-on:click="collapseNavbar()">
+                    <font-awesome-icon icon="asterisk" />
+                    <span v-text="$t('ecolarApp.movement.home.createLabel')">Movement</span>
+                    </b-dropdown-item>
+
+
                     <b-dropdown-item to="/entity/house-hold" class="dropdown-item" v-on:click="collapseNavbar()">
                     <font-awesome-icon icon="asterisk" />
                     <span v-text="$t('global.menu.entities.houseHold')">HouseHold</span>

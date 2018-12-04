@@ -1,4 +1,4 @@
-import { integer, required, minLength, maxLength, pattern } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 import moment from 'moment';
 
 import MovementService from './movement.service.vue';

@@ -16,7 +16,7 @@ import {
 const ENTITY_STATES = [...userPreferencesRoute, ...userPreferencesPopupRoute];
 
 @NgModule({
-    imports: [EcolarSharedModule, EcolarModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [EcolarSharedModule, EcolarAdminModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         UserPreferencesComponent,
         UserPreferencesDetailComponent,

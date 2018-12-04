@@ -1,4 +1,4 @@
-import { integer, required, minLength, maxLength, pattern } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 import UserPreferencesService from './user-preferences.service.vue';
 import UserService from '../user/user.service.vue';

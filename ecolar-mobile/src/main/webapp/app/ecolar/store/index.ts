@@ -2,12 +2,7 @@ import Vue from 'vue';
 import Vuex, { MutationTree, GetterTree } from 'vuex';
 Vue.use(Vuex);
 
-import { HouseHoldStore } from './house-hold.store';
-import { IHouseHold, HouseHold } from '../model/house-hold.model';
-import { ICategory } from '../model/category.model';
-import { IEAccount } from '../model/e-account.model';
-import { IMovement } from '../model/movement.model';
-import { IMovementLine } from '../model/movement-line.model';
+import { NewMovementStore } from './new-movement.store';
 
 export interface RootState {
   logon: boolean;
@@ -46,6 +41,6 @@ export default new Vuex.Store({
   mutations,
   getters,
   modules: {
-    HouseHoldStore
+    NewMovementStore
   }
 });

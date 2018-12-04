@@ -21,7 +21,7 @@ public class MovementServiceImpl implements MovementService {
 
     private final Logger log = LoggerFactory.getLogger(MovementServiceImpl.class);
 
-    private final MovementRepository movementRepository;
+    private MovementRepository movementRepository;
 
     public MovementServiceImpl(MovementRepository movementRepository) {
         this.movementRepository = movementRepository;

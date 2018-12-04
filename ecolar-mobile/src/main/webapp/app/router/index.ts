@@ -1,4 +1,10 @@
 import Vue from 'vue';
+import Component from 'vue-class-component';
+Component.registerHooks([
+  'beforeRouteEnter',
+  'beforeRouteLeave',
+  'beforeRouteUpdate' // for vue-router 2.2+
+])
 import Router from 'vue-router';
 const Home = () => import('../components/home/Home.vue');
 const Register = () => import('../components/account/register/Register.vue');
@@ -19,6 +25,7 @@ const EcoUserManagementEditComponent = () => import('../components/admin/user-ma
 const HouseHold = () => import('../entities/house-hold/house-hold.vue');
 const HouseHoldUpdate = () => import('../entities/house-hold/house-hold-update.vue');
 const HouseHoldDetails = () => import('../entities/house-hold/house-hold-details.vue');
+const AddNewMovement = () => import('../ecolar/movement/add-movement.vue');
 // // prettier-ignore
 // const UserPreferences = () => import('../entities/user-preferences/user-preferences.vue');
 // const UserPreferencesUpdate = () => import('../entities/user-preferences/user-preferences-update.vue');
@@ -134,6 +141,7 @@ export default new Router({
     { path: '/entity/house-hold/new', name: 'HouseHoldCreate', component: HouseHoldUpdate },
     { path: '/entity/house-hold/:houseHoldId/edit', name: 'HouseHoldEdit', component: HouseHoldUpdate },
     { path: '/entity/house-hold/:houseHoldId/view', name: 'HouseHoldView', component: HouseHoldDetails }, // prettier-ignore
+    { path: '/entity/house-hold/:houseHoldId/movement/new', name: 'AddNewMovement', component: AddNewMovement },
     // { path: '/entity/user-preferences', name: 'UserPreferences', component: UserPreferences },
     // { path: '/entity/user-preferences/new', name: 'UserPreferencesCreate', component: UserPreferencesUpdate },
     // { path: '/entity/user-preferences/:userPreferencesId/edit', name: 'UserPreferencesEdit', component: UserPreferencesUpdate },

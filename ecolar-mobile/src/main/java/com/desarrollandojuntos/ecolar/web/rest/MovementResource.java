@@ -28,7 +28,7 @@ public class MovementResource {
 
     private static final String ENTITY_NAME = "movement";
 
-    private final MovementService movementService;
+    private MovementService movementService;
 
     public MovementResource(MovementService movementService) {
         this.movementService = movementService;
