@@ -68,8 +68,7 @@ public class HouseHoldServiceImpl implements HouseHoldService {
     }
 
     @Override
-    public List<Category> getCategoriesAsList(String houseHoldId){
-        HouseHold houseHold = findOne(houseHoldId).get();
+    public List<Category> getCategoriesAsList(HouseHold houseHold){
         return houseHold.getAccountCategories()
                 .buildCategoriesList(new ArrayList<>(), houseHold.getAccountCategories().getCategories());
     }
@@ -144,6 +143,92 @@ public class HouseHoldServiceImpl implements HouseHoldService {
         Set<EAccount> accounts = category.getAccounts();
         ObjectUtils.firstNonNull(newParent, root).getAccounts().addAll(accounts);
         return houseHoldRepository.save(houseHold);
+    }
+
+     /**
+     *
+     * @param houseHold
+     * @param account
+     * @return
+     */
+    public Optional<EAccount> findEAccount(HouseHold houseHold, String accountId) {
+        List<EAccount> accounts = getEAccountsAsList(houseHold);
+        for (EAccount account : accounts) {
+            if(account.getId().equals(accountId)){
+                return Optional.of(account);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     *
+     * @param houseHold
+     * @return
+     */
+    public List<EAccount> getEAccountsAsList(HouseHold houseHold) {
+        List<EAccount> accounts = new ArrayList<>();
+        List<Category> categories = getCategoriesAsList(houseHold);
+        for (Category category : categories) {
+            accounts.addAll(category.getAccounts());
+        }
+        return accounts;
+    }
+
+    /**
+     *
+     * @param houseHold
+     * @param account
+     * @return
+     */
+    @Override
+    public HouseHold saveEAccount(HouseHold houseHold, EAccount account) {
+        if(account.getId() == null) {
+            account.setId(System.currentTimeMillis());
+            addEAccount(houseHold, account);
+        } else {
+            updateEAccount(houseHold, account);
+        }
+        return houseHoldRepository.save(houseHold);
+    }
+
+    public HouseHold addEAccount(HouseHold houseHold, EAccount account) {
+        Optional<Category> parent = findCategory(houseHold, account.getCategoryId());
+        if(parent.isPresent()){
+            parent.get().addAccounts(account);
+        } else {
+            Category category = houseHold.getAccountCategories().getRootCategory(account.getType());
+            category.addAccounts(account);
+        }
+        return houseHold;
+    }
+
+    public HouseHold updateEAccount(HouseHold houseHold, EAccount account) {
+        EAccount original = findEAccount(houseHold, account.getId()).get();
+        if(!StringUtils.equals(account.getCategoryId(), original.getCategoryId())) {
+            Category originalCategory = findCategory(houseHold, original.getCategoryId()).get();
+            Category newCategory = findCategory(houseHold, account.getCategoryId()).get();
+            originalCategory.removeAccounts(account);
+            newCategory.addAccounts(account);
+
+        }
+        return houseHold;
+    }
+
+
+    /**
+     *
+     * @param houseHold
+     * @param accountId
+     * @return
+     */
+    public HouseHold removeEAccount(HouseHold houseHold, String accountId) {
+        Optional<EAccount> account = findEAccount(houseHold, accountId);
+        if(account.isPresent()) {
+            Category originalCategory = findCategory(houseHold, account.get().getCategoryId()).get();
+            originalCategory.removeAccounts(account.get());
+        }
+        return houseHold;
     }
 
     /**

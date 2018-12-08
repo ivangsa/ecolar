@@ -24,8 +24,8 @@ export class CategoryDeleteDialogComponent {
     confirmDelete(id: string) {
         this.categoryService.deleteCategory(this.houseHoldId, id).subscribe(response => {
             this.eventManager.broadcast({
-                name: 'categoryListModification',
-                content: 'Deleted an category'
+                name: 'categoryTreeModification',
+                content: response.body
             });
             this.activeModal.dismiss(true);
         });

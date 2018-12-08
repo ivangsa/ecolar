@@ -3,7 +3,12 @@
         <span title="{{category.path}}">{{category.name}}</span>
         <span>
             <a [routerLink]="['/house-hold', houseHoldId, 'categories', category.id]">Editar</a>
-            <a [routerLink]="['/house-hold', houseHoldId, 'categories', category.id, 'delete']">Borrar</a>
+            <button type="submit"
+                    [routerLink]="['/house-hold/' + houseHoldId + '/categories/' + category.id + '/e-accounts']"
+                    class="btn btn-primary btn-sm">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="ecolarApp.eAccount.home.title">E Accounts</span>
+            </button>
             <button type="submit"
                     [routerLink]="['/', { outlets: { popup: 'house-hold/' + houseHoldId + '/categories/' + category.id + '/delete'} }]"
                     replaceUrl="true"

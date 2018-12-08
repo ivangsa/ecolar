@@ -28,14 +28,23 @@ export class AccountCategoriesComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ houseHold }) => {
-            this.houseHold = houseHold;
-            this.categories = houseHold.accountCategories.categories;
+            this.reload(houseHold);
         });
+        this.registerChangeInAccountCategories();
     }
 
-    ngOnDestroy() {}
+    reload(houseHold: IHouseHold) {
+        this.houseHold = houseHold;
+        this.categories = houseHold.accountCategories.categories;
+    }
 
-    registerChangeInAccountCategories() {}
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
+    }
+
+    registerChangeInAccountCategories() {
+        this.eventSubscriber = this.eventManager.subscribe('categoryTreeModification', response => this.reload(response.content));
+    }
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);

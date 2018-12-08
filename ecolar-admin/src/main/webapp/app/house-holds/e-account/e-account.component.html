@@ -10,6 +10,12 @@
     </h2>
     <eco-alert></eco-alert>
     <br/>
+    <div class="form-group">
+        <label class="form-control-label" jhiTranslate="ecolarApp.e-account.category" for="category">Parent</label>
+        <select class="form-control" id="category" name="category" [(ngModel)]="category.parent" >
+            <option [ngValue]="categoryOption.id === categoryOption" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.name}}</option>
+        </select>
+    </div>
     <div class="table-responsive" *ngIf="eAccounts">
         <table class="table table-striped">
             <thead>
@@ -18,7 +24,6 @@
             <th><span jhiTranslate="ecolarApp.eAccount.accountCode">Account Code</span></th>
             <th><span jhiTranslate="ecolarApp.eAccount.accountName">Account Name</span></th>
             <th><span jhiTranslate="ecolarApp.eAccount.type">Type</span></th>
-            <th><span jhiTranslate="ecolarApp.eAccount.category">Category</span></th>
             <th></th>
             </tr>
             </thead>
@@ -28,19 +33,8 @@
                 <td>{{eAccount.accountCode}}</td>
                 <td>{{eAccount.accountName}}</td>
                 <td jhiTranslate="{{'ecolarApp.AccountType.' + eAccount.type}}">{{eAccount.type}}</td>
-                <td>
-                    <div *ngIf="eAccount.category">
-                        <a [routerLink]="['../category', eAccount.category?.id, 'view' ]" >{{eAccount.category?.name}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/e-account', eAccount.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
                         <button type="submit"
                                 [routerLink]="['/e-account', eAccount.id, 'edit']"
                                 class="btn btn-primary btn-sm">
