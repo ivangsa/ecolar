@@ -32,3 +32,25 @@ export class Category implements ICategory {
         public categories?: ICategory[]
     ) {}
 }
+
+export function findCategory(categories: ICategory[], id: string): ICategory {
+    for (const i in categories) {
+        let category: ICategory = categories[i];
+        if (category.id === id) {
+            return category;
+        }
+        category = findCategory(category.categories, id);
+        if (category != null) {
+            return category;
+        }
+    }
+    return null;
+}
+
+export function getAllEAccounts(category: ICategory): IEAccount[] {
+    const accounts: IEAccount[] = [...category.accounts];
+    for (const i in category.categories) {
+        accounts.push(...getAllEAccounts(category.categories[i]));
+    }
+    return accounts;
+}

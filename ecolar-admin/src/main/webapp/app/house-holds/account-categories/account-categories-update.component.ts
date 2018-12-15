@@ -4,16 +4,17 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 
-import { ICategory } from 'app/shared/model/category.model';
+import { ICategory, findCategory, Category } from 'app/shared/model/category.model';
 import { HouseHoldService } from '../house-hold.service';
 import { IAccountCategories } from 'app/shared/model/account-categories.model';
+import { IHouseHold } from 'app/shared/model/house-hold.model';
 
 @Component({
     selector: 'eco-category-update',
-    templateUrl: './category-update.component.html'
+    templateUrl: './account-categories-update.component.html'
 })
 export class CategoryUpdateComponent implements OnInit {
-    houseHoldId: string;
+    houseHold: IHouseHold;
     category: ICategory;
     categories: ICategory[];
     isSaving: boolean;
@@ -22,16 +23,14 @@ export class CategoryUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ category }) => {
-            this.category = category;
-            this.houseHoldId = this.activatedRoute.params._value['houseHoldId'];
+        this.activatedRoute.params.subscribe(params => {
+            console.log('CategoryUpdateComponent.params', params);
+            this.service.getAllCategories(params.houseHoldId).subscribe(res => (this.categories = res.body));
+            this.service.find(params.houseHoldId).subscribe(res => {
+                this.houseHold = res.body;
+                this.category = findCategory(this.houseHold.accountCategories.categories, params.categoryId) || new Category();
+            });
         });
-        this.service.getAllCategories(this.houseHoldId).subscribe(
-            (res: HttpResponse<ICategory[]>) => {
-                this.categories = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -41,9 +40,9 @@ export class CategoryUpdateComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.category.id !== undefined) {
-            this.subscribeToSaveResponse(this.service.updateCategory(this.houseHoldId, this.category));
+            this.subscribeToSaveResponse(this.service.updateCategory(this.houseHold.id, this.category));
         } else {
-            this.subscribeToSaveResponse(this.service.createCategory(this.houseHoldId, this.category));
+            this.subscribeToSaveResponse(this.service.createCategory(this.houseHold.id, this.category));
         }
     }
 

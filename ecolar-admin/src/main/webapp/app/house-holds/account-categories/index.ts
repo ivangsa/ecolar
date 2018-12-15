@@ -1,4 +1,3 @@
 export * from './account-categories.route';
 export * from './account-categories.component';
-export * from './category-update.component';
-export * from './category-delete-dialog.component';
+export * from './account-categories-update.component';

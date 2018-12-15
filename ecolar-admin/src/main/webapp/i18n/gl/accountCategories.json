@@ -4,7 +4,8 @@
             "home": {
                 "title": "AccountCategories",
                 "createLabel": "Crear novo Account Categories",
-                "createOrEditLabel": "Crear ou editar Account Categories"
+                "createOrEditLabel": "Crear ou editar Account Categories",
+                "editLabel": "Editar"
             },
             "created": "Un novo Account Categories foi creado co identificador {{ param }}",
             "updated": "Un Account Categories foi actualizado co identificador {{ param }}",

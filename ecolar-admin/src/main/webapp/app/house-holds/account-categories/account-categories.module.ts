@@ -6,7 +6,6 @@ import {
     AccountCategoriesComponent,
     AccountCategoryTreeComponent,
     CategoryUpdateComponent,
-    CategoryDeletePopupComponent,
     CategoryDeleteDialogComponent,
     categoryRoute,
     categoryPopupRoute
@@ -16,20 +15,8 @@ const ENTITY_STATES = [...categoryRoute, ...categoryPopupRoute];
 
 @NgModule({
     imports: [EcolarSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [
-        AccountCategoriesComponent,
-        AccountCategoryTreeComponent,
-        CategoryUpdateComponent,
-        CategoryDeleteDialogComponent,
-        CategoryDeletePopupComponent
-    ],
-    entryComponents: [
-        AccountCategoriesComponent,
-        AccountCategoryTreeComponent,
-        CategoryUpdateComponent,
-        CategoryDeleteDialogComponent,
-        CategoryDeletePopupComponent
-    ],
+    declarations: [AccountCategoriesComponent, AccountCategoryTreeComponent, CategoryUpdateComponent, CategoryDeleteDialogComponent],
+    entryComponents: [AccountCategoriesComponent, AccountCategoryTreeComponent, CategoryUpdateComponent, CategoryDeleteDialogComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EcolarAccountCategoriesModule {}
