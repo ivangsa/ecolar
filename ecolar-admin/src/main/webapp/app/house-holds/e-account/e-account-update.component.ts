@@ -4,39 +4,41 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 
-import { IEAccount } from 'app/shared/model/e-account.model';
-import { EAccountService } from './e-account.service';
-import { ICategory } from 'app/shared/model/category.model';
+import { IEAccount, EAccount } from 'app/shared/model/e-account.model';
+import { ICategory, getAllCategories, findCategory, findEAccount } from 'app/shared/model/category.model';
 import { HouseHoldService } from '../house-hold.service';
+import { IHouseHold } from 'app/shared/model/house-hold.model';
 
 @Component({
     selector: 'eco-e-account-update',
     templateUrl: './e-account-update.component.html'
 })
 export class EAccountUpdateComponent implements OnInit {
+    houseHold: IHouseHold;
     eAccount: IEAccount;
     isSaving: boolean;
 
     categories: ICategory[];
 
-    constructor(
-        private jhiAlertService: JhiAlertService,
-        private eAccountService: EAccountService,
-        private categoryService: HouseHoldService,
-        private activatedRoute: ActivatedRoute
-    ) {}
+    constructor(private jhiAlertService: JhiAlertService, private service: HouseHoldService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ eAccount }) => {
-            this.eAccount = eAccount;
+        this.activatedRoute.params.subscribe(params => {
+            console.log('EAccountUpdateComponent.params', params);
+            this.service.find(params.houseHoldId).subscribe(res => {
+                this.houseHold = res.body;
+                this.categories = getAllCategories(this.houseHold.accountCategories.categories);
+                if (params.accountId) {
+                    this.eAccount = findEAccount(this.houseHold, params.accountId);
+                } else {
+                    this.eAccount = new EAccount();
+                    const category = findCategory(this.categories, params.categoryId);
+                    this.eAccount.categoryId = category.id;
+                    this.eAccount.type = category.accountType;
+                }
+            });
         });
-        this.categoryService.query().subscribe(
-            (res: HttpResponse<ICategory[]>) => {
-                this.categories = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -46,9 +48,9 @@ export class EAccountUpdateComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.eAccount.id !== undefined) {
-            this.subscribeToSaveResponse(this.eAccountService.update(this.eAccount));
+            this.subscribeToSaveResponse(this.service.updateEAccount(this.houseHold.id, this.eAccount));
         } else {
-            this.subscribeToSaveResponse(this.eAccountService.create(this.eAccount));
+            this.subscribeToSaveResponse(this.service.createEAccount(this.houseHold.id, this.eAccount));
         }
     }
 

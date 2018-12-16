@@ -103,7 +103,7 @@ public class EAccount implements Serializable {
         return this;
     }
 
-    public void setCategory(String categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

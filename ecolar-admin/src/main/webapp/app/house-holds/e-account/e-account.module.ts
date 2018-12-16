@@ -2,28 +2,14 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { EcolarSharedModule } from 'app/shared';
-import {
-    EAccountComponent,
-    EAccountDetailComponent,
-    EAccountUpdateComponent,
-    EAccountDeletePopupComponent,
-    EAccountDeleteDialogComponent,
-    eAccountRoute,
-    eAccountPopupRoute
-} from './';
+import { EAccountComponent, EAccountUpdateComponent, EAccountDeleteDialogComponent, eAccountRoute } from './';
 
-const ENTITY_STATES = [...eAccountRoute, ...eAccountPopupRoute];
+const ENTITY_STATES = [...eAccountRoute];
 
 @NgModule({
     imports: [EcolarSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [
-        EAccountComponent,
-        EAccountDetailComponent,
-        EAccountUpdateComponent,
-        EAccountDeleteDialogComponent,
-        EAccountDeletePopupComponent
-    ],
-    entryComponents: [EAccountComponent, EAccountUpdateComponent, EAccountDeleteDialogComponent, EAccountDeletePopupComponent],
+    declarations: [EAccountComponent, EAccountUpdateComponent, EAccountDeleteDialogComponent],
+    entryComponents: [EAccountComponent, EAccountUpdateComponent, EAccountDeleteDialogComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EcolarEAccountModule {}

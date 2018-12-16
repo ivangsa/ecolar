@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="ecolarApp.eAccount.home.title">E Accounts</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-e-account" [routerLink]="['/e-account/new']">
+        <span jhiTranslate="ecolarApp.eAccount.home.title">E Accounts</span>'
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-e-account" [routerLink]="['/house-hold', houseHold?.id , 'e-account', 'new', {categoryId: categoryId}]">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="ecolarApp.eAccount.home.createLabel">
             Create new E Account
@@ -11,9 +11,9 @@
     <eco-alert></eco-alert>
     <br/>
     <div class="form-group">
-        <label class="form-control-label" jhiTranslate="ecolarApp.e-account.category" for="category">Parent</label>
-        <select class="form-control" id="category" name="category" [(ngModel)]="category.parent" >
-            <option [ngValue]="categoryOption.id === categoryOption" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.name}}</option>
+        <label class="form-control-label" jhiTranslate="ecolarApp.eAccount.category" for="category">Parent</label>
+        <select class="form-control" id="categoryId" name="categoryId" [(ngModel)]="categoryId" (change)="filterAccounts()" >
+            <option [ngValue]="categoryOption.id" *ngFor="let categoryOption of categories; trackBy: trackCategoryById">{{categoryOption.path}}</option>
         </select>
     </div>
     <div class="table-responsive" *ngIf="eAccounts">
@@ -21,30 +21,28 @@
             <thead>
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="ecolarApp.eAccount.accountCode">Account Code</span></th>
             <th><span jhiTranslate="ecolarApp.eAccount.accountName">Account Name</span></th>
+            <th><span jhiTranslate="ecolarApp.eAccount.category">Category</span></th>
             <th><span jhiTranslate="ecolarApp.eAccount.type">Type</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let eAccount of eAccounts ;trackBy: trackId">
-                <td><a [routerLink]="['/e-account', eAccount.id, 'view' ]">{{eAccount.id}}</a></td>
-                <td>{{eAccount.accountCode}}</td>
-                <td>{{eAccount.accountName}}</td>
+                <td><a [routerLink]="['/house-hold', houseHold.id , 'e-account', eAccount.id, 'edit']">{{eAccount.id}}</a></td>
+                <td>{{eAccount.accountCode}} {{eAccount.accountName}}</td>
+                <td>{{categoriesMap.get(eAccount.categoryId).path}}</td>
                 <td jhiTranslate="{{'ecolarApp.AccountType.' + eAccount.type}}">{{eAccount.type}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['/e-account', eAccount.id, 'edit']"
+                                [routerLink]="['/house-hold', houseHold.id , 'e-account', eAccount.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'e-account/'+ eAccount.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
+                                (click)="onDelete(eAccount.id)"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>

@@ -241,7 +241,7 @@ public class EAccountResourceIntTest {
         assertThat(eAccount1).isEqualTo(eAccount2);
         eAccount2.setId("id2");
         assertThat(eAccount1).isNotEqualTo(eAccount2);
-        eAccount1.setId(null);
+        eAccount1.setId((String) null);
         assertThat(eAccount1).isNotEqualTo(eAccount2);
     }
 }

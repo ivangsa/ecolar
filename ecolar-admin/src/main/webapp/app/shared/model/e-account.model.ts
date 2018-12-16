@@ -1,5 +1,3 @@
-import { ICategory } from 'app/shared/model//category.model';
-
 export const enum AccountType {
     ASSETS = 'ASSETS',
     LIABILITIES = 'LIABILITIES',
@@ -12,7 +10,7 @@ export interface IEAccount {
     accountCode?: string;
     accountName?: string;
     type?: AccountType;
-    category?: ICategory;
+    categoryId?: string;
 }
 
 export class EAccount implements IEAccount {
@@ -21,6 +19,6 @@ export class EAccount implements IEAccount {
         public accountCode?: string,
         public accountName?: string,
         public type?: AccountType,
-        public category?: ICategory
+        public categoryId?: string
     ) {}
 }

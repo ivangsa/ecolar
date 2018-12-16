@@ -4,7 +4,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 
-import { ICategory, findCategory, Category } from 'app/shared/model/category.model';
+import { ICategory, findCategory, Category, getAllCategories } from 'app/shared/model/category.model';
 import { HouseHoldService } from '../house-hold.service';
 import { IAccountCategories } from 'app/shared/model/account-categories.model';
 import { IHouseHold } from 'app/shared/model/house-hold.model';
@@ -25,9 +25,9 @@ export class CategoryUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.params.subscribe(params => {
             console.log('CategoryUpdateComponent.params', params);
-            this.service.getAllCategories(params.houseHoldId).subscribe(res => (this.categories = res.body));
             this.service.find(params.houseHoldId).subscribe(res => {
                 this.houseHold = res.body;
+                this.categories = getAllCategories(this.houseHold.accountCategories.categories);
                 this.category = findCategory(this.houseHold.accountCategories.categories, params.categoryId) || new Category();
             });
         });

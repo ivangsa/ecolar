@@ -166,13 +166,13 @@ public class Category implements Serializable {
 
     public Category addAccounts(EAccount eAccount) {
         this.accounts.add(eAccount);
-        eAccount.setCategory(this);
+        eAccount.setCategoryId(this.getId());
         return this;
     }
 
     public Category removeAccounts(EAccount eAccount) {
         this.accounts.remove(eAccount);
-        eAccount.setCategory(null);
+        eAccount.setCategoryId(null);
         return this;
     }
 

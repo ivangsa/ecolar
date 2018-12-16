@@ -2,16 +2,9 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { EcolarSharedModule } from 'app/shared';
-import {
-    AccountCategoriesComponent,
-    AccountCategoryTreeComponent,
-    CategoryUpdateComponent,
-    CategoryDeleteDialogComponent,
-    categoryRoute,
-    categoryPopupRoute
-} from '.';
+import { AccountCategoriesComponent, AccountCategoryTreeComponent, CategoryUpdateComponent, CategoryDeleteDialogComponent, categoryRoute } from '.';
 
-const ENTITY_STATES = [...categoryRoute, ...categoryPopupRoute];
+const ENTITY_STATES = [...categoryRoute];
 
 @NgModule({
     imports: [EcolarSharedModule, RouterModule.forChild(ENTITY_STATES)],
