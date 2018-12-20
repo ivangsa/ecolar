@@ -1,6 +1,6 @@
 import { mixins } from 'vue-class-component';
 import { Component, Inject } from 'vue-property-decorator';
-import Principal from '@/components/account/principal';
+import Principal from '@/account/principal';
 import { IHouseHold } from '@/shared/model/house-hold.model';
 
 import HouseHoldService from './house-hold.service';

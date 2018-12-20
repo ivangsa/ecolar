@@ -4,9 +4,9 @@ import Component, { mixins } from 'vue-class-component';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class'
 
 import { NewMovementState } from '../store/new-movement.store';
-import { IMovement, Movement } from '../model/movement.model';
-import { IMovementLine, LineType } from '../model/movement-line.model';
-import { ICategory, AccountType } from '../model/category.model';
+import { IMovement, Movement } from '@/shared/model/movement.model';
+import { IMovementLine, LineType } from '@/shared/model/movement-line.model';
+import { ICategory, AccountType } from '@/shared/model/category.model';
 import { Prop } from 'vue-property-decorator';
 
 const NewMovementStore = namespace('NewMovementStore')

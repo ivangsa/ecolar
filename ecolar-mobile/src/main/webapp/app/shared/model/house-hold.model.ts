@@ -1,5 +1,5 @@
 import { IAccountCategories } from '@/shared/model//account-categories.model';
-import { IUser } from '@/shared/model//user.model';
+import { IUser } from '@/core/user/user.model';
 
 export interface IHouseHold {
     id?: string;

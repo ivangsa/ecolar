@@ -32,7 +32,7 @@ The `npm run` command will list all of the scripts available to run for this pro
 
 Service workers are commented by default, to enable them please uncomment the following code.
 
-- The service worker registering script in index.html
+-   The service worker registering script in index.html
 
 ```html
 <script>

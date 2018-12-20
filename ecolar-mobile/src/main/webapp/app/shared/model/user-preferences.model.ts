@@ -1,4 +1,4 @@
-import { IUser } from '@/shared/model/user.model';
+import { IUser } from '@/core/user/user.model';
 
 export interface IUserPreferences {
     id?: string;

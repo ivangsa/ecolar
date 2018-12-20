@@ -1,6 +1,6 @@
 import { mixins } from 'vue-class-component';
 import { Component, Inject } from 'vue-property-decorator';
-import Principal from '@/components/account/principal';
+import Principal from '@/account/principal';
 import { IEAccount } from '@/shared/model/e-account.model';
 
 import EAccountService from './e-account.service';

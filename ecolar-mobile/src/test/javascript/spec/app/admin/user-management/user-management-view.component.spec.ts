@@ -3,9 +3,9 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import * as config from '@/shared/config';
-import UserManagementView from '@/components/admin/user-management/user-management-view.vue';
-import UserManagementViewClass from '@/components/admin/user-management/user-management-view.component';
-import UserManagementService from '@/components/admin/user-management/user-management.service';
+import UserManagementView from '@/admin/user-management/user-management-view.vue';
+import UserManagementViewClass from '@/admin/user-management/user-management-view.component';
+import UserManagementService from '@/admin/user-management/user-management.service';
 
 const localVue = createLocalVue();
 const mockedAxios: any = axios;
@@ -18,55 +18,55 @@ localVue.component('b-badge', {});
 localVue.component('router-link', {});
 
 jest.mock('axios', () => ({
-  get: jest.fn(),
-  put: jest.fn()
+    get: jest.fn(),
+    put: jest.fn()
 }));
 
 describe('UserManagementView Component', () => {
-  let wrapper: Wrapper<UserManagementViewClass>;
-  let userManagementView: UserManagementViewClass;
+    let wrapper: Wrapper<UserManagementViewClass>;
+    let userManagementView: UserManagementViewClass;
 
-  beforeEach(() => {
-    wrapper = shallowMount<UserManagementViewClass>(UserManagementView, {
-      store,
-      i18n,
-      localVue,
-      provide: { userService: () => new UserManagementService() }
+    beforeEach(() => {
+        wrapper = shallowMount<UserManagementViewClass>(UserManagementView, {
+            store,
+            i18n,
+            localVue,
+            provide: { userService: () => new UserManagementService() }
+        });
+        userManagementView = wrapper.vm;
     });
-    userManagementView = wrapper.vm;
-  });
 
-  it('should be a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBeTruthy();
-  });
-
-  describe('OnInit', () => {
-    it('Should call load all on init', async () => {
-      // GIVEN
-      const userData = {
-        id: 1,
-        login: 'user',
-        firstName: 'first',
-        lastName: 'last',
-        email: 'first@last.com',
-        activated: true,
-        langKey: 'en',
-        authorities: ['ROLE_USER'],
-        createdBy: 'admin',
-        createdDate: null,
-        lastModifiedBy: null,
-        lastModifiedDate: null,
-        password: null
-      };
-      mockedAxios.get.mockReturnValue(Promise.resolve({ data: userData }));
-
-      // WHEN
-      userManagementView.init(1);
-      await userManagementView.$nextTick();
-
-      // THEN
-      expect(mockedAxios.get).toHaveBeenCalledWith(`api/users/1`);
-      expect(userManagementView.user).toEqual(userData);
+    it('should be a Vue instance', () => {
+        expect(wrapper.isVueInstance()).toBeTruthy();
     });
-  });
+
+    describe('OnInit', () => {
+        it('Should call load all on init', async () => {
+            // GIVEN
+            const userData = {
+                id: 1,
+                login: 'user',
+                firstName: 'first',
+                lastName: 'last',
+                email: 'first@last.com',
+                activated: true,
+                langKey: 'en',
+                authorities: ['ROLE_USER'],
+                createdBy: 'admin',
+                createdDate: null,
+                lastModifiedBy: null,
+                lastModifiedDate: null,
+                password: null
+            };
+            mockedAxios.get.mockReturnValue(Promise.resolve({ data: userData }));
+
+            // WHEN
+            userManagementView.init(1);
+            await userManagementView.$nextTick();
+
+            // THEN
+            expect(mockedAxios.get).toHaveBeenCalledWith(`api/users/1`);
+            expect(userManagementView.user).toEqual(userData);
+        });
+    });
 });

@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import axios, {AxiosPromise} from 'axios';
-import { IHouseHold } from '../model/house-hold.model';
-import { ICategory } from '../model/category.model';
+import { IHouseHold } from '@/shared/model/house-hold.model';
+import { ICategory } from '@/shared/model/category.model';
 
 const baseApiUrl = 'api/house-holds';
 

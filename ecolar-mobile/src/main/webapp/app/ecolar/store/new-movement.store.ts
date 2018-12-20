@@ -1,11 +1,11 @@
 import Vuex, { StoreOptions, MutationTree, Module } from 'vuex';
 
 import { RootState } from '.'
-import { IHouseHold, HouseHold } from '../model/house-hold.model';
-import { ICategory, AccountType } from '../model/category.model';
-import { IEAccount } from '../model/e-account.model';
-import { IMovement } from '../model/movement.model';
-import { IMovementLine, LineType } from '../model/movement-line.model';
+import { IHouseHold, HouseHold } from '@/shared/model/house-hold.model';
+import { ICategory, AccountType } from '@/shared/model/category.model';
+import { IEAccount } from '@/shared/model/e-account.model';
+import { IMovement } from '@/shared/model/movement.model';
+import { IMovementLine, LineType } from '@/shared/model/movement-line.model';
 
 export interface NewMovementState {
   houseHold: IHouseHold;

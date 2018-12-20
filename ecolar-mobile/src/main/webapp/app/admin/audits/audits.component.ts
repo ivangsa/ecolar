@@ -1,0 +1,107 @@
+import moment from 'moment';
+import AuditsService from './audits.service';
+import { Component, Inject, Vue } from 'vue-property-decorator';
+
+@Component
+export default class EcoAudits extends Vue {
+    public audits: any;
+    public fromDate: any;
+    public itemsPerPage: number;
+    public queryCount: any;
+    public page: number;
+    public previousPage: number;
+    public propOrder: String;
+    public predicate: String;
+    public reverse: boolean;
+    public toDate: any;
+    public totalItems: number;
+    @Inject('auditsService') private auditsService: () => AuditsService;
+
+    constructor() {
+        super();
+        this.audits = [];
+        this.fromDate = null;
+        this.itemsPerPage = 20;
+        this.queryCount = null;
+        this.page = 1;
+        this.previousPage = null;
+        this.propOrder = 'auditEventDate';
+        this.predicate = 'timestamp';
+        this.reverse = false;
+        this.toDate = null;
+        this.totalItems = 0;
+    }
+
+    public mounted(): void {
+        this.init();
+    }
+
+    public init(): void {
+        this.today();
+        this.previousMonth();
+        this.loadAll();
+    }
+
+    public previousMonth(): void {
+        const dateFormat = 'YYYY-MM-DD';
+        let fromDate = new Date();
+
+        if (fromDate.getMonth() === 0) {
+            fromDate = new Date(fromDate.getFullYear() - 1, 11, fromDate.getDate());
+        } else {
+            fromDate = new Date(fromDate.getFullYear(), fromDate.getMonth() - 1, fromDate.getDate());
+        }
+
+        this.fromDate = moment(fromDate).format(dateFormat);
+    }
+
+    public today(): void {
+        const dateFormat = 'YYYY-MM-DD';
+        // Today + 1 day - needed if the current day must be included
+        const today = new Date();
+        today.setDate(today.getDate() + 1);
+        const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        this.toDate = moment(date).format(dateFormat);
+    }
+
+    public loadAll(): void {
+        if (this.fromDate && this.toDate) {
+            this.auditsService()
+                .query({
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort(),
+                    fromDate: this.fromDate,
+                    toDate: this.toDate
+                })
+                .then(res => {
+                    this.audits = res.data;
+                    this.totalItems = Number(res.headers['x-total-count']);
+                    this.queryCount = this.totalItems;
+                });
+        }
+    }
+
+    public sort(): any {
+        const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
+        result.push('id');
+        return result;
+    }
+
+    public loadPage(page): void {
+        if (page !== this.previousPage) {
+            this.previousPage = page;
+            this.transition();
+        }
+    }
+
+    public transition(): void {
+        this.loadAll();
+    }
+
+    public changeOrder(propOrder: String, predicate: String): void {
+        this.propOrder = propOrder;
+        this.predicate = predicate;
+        this.reverse = !this.reverse;
+    }
+}

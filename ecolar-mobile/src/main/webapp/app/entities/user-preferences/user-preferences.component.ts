@@ -1,6 +1,6 @@
 import { mixins } from 'vue-class-component';
 import { Component, Inject } from 'vue-property-decorator';
-import Principal from '@/components/account/principal';
+import Principal from '@/account/principal';
 import { IUserPreferences } from '@/shared/model/user-preferences.model';
 
 import UserPreferencesService from './user-preferences.service';

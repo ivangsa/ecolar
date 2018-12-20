@@ -2,7 +2,7 @@ import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
-import UserService from '@/components/admin/user-management/user-management.service';
+import UserService from '@/admin/user-management/user-management.service';
 
 import { IUserPreferences } from '@/shared/model/user-preferences.model';
 import UserPreferencesService from './user-preferences.service';

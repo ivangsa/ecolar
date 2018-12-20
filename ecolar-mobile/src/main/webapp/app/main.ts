@@ -8,18 +8,18 @@ import router from './router';
 import store from './ecolar/store';
 import * as config from './shared/config';
 import JhiItemCountComponent from './shared/jhi-item-count.vue';
-import AuditsService from './components/admin/audits/audits.service';
-import HealthService from './components/admin/health/health.service';
-import LoginModalService from './components/account/login-modal.service';
-import MetricsService from './components/admin/metrics/metrics.service';
-import RegisterService from './components/account/register/register.service';
-import LogsService from './components/admin/logs/logs.service';
+import AuditsService from './admin/audits/audits.service';
+import HealthService from './admin/health/health.service';
+import LoginModalService from './account/login-modal.service';
+import MetricsService from './admin/metrics/metrics.service';
+import RegisterService from './account/register/register.service';
+import LogsService from './admin/logs/logs.service';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import TranslationService from '@/locale/translation.service';
-import UserManagementService from '@/components/admin/user-management/user-management.service';
-import ConfigurationService from '@/components/admin/configuration/configuration.service';
+import UserManagementService from '@/admin/user-management/user-management.service';
+import ConfigurationService from '@/admin/configuration/configuration.service';
 
 import HouseHoldService from '@/entities/house-hold/house-hold.service';
 import UserPreferencesService from '@/entities/user-preferences/user-preferences.service';
@@ -84,7 +84,7 @@ new Vue({
         categoryService: () => categoryService,
         movementService: () => movementService,
         movementLineService: () => movementLineService,
-        eAccountService: () => eAccountService
+        eAccountService: () => eAccountService,
         // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     },
     i18n,

@@ -5,7 +5,7 @@ import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validator
 import AccountCategoriesService from '../account-categories/account-categories.service';
 import { IAccountCategories } from '@/shared/model/account-categories.model';
 
-import UserService from '@/components/admin/user-management/user-management.service';
+import UserService from '@/admin/user-management/user-management.service';
 
 import { IHouseHold } from '@/shared/model/house-hold.model';
 import HouseHoldService from './house-hold.service';
