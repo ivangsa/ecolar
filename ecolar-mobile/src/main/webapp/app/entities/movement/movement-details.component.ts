@@ -3,24 +3,17 @@ import { Component, Vue, Inject } from 'vue-property-decorator';
 import { IMovement } from '@/shared/model/movement.model';
 import MovementService from './movement.service';
 
-const beforeRouteEnter = (to, from, next) => {
-    next(vm => {
-        if (to.params.movementId) {
-            vm.retrieveMovement(to.params.movementId);
-        }
-    });
-};
-
-@Component({
-    beforeRouteEnter
-})
+@Component
 export default class MovementDetails extends Vue {
     @Inject('movementService') private movementService: () => MovementService;
-    public movement: IMovement;
+    public movement: IMovement = {};
 
-    constructor() {
-        super();
-        this.movement = {};
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.movementId) {
+                vm.retrieveMovement(to.params.movementId);
+            }
+        });
     }
 
     public retrieveMovement(movementId) {

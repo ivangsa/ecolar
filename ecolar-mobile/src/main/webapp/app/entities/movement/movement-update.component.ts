@@ -18,38 +18,25 @@ const validations: any = {
         location: {}
     }
 };
-const beforeRouteEnter = (to, from, next) => {
-    next(vm => {
-        if (to.params.movementId) {
-            vm.retrieveMovement(to.params.movementId);
-        }
-        vm.initRelationships();
-    });
-};
 
 @Component({
-    validations,
-    beforeRouteEnter
+    validations
 })
 export default class MovementUpdate extends Vue {
     @Inject('movementService') private movementService: () => MovementService;
-    public movement: IMovement;
+    public movement: IMovement = {};
 
     @Inject('movementLineService') private movementLineService: () => MovementLineService;
-    public movementLines: IMovementLine[];
-    public isSaving: boolean;
+    public movementLines: IMovementLine[] = [];
+    public isSaving: boolean = false;
 
-    constructor() {
-        super();
-        this.movement = {
-            type: null,
-            eventTime: null,
-            registrationTime: null,
-            amount: null,
-            location: null
-        };
-        this.movementLines = [];
-        this.isSaving = false;
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.movementId) {
+                vm.retrieveMovement(to.params.movementId);
+            }
+            vm.initRelationships();
+        });
     }
 
     public save(): void {

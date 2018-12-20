@@ -15,36 +15,25 @@ const validations: any = {
         type: {}
     }
 };
-const beforeRouteEnter = (to, from, next) => {
-    next(vm => {
-        if (to.params.eAccountId) {
-            vm.retrieveEAccount(to.params.eAccountId);
-        }
-        vm.initRelationships();
-    });
-};
 
 @Component({
-    validations,
-    beforeRouteEnter
+    validations
 })
 export default class EAccountUpdate extends Vue {
     @Inject('eAccountService') private eAccountService: () => EAccountService;
-    public eAccount: IEAccount;
+    public eAccount: IEAccount = {};
 
     @Inject('categoryService') private categoryService: () => CategoryService;
-    public categories: ICategory[];
-    public isSaving: boolean;
+    public categories: ICategory[] = [];
+    public isSaving: boolean = false;
 
-    constructor() {
-        super();
-        this.eAccount = {
-            accountCode: null,
-            accountName: null,
-            type: null
-        };
-        this.categories = [];
-        this.isSaving = false;
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.eAccountId) {
+                vm.retrieveEAccount(to.params.eAccountId);
+            }
+            vm.initRelationships();
+        });
     }
 
     public save(): void {

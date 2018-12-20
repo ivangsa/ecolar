@@ -20,46 +20,30 @@ const validations: any = {
         accountType: {}
     }
 };
-const beforeRouteEnter = (to, from, next) => {
-    next(vm => {
-        if (to.params.categoryId) {
-            vm.retrieveCategory(to.params.categoryId);
-        }
-        vm.initRelationships();
-    });
-};
 
 @Component({
-    validations,
-    beforeRouteEnter
+    validations
 })
 export default class CategoryUpdate extends Vue {
     @Inject('categoryService') private categoryService: () => CategoryService;
-    public category: ICategory;
+    public category: ICategory = {};
 
     @Inject('eAccountService') private eAccountService: () => EAccountService;
-    public eAccounts: IEAccount[];
-    public categories: ICategory[];
+    public eAccounts: IEAccount[] = [];
+    public categories: ICategory[] = [];
 
     @Inject('accountCategoriesService') private accountCategoriesService: () => AccountCategoriesService;
-    public accountCategories: IAccountCategories[];
-    public isSaving: boolean;
+    public accountCategories: IAccountCategories[] = [];
+    //public categories: ICategory[] = [];
+    public isSaving: boolean = false;
 
-    constructor() {
-        super();
-        this.category = {
-            name: null,
-            description: null,
-            path: null,
-            parentId: null,
-            accountType: null,
-            categories: []
-        };
-        this.eAccounts = [];
-        this.categories = [];
-        this.accountCategories = [];
-        this.categories = [];
-        this.isSaving = false;
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.categoryId) {
+                vm.retrieveCategory(to.params.categoryId);
+            }
+            vm.initRelationships();
+        });
     }
 
     public save(): void {

@@ -3,24 +3,17 @@ import { Component, Vue, Inject } from 'vue-property-decorator';
 import { IUserPreferences } from '@/shared/model/user-preferences.model';
 import UserPreferencesService from './user-preferences.service';
 
-const beforeRouteEnter = (to, from, next) => {
-    next(vm => {
-        if (to.params.userPreferencesId) {
-            vm.retrieveUserPreferences(to.params.userPreferencesId);
-        }
-    });
-};
-
-@Component({
-    beforeRouteEnter
-})
+@Component
 export default class UserPreferencesDetails extends Vue {
     @Inject('userPreferencesService') private userPreferencesService: () => UserPreferencesService;
-    public userPreferences: IUserPreferences;
+    public userPreferences: IUserPreferences = {};
 
-    constructor() {
-        super();
-        this.userPreferences = {};
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.userPreferencesId) {
+                vm.retrieveUserPreferences(to.params.userPreferencesId);
+            }
+        });
     }
 
     public retrieveUserPreferences(userPreferencesId) {

@@ -8,14 +8,8 @@ import MovementLineService from './movement-line.service';
 @Component
 export default class MovementLine extends mixins(Principal) {
     @Inject('movementLineService') private movementLineService: () => MovementLineService;
-    private removeId: string;
-    public movementLines: IMovementLine[];
-
-    constructor() {
-        super();
-        this.movementLines = [];
-        this.removeId = null;
-    }
+    private removeId: string = null;
+    public movementLines: IMovementLine[] = [];
 
     public mounted(): void {
         this.retrieveAllMovementLines();

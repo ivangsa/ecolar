@@ -8,14 +8,8 @@ import MovementService from './movement.service';
 @Component
 export default class Movement extends mixins(Principal) {
     @Inject('movementService') private movementService: () => MovementService;
-    private removeId: string;
-    public movements: IMovement[];
-
-    constructor() {
-        super();
-        this.movements = [];
-        this.removeId = null;
-    }
+    private removeId: string = null;
+    public movements: IMovement[] = [];
 
     public mounted(): void {
         this.retrieveAllMovements();

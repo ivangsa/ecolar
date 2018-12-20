@@ -14,37 +14,28 @@ import AccountCategoriesService from './account-categories.service';
 const validations: any = {
     accountCategories: {}
 };
-const beforeRouteEnter = (to, from, next) => {
-    next(vm => {
-        if (to.params.accountCategoriesId) {
-            vm.retrieveAccountCategories(to.params.accountCategoriesId);
-        }
-        vm.initRelationships();
-    });
-};
 
 @Component({
-    validations,
-    beforeRouteEnter
+    validations
 })
 export default class AccountCategoriesUpdate extends Vue {
     @Inject('accountCategoriesService') private accountCategoriesService: () => AccountCategoriesService;
-    public accountCategories: IAccountCategories;
+    public accountCategories: IAccountCategories = {};
 
     @Inject('categoryService') private categoryService: () => CategoryService;
-    public categories: ICategory[];
+    public categories: ICategory[] = [];
 
     @Inject('houseHoldService') private houseHoldService: () => HouseHoldService;
-    public houseHolds: IHouseHold[];
-    public isSaving: boolean;
+    public houseHolds: IHouseHold[] = [];
+    public isSaving: boolean = false;
 
-    constructor() {
-        super();
-        this.accountCategories = {
-            categories: [],
-        };
-        this.categories = [];
-        this.isSaving = false;
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.accountCategoriesId) {
+                vm.retrieveAccountCategories(to.params.accountCategoriesId);
+            }
+            vm.initRelationships();
+        });
     }
 
     public save(): void {

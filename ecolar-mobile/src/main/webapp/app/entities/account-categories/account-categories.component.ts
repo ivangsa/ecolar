@@ -8,14 +8,8 @@ import AccountCategoriesService from './account-categories.service';
 @Component
 export default class AccountCategories extends mixins(Principal) {
     @Inject('accountCategoriesService') private accountCategoriesService: () => AccountCategoriesService;
-    private removeId: string;
-    public accountCategories: IAccountCategories[];
-
-    constructor() {
-        super();
-        this.accountCategories = [];
-        this.removeId = null;
-    }
+    private removeId: string = null;
+    public accountCategories: IAccountCategories[] = [];
 
     public mounted(): void {
         this.retrieveAllAccountCategoriess();

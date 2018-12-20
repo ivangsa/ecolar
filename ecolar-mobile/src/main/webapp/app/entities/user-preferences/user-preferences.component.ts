@@ -8,14 +8,8 @@ import UserPreferencesService from './user-preferences.service';
 @Component
 export default class UserPreferences extends mixins(Principal) {
     @Inject('userPreferencesService') private userPreferencesService: () => UserPreferencesService;
-    private removeId: string;
-    public userPreferences: IUserPreferences[];
-
-    constructor() {
-        super();
-        this.userPreferences = [];
-        this.removeId = null;
-    }
+    private removeId: string = null;
+    public userPreferences: IUserPreferences[] = [];
 
     public mounted(): void {
         this.retrieveAllUserPreferencess();

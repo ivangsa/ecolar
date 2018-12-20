@@ -8,14 +8,8 @@ import HouseHoldService from './house-hold.service';
 @Component
 export default class HouseHold extends mixins(Principal) {
     @Inject('houseHoldService') private houseHoldService: () => HouseHoldService;
-    private removeId: string;
-    public houseHolds: IHouseHold[];
-
-    constructor() {
-        super();
-        this.houseHolds = [];
-        this.removeId = null;
-    }
+    private removeId: string = null;
+    public houseHolds: IHouseHold[] = [];
 
     public mounted(): void {
         this.retrieveAllHouseHolds();

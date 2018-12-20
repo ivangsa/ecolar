@@ -15,39 +15,28 @@ const validations: any = {
         name: {}
     }
 };
-const beforeRouteEnter = (to, from, next) => {
-    next(vm => {
-        if (to.params.houseHoldId) {
-            vm.retrieveHouseHold(to.params.houseHoldId);
-        }
-        vm.initRelationships();
-    });
-};
 
 @Component({
-    validations,
-    beforeRouteEnter
+    validations
 })
 export default class HouseHoldUpdate extends Vue {
     @Inject('houseHoldService') private houseHoldService: () => HouseHoldService;
-    public houseHold: IHouseHold;
+    public houseHold: IHouseHold = {};
 
     @Inject('accountCategoriesService') private accountCategoriesService: () => AccountCategoriesService;
-    public accountCategories: IAccountCategories[];
+    public accountCategories: IAccountCategories[] = [];
 
     @Inject('userService') private userService: () => UserService;
-    public users: Array<any>;
-    public isSaving: boolean;
+    public users: Array<any> = [];
+    public isSaving: boolean = false;
 
-    constructor() {
-        super();
-        this.houseHold = {
-            name: null,
-            members: []
-        };
-        this.accountCategories = [];
-        this.users = [];
-        this.isSaving = false;
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.houseHoldId) {
+                vm.retrieveHouseHold(to.params.houseHoldId);
+            }
+            vm.initRelationships();
+        });
     }
 
     public save(): void {

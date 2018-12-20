@@ -3,7 +3,7 @@
         <div class="col-8">
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
                 <h2 id="ecolarApp.houseHold.home.createOrEditLabel" v-text="$t('ecolarApp.houseHold.home.createOrEditLabel')">Create or edit a HouseHold</h2>
-                <div>
+                <div v-if="houseHold">
                     <!--<jhi-alert-error></jhi-alert-error>-->
                     <div class="form-group" v-if="houseHold.id">
                         <label for="id" v-text="$t('global.field.id')">ID</label>

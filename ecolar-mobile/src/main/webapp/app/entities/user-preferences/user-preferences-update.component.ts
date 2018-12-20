@@ -10,32 +10,25 @@ import UserPreferencesService from './user-preferences.service';
 const validations: any = {
     userPreferences: {}
 };
-const beforeRouteEnter = (to, from, next) => {
-    next(vm => {
-        if (to.params.userPreferencesId) {
-            vm.retrieveUserPreferences(to.params.userPreferencesId);
-        }
-        vm.initRelationships();
-    });
-};
 
 @Component({
-    validations,
-    beforeRouteEnter
+    validations
 })
 export default class UserPreferencesUpdate extends Vue {
     @Inject('userPreferencesService') private userPreferencesService: () => UserPreferencesService;
-    public userPreferences: IUserPreferences;
+    public userPreferences: IUserPreferences = {};
 
     @Inject('userService') private userService: () => UserService;
-    public users: Array<any>;
-    public isSaving: boolean;
+    public users: Array<any> = [];
+    public isSaving: boolean = false;
 
-    constructor() {
-        super();
-        this.userPreferences = {};
-        this.users = [];
-        this.isSaving = false;
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.userPreferencesId) {
+                vm.retrieveUserPreferences(to.params.userPreferencesId);
+            }
+            vm.initRelationships();
+        });
     }
 
     public save(): void {

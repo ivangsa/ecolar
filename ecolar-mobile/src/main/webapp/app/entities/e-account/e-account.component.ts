@@ -8,14 +8,8 @@ import EAccountService from './e-account.service';
 @Component
 export default class EAccount extends mixins(Principal) {
     @Inject('eAccountService') private eAccountService: () => EAccountService;
-    private removeId: string;
-    public eAccounts: IEAccount[];
-
-    constructor() {
-        super();
-        this.eAccounts = [];
-        this.removeId = null;
-    }
+    private removeId: string = null;
+    public eAccounts: IEAccount[] = [];
 
     public mounted(): void {
         this.retrieveAllEAccounts();

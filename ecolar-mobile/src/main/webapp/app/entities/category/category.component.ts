@@ -8,14 +8,8 @@ import CategoryService from './category.service';
 @Component
 export default class Category extends mixins(Principal) {
     @Inject('categoryService') private categoryService: () => CategoryService;
-    private removeId: string;
-    public categories: ICategory[];
-
-    constructor() {
-        super();
-        this.categories = [];
-        this.removeId = null;
-    }
+    private removeId: string = null;
+    public categories: ICategory[] = [];
 
     public mounted(): void {
         this.retrieveAllCategorys();

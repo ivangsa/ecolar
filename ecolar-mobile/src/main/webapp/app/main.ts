@@ -78,6 +78,7 @@ new Vue({
         translationService: () => translationService,
         userService: () => userManagementService,
 
+        // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
         houseHoldService: () => houseHoldService,
         userPreferencesService: () => userPreferencesService,
         accountCategoriesService: () => accountCategoriesService,
@@ -85,7 +86,6 @@ new Vue({
         movementService: () => movementService,
         movementLineService: () => movementLineService,
         eAccountService: () => eAccountService,
-        // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     },
     i18n,
     store
