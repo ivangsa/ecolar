@@ -1,40 +1,53 @@
-import Principal from '../../components/account/Principal.vue';
-import MovementService from './movement.service.vue';
+import { mixins } from 'vue-class-component';
+import { Component, Inject } from 'vue-property-decorator';
+import Principal from '@/components/account/principal';
+import { IMovement } from '@/shared/model/movement.model';
 
-const Movement = {
-  mixins: [Principal, MovementService],
-  data() {
-    return {
-      removeId: null,
-      movements: []
-    };
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.retrieveAllMovements();
-    });
-  },
-  methods: {
-    retrieveAllMovements() {
-      this.retrieveMovements().then(res => {
-        this.movements = res.data;
-      });
-    },
-    prepareRemove(instance) {
-      this.removeId = instance.id;
-      this.$refs.removeEntity.show();
-    },
-    removeMovement() {
-      this.deleteMovement(this.removeId).then(() => {
+import MovementService from './movement.service';
+
+@Component
+export default class Movement extends mixins(Principal) {
+    @Inject('movementService') private movementService: () => MovementService;
+    private removeId: string;
+    public movements: IMovement[];
+
+    constructor() {
+        super();
+        this.movements = [];
         this.removeId = null;
-        this.retrieveAllMovements();
-        this.closeDialog();
-      });
-    },
-    closeDialog() {
-      this.$refs.removeEntity.hide();
     }
-  }
-};
 
-export default Movement;
+    public mounted(): void {
+        this.retrieveAllMovements();
+    }
+
+    public clear(): void {
+        this.retrieveAllMovements();
+    }
+
+    public retrieveAllMovements(): void {
+        this.movementService()
+            .retrieve()
+            .then(res => {
+                this.movements = res.data;
+            });
+    }
+
+    public prepareRemove(instance): void {
+        this.removeId = instance.id;
+    }
+
+    public removeMovement(): void {
+        this.movementService()
+            .delete(this.removeId)
+            .then(() => {
+                this.removeId = null;
+                this.retrieveAllMovements();
+                this.closeDialog();
+            });
+    }
+
+    public closeDialog(): void {
+        (<any>this.$refs.removeEntity).hide();
+    }
+}

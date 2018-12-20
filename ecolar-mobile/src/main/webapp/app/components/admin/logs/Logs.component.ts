@@ -1,10 +1,11 @@
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Inject } from 'vue-property-decorator';
 import { mixins } from 'vue-class-component';
 
-import LogsService from './LogsService';
+import LogsService from './logs.service';
 
 @Component
-export default class EcoLogs extends mixins(LogsService) {
+export default class EcoLogs extends Vue {
+  @Inject('logsService') private logsService: () => LogsService;
   private loggers: any[];
   public filtered: string;
   public orderProp: string;
@@ -23,15 +24,19 @@ export default class EcoLogs extends mixins(LogsService) {
   }
 
   public init(): void {
-    this.findAll().then(response => {
-      this.loggers = response.data;
-    });
+    this.logsService()
+      .findAll()
+      .then(response => {
+        this.loggers = response.data;
+      });
   }
 
   public updateLevel(name, level): void {
-    this.changeLevel({ name: name, level: level }).then(() => {
-      this.init();
-    });
+    this.logsService()
+      .changeLevel({ name: name, level: level })
+      .then(() => {
+        this.init();
+      });
   }
 
   public changeOrder(orderProp): void {

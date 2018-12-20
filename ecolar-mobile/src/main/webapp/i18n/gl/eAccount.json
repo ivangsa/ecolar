@@ -1,24 +1,24 @@
 {
-  "ecolarApp": {
-    "eAccount": {
-      "home": {
-        "title": "EAccounts",
-        "createLabel": "Crear novo E Account",
-        "createOrEditLabel": "Crear ou editar E Account"
-      },
-      "created": "Un novo E Account foi creado co identificador {{ param }}",
-      "updated": "Un E Account foi actualizado co identificador {{ param }}",
-      "deleted": "Un E Account foi eliminado co identificador {{ param }}",
-      "delete": {
-        "question": "Seguro que desexa eliminar E Account {{ id }}?"
-      },
-      "detail": {
-        "title": "E Account"
-      },
-      "accountCode": "Account Code",
-      "accountName": "Account Name",
-      "type": "Type",
-      "category": "Category"
+    "ecolarApp": {
+        "eAccount": {
+            "home": {
+                "title": "EAccounts",
+                "createLabel": "Crear novo E Account",
+                "createOrEditLabel": "Crear ou editar E Account"
+            },
+            "created": "Un novo E Account foi creado co identificador {{ param }}",
+            "updated": "Un E Account foi actualizado co identificador {{ param }}",
+            "deleted": "Un E Account foi eliminado co identificador {{ param }}",
+            "delete": {
+                "question": "Seguro que desexa eliminar E Account {{ id }}?"
+            },
+            "detail": {
+                "title": "E Account"
+            },
+            "accountCode": "Account Code",
+            "accountName": "Account Name",
+            "type": "Type",
+            "category": "Category"
+        }
     }
-  }
 }

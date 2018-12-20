@@ -2,6 +2,11 @@
     "name": "Movement",
     "fields": [
         {
+            "fieldName": "type",
+            "fieldType": "AccountType",
+            "fieldValues": "ASSETS,LIABILITIES,REVENUE,EXPENSE"
+        },
+        {
             "fieldName": "eventTime",
             "fieldType": "Instant"
         },

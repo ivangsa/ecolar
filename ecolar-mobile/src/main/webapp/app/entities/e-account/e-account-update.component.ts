@@ -1,66 +1,88 @@
-import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { Component, Vue, Inject } from 'vue-property-decorator';
 
-import EAccountService from './e-account.service.vue';
-import CategoryService from '../category/category.service.vue';
+import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
-const EAccountUpdate = {
-  mixins: [EAccountService, CategoryService],
-  data() {
-    return {
-      eAccount: {
-        accountCode: null,
-        accountName: null,
-        type: null,
-        categorys: []
-      },
-      categorys: [],
-      isSaving: false
-    };
-  },
-  validations: {
+import CategoryService from '../category/category.service';
+import { ICategory } from '@/shared/model/category.model';
+
+import { IEAccount } from '@/shared/model/e-account.model';
+import EAccountService from './e-account.service';
+
+const validations: any = {
     eAccount: {
-      accountCode: {},
-      accountName: {},
-      type: {}
+        accountCode: {},
+        accountName: {},
+        type: {}
     }
-  },
-  beforeRouteEnter(to, from, next) {
+};
+const beforeRouteEnter = (to, from, next) => {
     next(vm => {
-      if (to.params.eAccountId) {
-        vm.retrieveEAccount(to.params.eAccountId);
-      }
-      vm.initRelationships();
+        if (to.params.eAccountId) {
+            vm.retrieveEAccount(to.params.eAccountId);
+        }
+        vm.initRelationships();
     });
-  },
-  methods: {
-    save() {
-      this.isSaving = true;
-      if (this.eAccount.id) {
-        this.updateEAccount(this.eAccount).then(() => {
-          this.$router.go(-1);
-          this.isSaving = false;
-        });
-      } else {
-        this.createEAccount(this.eAccount).then(() => {
-          this.$router.go(-1);
-          this.isSaving = false;
-        });
-      }
-    },
-    retrieveEAccount(eAccountId) {
-      this.findEAccount(eAccountId).then(res => {
-        this.eAccount = res.data;
-      });
-    },
-    previousState() {
-      this.$router.go(-1);
-    },
-    initRelationships() {
-      this.retrieveCategorys().then(res => {
-        this.categorys = res.data;
-      });
-    }
-  }
 };
 
-export default EAccountUpdate;
+@Component({
+    validations,
+    beforeRouteEnter
+})
+export default class EAccountUpdate extends Vue {
+    @Inject('eAccountService') private eAccountService: () => EAccountService;
+    public eAccount: IEAccount;
+
+    @Inject('categoryService') private categoryService: () => CategoryService;
+    public categories: ICategory[];
+    public isSaving: boolean;
+
+    constructor() {
+        super();
+        this.eAccount = {
+            accountCode: null,
+            accountName: null,
+            type: null
+        };
+        this.categories = [];
+        this.isSaving = false;
+    }
+
+    public save(): void {
+        this.isSaving = true;
+        if (this.eAccount.id) {
+            this.eAccountService()
+                .update(this.eAccount)
+                .then(() => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                });
+        } else {
+            this.eAccountService()
+                .create(this.eAccount)
+                .then(() => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                });
+        }
+    }
+
+    public retrieveEAccount(eAccountId): void {
+        this.eAccountService()
+            .find(eAccountId)
+            .then(res => {
+                this.eAccount = res;
+            });
+    }
+
+    public previousState(): void {
+        this.$router.go(-1);
+    }
+
+    public initRelationships(): void {
+        this.categoryService()
+            .retrieve()
+            .then(res => {
+                this.categories = res.data;
+            });
+    }
+}

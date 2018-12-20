@@ -1,64 +1,86 @@
-import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { Component, Vue, Inject } from 'vue-property-decorator';
 
-import MovementLineService from './movement-line.service.vue';
-import EAccountService from '../e-account/e-account.service.vue';
+import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
-const MovementLineUpdate = {
-  mixins: [MovementLineService, EAccountService],
-  data() {
-    return {
-      movementLine: {
-        amount: null,
-        eventType: null,
-        eAccounts: []
-      },
-      eAccounts: [],
-      isSaving: false
-    };
-  },
-  validations: {
+import EAccountService from '../e-account/e-account.service';
+import { IEAccount } from '@/shared/model/e-account.model';
+
+import { IMovementLine } from '@/shared/model/movement-line.model';
+import MovementLineService from './movement-line.service';
+
+const validations: any = {
     movementLine: {
-      amount: {},
-      eventType: {}
+        amount: {},
+        eventType: {}
     }
-  },
-  beforeRouteEnter(to, from, next) {
+};
+const beforeRouteEnter = (to, from, next) => {
     next(vm => {
-      if (to.params.movementLineId) {
-        vm.retrieveMovementLine(to.params.movementLineId);
-      }
-      vm.initRelationships();
+        if (to.params.movementLineId) {
+            vm.retrieveMovementLine(to.params.movementLineId);
+        }
+        vm.initRelationships();
     });
-  },
-  methods: {
-    save() {
-      this.isSaving = true;
-      if (this.movementLine.id) {
-        this.updateMovementLine(this.movementLine).then(() => {
-          this.$router.go(-1);
-          this.isSaving = false;
-        });
-      } else {
-        this.createMovementLine(this.movementLine).then(() => {
-          this.$router.go(-1);
-          this.isSaving = false;
-        });
-      }
-    },
-    retrieveMovementLine(movementLineId) {
-      this.findMovementLine(movementLineId).then(res => {
-        this.movementLine = res.data;
-      });
-    },
-    previousState() {
-      this.$router.go(-1);
-    },
-    initRelationships() {
-      this.retrieveEAccounts().then(res => {
-        this.eAccounts = res.data;
-      });
-    }
-  }
 };
 
-export default MovementLineUpdate;
+@Component({
+    validations,
+    beforeRouteEnter
+})
+export default class MovementLineUpdate extends Vue {
+    @Inject('movementLineService') private movementLineService: () => MovementLineService;
+    public movementLine: IMovementLine;
+
+    @Inject('eAccountService') private eAccountService: () => EAccountService;
+    public eAccounts: IEAccount[];
+    public isSaving: boolean;
+
+    constructor() {
+        super();
+        this.movementLine = {
+            amount: null,
+            eventType: null
+        };
+        this.eAccounts = [];
+        this.isSaving = false;
+    }
+
+    public save(): void {
+        this.isSaving = true;
+        if (this.movementLine.id) {
+            this.movementLineService()
+                .update(this.movementLine)
+                .then(() => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                });
+        } else {
+            this.movementLineService()
+                .create(this.movementLine)
+                .then(() => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                });
+        }
+    }
+
+    public retrieveMovementLine(movementLineId): void {
+        this.movementLineService()
+            .find(movementLineId)
+            .then(res => {
+                this.movementLine = res;
+            });
+    }
+
+    public previousState(): void {
+        this.$router.go(-1);
+    }
+
+    public initRelationships(): void {
+        this.eAccountService()
+            .retrieve()
+            .then(res => {
+                this.eAccounts = res.data;
+            });
+    }
+}

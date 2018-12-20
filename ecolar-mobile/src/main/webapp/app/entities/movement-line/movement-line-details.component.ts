@@ -1,29 +1,37 @@
-import MovementLineService from './movement-line.service.vue';
+import { Component, Vue, Inject } from 'vue-property-decorator';
 
-const MovementLineDetails = {
-  mixins: [MovementLineService],
-  data() {
-    return {
-      movementLine: {}
-    };
-  },
-  beforeRouteEnter(to, from, next) {
+import { IMovementLine } from '@/shared/model/movement-line.model';
+import MovementLineService from './movement-line.service';
+
+const beforeRouteEnter = (to, from, next) => {
     next(vm => {
-      if (to.params.movementLineId) {
-        vm.retrieveMovementLine(to.params.movementLineId);
-      }
+        if (to.params.movementLineId) {
+            vm.retrieveMovementLine(to.params.movementLineId);
+        }
     });
-  },
-  methods: {
-    retrieveMovementLine(movementLineId) {
-      this.findMovementLine(movementLineId).then(res => {
-        this.movementLine = res.data;
-      });
-    },
-    previousState() {
-      this.$router.go(-1);
-    }
-  }
 };
 
-export default MovementLineDetails;
+@Component({
+    beforeRouteEnter
+})
+export default class MovementLineDetails extends Vue {
+    @Inject('movementLineService') private movementLineService: () => MovementLineService;
+    public movementLine: IMovementLine;
+
+    constructor() {
+        super();
+        this.movementLine = {};
+    }
+
+    public retrieveMovementLine(movementLineId) {
+        this.movementLineService()
+            .find(movementLineId)
+            .then(res => {
+                this.movementLine = res;
+            });
+    }
+
+    public previousState() {
+        this.$router.go(-1);
+    }
+}

@@ -1,32 +1,41 @@
 import numeral from 'numeral';
-import EcoMetricsModal from './MetricsModal.vue';
-import MetricsService from './MetricsService.vue';
+import EcoMetricsModal from './metrics-modal.vue';
+import MetricsService from './metrics.service';
+import { Component, Vue, Inject } from 'vue-property-decorator';
 
-const EcoMetricsComponent = {
-  name: 'EcoMetricsComponent',
-  mixins: [MetricsService],
+@Component({
   components: {
     'metrics-modal': EcoMetricsModal
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.refresh();
-    });
-  },
-  data() {
-    return {
-      metrics: {},
-      cachesStats: {},
-      servicesStats: {},
-      updatingMetrics: true,
-      JCACHE_KEY: 'jcache.statistics',
-      threads: null
-    };
-  },
-  methods: {
-    refresh() {
-      this.updatingMetrics = true;
-      this.getMetrics().then(res => {
+  }
+})
+export default class EcoMetrics extends Vue {
+  public metrics: any;
+  public cachesStats: any;
+  public servicesStats: any;
+  public updatingMetrics: boolean;
+  public JCACHE_KEY: string;
+  public threads: any;
+  @Inject('metricsService') private metricsService: () => MetricsService;
+
+  constructor() {
+    super();
+    this.metrics = {};
+    this.cachesStats = {};
+    this.servicesStats = {};
+    this.updatingMetrics = true;
+    this.JCACHE_KEY = 'jcache.statistics';
+    this.threads = null;
+  }
+
+  public mounted(): void {
+    this.refresh();
+  }
+
+  public refresh(): void {
+    this.updatingMetrics = true;
+    this.metricsService()
+      .getMetrics()
+      .then(res => {
         this.metrics = res.data;
         this.updatingMetrics = false;
         this.servicesStats = {};
@@ -52,28 +61,31 @@ const EcoMetricsComponent = {
           }
         });
       });
-    },
-    refreshThreadDumpData() {
-      if (this.$refs.metricsModal.show) {
-        this.$refs.metricsModal.show();
-      }
-      this.retrieveThreadDump().then(res => {
+  }
+
+  public refreshThreadDumpData(): void {
+    if ((<any>this.$refs.metricsModal).show) {
+      (<any>this.$refs.metricsModal).show();
+    }
+    this.metricsService()
+      .retrieveThreadDump()
+      .then(res => {
         this.threads = res.data.threads;
       });
-    },
-    filterNaN(input) {
-      if (isNaN(input)) {
-        return 0;
-      }
-      return input;
-    },
-    formatNumber1(value) {
-      return numeral(value).format('0,0');
-    },
-    formatNumber2(value) {
-      return numeral(value).format('0,00');
-    }
   }
-};
 
-export default EcoMetricsComponent;
+  filterNaN(input: any): any {
+    if (isNaN(input)) {
+      return 0;
+    }
+    return input;
+  }
+
+  formatNumber1(value: any): any {
+    return numeral(value).format('0,0');
+  }
+
+  formatNumber2(value: any): any {
+    return numeral(value).format('0,00');
+  }
+}

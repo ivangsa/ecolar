@@ -41,7 +41,7 @@
     </div>
 </template>
 
-<script lang="ts" src="./Home.component.ts">
+<script lang="ts" src="./home.component.ts">
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -54,7 +54,7 @@ Main page styles
         display: inline-block;
         width: 347px;
         height: 497px;
-        background: url('../../../content/images/hipster.png') no-repeat center top;
+        background: url("../../../content/images/jhipster_family_member_0.svg") no-repeat center top;
         background-size: contain;
     }
 
@@ -66,7 +66,7 @@ Main page styles
     only screen and (min-resolution: 192dpi),
     only screen and (min-resolution: 2dppx) {
         .hipster {
-            background: url('../../../content/images/hipster2x.png') no-repeat center top;
+            background: url("../../../content/images/jhipster_family_member_0.svg") no-repeat center top;
             background-size: contain;
         }
     }

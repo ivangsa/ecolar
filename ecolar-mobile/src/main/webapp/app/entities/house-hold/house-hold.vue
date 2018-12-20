@@ -28,7 +28,7 @@
                             <td>{{houseHold.name}}</td>
                         <td>
                                         <div v-if="houseHold.accountCategories">
-                                            <router-link :to="'../account-categories/' + houseHold.accountCategories.id + '/View'" >{{houseHold.accountCategories.id}}</router-link>
+                                            <router-link :to="'../entity/account-categories/' + houseHold.accountCategories.id + '/view'" >{{houseHold.accountCategories.id}}</router-link>
                                         </div>
                         </td>
                         <td>
@@ -38,10 +38,20 @@
                         </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
-                            <router-link :to="{name: 'AddNewMovement', params: {houseHoldId: houseHold.id}}" tag="button" class="btn btn-info btn-sm">
-                                <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('ecolarApp.movement.detail.title')">New Movement</span>
+                            <router-link :to="{name: 'HouseHoldView', params: {houseHoldId: houseHold.id}}" tag="button" class="btn btn-info btn-sm">
+                                <font-awesome-icon icon="eye"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
                             </router-link>
+                            <router-link :to="{name: 'HouseHoldEdit', params: {houseHoldId: houseHold.id}}"  tag="button" class="btn btn-primary btn-sm">
+                                <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
+                            </router-link>
+                            <b-btn v-on:click="prepareRemove(houseHold)"
+                                   class="btn btn-danger btn-sm"
+                                   v-b-modal.removeEntity>
+                                <font-awesome-icon icon="times"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
+                            </b-btn>
                         </div>
                     </td>
                 </tr>

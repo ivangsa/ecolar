@@ -22,6 +22,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.Validator;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -37,6 +38,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.desarrollandojuntos.ecolar.domain.enumeration.AccountType;
 /**
  * Test class for the MovementResource REST controller.
  *
@@ -45,6 +47,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EcolarApp.class)
 public class MovementResourceIntTest {
+
+    private static final AccountType DEFAULT_TYPE = AccountType.ASSETS;
+    private static final AccountType UPDATED_TYPE = AccountType.LIABILITIES;
 
     private static final Instant DEFAULT_EVENT_TIME = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_EVENT_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
@@ -79,6 +84,9 @@ public class MovementResourceIntTest {
     @Autowired
     private ExceptionTranslator exceptionTranslator;
 
+    @Autowired
+    private Validator validator;
+
     private MockMvc restMovementMockMvc;
 
     private Movement movement;
@@ -91,7 +99,8 @@ public class MovementResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
     }
 
     /**
@@ -102,6 +111,7 @@ public class MovementResourceIntTest {
      */
     public static Movement createEntity() {
         Movement movement = new Movement()
+            .type(DEFAULT_TYPE)
             .eventTime(DEFAULT_EVENT_TIME)
             .registrationTime(DEFAULT_REGISTRATION_TIME)
             .amount(DEFAULT_AMOUNT)
@@ -129,6 +139,7 @@ public class MovementResourceIntTest {
         List<Movement> movementList = movementRepository.findAll();
         assertThat(movementList).hasSize(databaseSizeBeforeCreate + 1);
         Movement testMovement = movementList.get(movementList.size() - 1);
+        assertThat(testMovement.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testMovement.getEventTime()).isEqualTo(DEFAULT_EVENT_TIME);
         assertThat(testMovement.getRegistrationTime()).isEqualTo(DEFAULT_REGISTRATION_TIME);
         assertThat(testMovement.getAmount()).isEqualTo(DEFAULT_AMOUNT);
@@ -163,6 +174,7 @@ public class MovementResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(movement.getId())))
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].eventTime").value(hasItem(DEFAULT_EVENT_TIME.toString())))
             .andExpect(jsonPath("$.[*].registrationTime").value(hasItem(DEFAULT_REGISTRATION_TIME.toString())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
@@ -212,6 +224,7 @@ public class MovementResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(movement.getId()))
+            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.eventTime").value(DEFAULT_EVENT_TIME.toString()))
             .andExpect(jsonPath("$.registrationTime").value(DEFAULT_REGISTRATION_TIME.toString()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
@@ -235,6 +248,7 @@ public class MovementResourceIntTest {
         // Update the movement
         Movement updatedMovement = movementRepository.findById(movement.getId()).get();
         updatedMovement
+            .type(UPDATED_TYPE)
             .eventTime(UPDATED_EVENT_TIME)
             .registrationTime(UPDATED_REGISTRATION_TIME)
             .amount(UPDATED_AMOUNT)
@@ -249,6 +263,7 @@ public class MovementResourceIntTest {
         List<Movement> movementList = movementRepository.findAll();
         assertThat(movementList).hasSize(databaseSizeBeforeUpdate);
         Movement testMovement = movementList.get(movementList.size() - 1);
+        assertThat(testMovement.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testMovement.getEventTime()).isEqualTo(UPDATED_EVENT_TIME);
         assertThat(testMovement.getRegistrationTime()).isEqualTo(UPDATED_REGISTRATION_TIME);
         assertThat(testMovement.getAmount()).isEqualTo(UPDATED_AMOUNT);

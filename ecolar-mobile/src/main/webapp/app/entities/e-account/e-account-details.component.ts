@@ -1,29 +1,37 @@
-import EAccountService from './e-account.service.vue';
+import { Component, Vue, Inject } from 'vue-property-decorator';
 
-const EAccountDetails = {
-  mixins: [EAccountService],
-  data() {
-    return {
-      eAccount: {}
-    };
-  },
-  beforeRouteEnter(to, from, next) {
+import { IEAccount } from '@/shared/model/e-account.model';
+import EAccountService from './e-account.service';
+
+const beforeRouteEnter = (to, from, next) => {
     next(vm => {
-      if (to.params.eAccountId) {
-        vm.retrieveEAccount(to.params.eAccountId);
-      }
+        if (to.params.eAccountId) {
+            vm.retrieveEAccount(to.params.eAccountId);
+        }
     });
-  },
-  methods: {
-    retrieveEAccount(eAccountId) {
-      this.findEAccount(eAccountId).then(res => {
-        this.eAccount = res.data;
-      });
-    },
-    previousState() {
-      this.$router.go(-1);
-    }
-  }
 };
 
-export default EAccountDetails;
+@Component({
+    beforeRouteEnter
+})
+export default class EAccountDetails extends Vue {
+    @Inject('eAccountService') private eAccountService: () => EAccountService;
+    public eAccount: IEAccount;
+
+    constructor() {
+        super();
+        this.eAccount = {};
+    }
+
+    public retrieveEAccount(eAccountId) {
+        this.eAccountService()
+            .find(eAccountId)
+            .then(res => {
+                this.eAccount = res;
+            });
+    }
+
+    public previousState() {
+        this.$router.go(-1);
+    }
+}

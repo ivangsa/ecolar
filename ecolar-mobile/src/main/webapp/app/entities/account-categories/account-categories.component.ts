@@ -1,40 +1,53 @@
-import Principal from '../../components/account/Principal.vue';
-import AccountCategoriesService from './account-categories.service.vue';
+import { mixins } from 'vue-class-component';
+import { Component, Inject } from 'vue-property-decorator';
+import Principal from '@/components/account/principal';
+import { IAccountCategories } from '@/shared/model/account-categories.model';
 
-const AccountCategories = {
-  mixins: [Principal, AccountCategoriesService],
-  data() {
-    return {
-      removeId: null,
-      accountCategories: []
-    };
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.retrieveAllAccountCategoriess();
-    });
-  },
-  methods: {
-    retrieveAllAccountCategoriess() {
-      this.retrieveAccountCategoriess().then(res => {
-        this.accountCategories = res.data;
-      });
-    },
-    prepareRemove(instance) {
-      this.removeId = instance.id;
-      this.$refs.removeEntity.show();
-    },
-    removeAccountCategories() {
-      this.deleteAccountCategories(this.removeId).then(() => {
+import AccountCategoriesService from './account-categories.service';
+
+@Component
+export default class AccountCategories extends mixins(Principal) {
+    @Inject('accountCategoriesService') private accountCategoriesService: () => AccountCategoriesService;
+    private removeId: string;
+    public accountCategories: IAccountCategories[];
+
+    constructor() {
+        super();
+        this.accountCategories = [];
         this.removeId = null;
-        this.retrieveAllAccountCategoriess();
-        this.closeDialog();
-      });
-    },
-    closeDialog() {
-      this.$refs.removeEntity.hide();
     }
-  }
-};
 
-export default AccountCategories;
+    public mounted(): void {
+        this.retrieveAllAccountCategoriess();
+    }
+
+    public clear(): void {
+        this.retrieveAllAccountCategoriess();
+    }
+
+    public retrieveAllAccountCategoriess(): void {
+        this.accountCategoriesService()
+            .retrieve()
+            .then(res => {
+                this.accountCategories = res.data;
+            });
+    }
+
+    public prepareRemove(instance): void {
+        this.removeId = instance.id;
+    }
+
+    public removeAccountCategories(): void {
+        this.accountCategoriesService()
+            .delete(this.removeId)
+            .then(() => {
+                this.removeId = null;
+                this.retrieveAllAccountCategoriess();
+                this.closeDialog();
+            });
+    }
+
+    public closeDialog(): void {
+        (<any>this.$refs.removeEntity).hide();
+    }
+}

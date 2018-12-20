@@ -1,29 +1,37 @@
-import MovementService from './movement.service.vue';
+import { Component, Vue, Inject } from 'vue-property-decorator';
 
-const MovementDetails = {
-  mixins: [MovementService],
-  data() {
-    return {
-      movement: {}
-    };
-  },
-  beforeRouteEnter(to, from, next) {
+import { IMovement } from '@/shared/model/movement.model';
+import MovementService from './movement.service';
+
+const beforeRouteEnter = (to, from, next) => {
     next(vm => {
-      if (to.params.movementId) {
-        vm.retrieveMovement(to.params.movementId);
-      }
+        if (to.params.movementId) {
+            vm.retrieveMovement(to.params.movementId);
+        }
     });
-  },
-  methods: {
-    retrieveMovement(movementId) {
-      this.findMovement(movementId).then(res => {
-        this.movement = res.data;
-      });
-    },
-    previousState() {
-      this.$router.go(-1);
-    }
-  }
 };
 
-export default MovementDetails;
+@Component({
+    beforeRouteEnter
+})
+export default class MovementDetails extends Vue {
+    @Inject('movementService') private movementService: () => MovementService;
+    public movement: IMovement;
+
+    constructor() {
+        super();
+        this.movement = {};
+    }
+
+    public retrieveMovement(movementId) {
+        this.movementService()
+            .find(movementId)
+            .then(res => {
+                this.movement = res;
+            });
+    }
+
+    public previousState() {
+        this.$router.go(-1);
+    }
+}

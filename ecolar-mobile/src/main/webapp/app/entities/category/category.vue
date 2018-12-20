@@ -36,12 +36,12 @@
                             <td v-text="$t('ecolarApp.AccountType.' + category.accountType)">{{category.accountType}}</td>
                         <td>
                                         <div v-if="category.parent">
-                                            <router-link :to="'../category/' + category.parent.id + '/View'" >{{category.parent.name}}</router-link>
+                                            <router-link :to="'../entity/category/' + category.parent.id + '/view'" >{{category.parent.name}}</router-link>
                                         </div>
                         </td>
                         <td>
                                         <div v-if="category.document">
-                                            <router-link :to="'../account-categories/' + category.document.id + '/View'" >{{category.document.id}}</router-link>
+                                            <router-link :to="'../entity/account-categories/' + category.document.id + '/view'" >{{category.document.id}}</router-link>
                                         </div>
                         </td>
                     <td class="text-right">

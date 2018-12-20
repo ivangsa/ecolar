@@ -1,25 +1,26 @@
 {
-  "ecolarApp": {
-    "movement": {
-      "home": {
-        "title": "Movements",
-        "createLabel": "Crear novo Movement",
-        "createOrEditLabel": "Crear ou editar Movement"
-      },
-      "created": "Un novo Movement foi creado co identificador {{ param }}",
-      "updated": "Un Movement foi actualizado co identificador {{ param }}",
-      "deleted": "Un Movement foi eliminado co identificador {{ param }}",
-      "delete": {
-        "question": "Seguro que desexa eliminar Movement {{ id }}?"
-      },
-      "detail": {
-        "title": "Movement"
-      },
-      "eventTime": "Event Time",
-      "registrationTime": "Registration Time",
-      "amount": "Amount",
-      "location": "Location",
-      "eventLines": "Event Lines"
+    "ecolarApp": {
+        "movement": {
+            "home": {
+                "title": "Movements",
+                "createLabel": "Crear novo Movement",
+                "createOrEditLabel": "Crear ou editar Movement"
+            },
+            "created": "Un novo Movement foi creado co identificador {{ param }}",
+            "updated": "Un Movement foi actualizado co identificador {{ param }}",
+            "deleted": "Un Movement foi eliminado co identificador {{ param }}",
+            "delete": {
+                "question": "Seguro que desexa eliminar Movement {{ id }}?"
+            },
+            "detail": {
+                "title": "Movement"
+            },
+            "type": "Type",
+            "eventTime": "Event Time",
+            "registrationTime": "Registration Time",
+            "amount": "Amount",
+            "location": "Location",
+            "eventLines": "Event Lines"
+        }
     }
-  }
 }

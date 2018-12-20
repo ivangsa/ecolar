@@ -1,84 +1,109 @@
-import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { Component, Vue, Inject } from 'vue-property-decorator';
+
+import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 import moment from 'moment';
 
-import MovementService from './movement.service.vue';
-import MovementLineService from '../movement-line/movement-line.service.vue';
+import MovementLineService from '../movement-line/movement-line.service';
+import { IMovementLine } from '@/shared/model/movement-line.model';
 
-const MovementUpdate = {
-  mixins: [MovementService, MovementLineService],
-  data() {
-    return {
-      movement: {
-        eventTime: null,
-        registrationTime: null,
-        amount: null,
-        location: null,
-        movementLines: []
-      },
-      movementLines: [],
-      isSaving: false
-    };
-  },
-  validations: {
+import { IMovement } from '@/shared/model/movement.model';
+import MovementService from './movement.service';
+
+const validations: any = {
     movement: {
-      eventTime: {},
-      registrationTime: {},
-      amount: {},
-      location: {}
+        type: {},
+        eventTime: {},
+        registrationTime: {},
+        amount: {},
+        location: {}
     }
-  },
-  beforeRouteEnter(to, from, next) {
+};
+const beforeRouteEnter = (to, from, next) => {
     next(vm => {
-      if (to.params.movementId) {
-        vm.retrieveMovement(to.params.movementId);
-      }
-      vm.initRelationships();
-    });
-  },
-  methods: {
-    save() {
-      this.isSaving = true;
-      this.movement.eventTime = moment(this.movement.eventTime, 'YYYY-MM-DDTHH:mm');
-      this.movement.registrationTime = moment(this.movement.registrationTime, 'YYYY-MM-DDTHH:mm');
-      if (this.movement.id) {
-        this.updateMovement(this.movement).then(() => {
-          this.$router.go(-1);
-          this.isSaving = false;
-        });
-      } else {
-        this.createMovement(this.movement).then(() => {
-          this.$router.go(-1);
-          this.isSaving = false;
-        });
-      }
-    },
-    retrieveMovement(movementId) {
-      this.findMovement(movementId).then(res => {
-        this.movement = res.data;
-
-        this.movement.eventTime = moment(this.movement.eventTime, 'YYYY-MM-DDTHH:mm:ssZ').format('YYYY-MM-DDTHH:mm');
-        this.movement.registrationTime = moment(this.movement.registrationTime, 'YYYY-MM-DDTHH:mm:ssZ').format('YYYY-MM-DDTHH:mm');
-      });
-    },
-    previousState() {
-      this.$router.go(-1);
-    },
-    initRelationships() {
-      this.retrieveMovementLines().then(res => {
-        this.movementLines = res.data;
-      });
-    },
-    getSelected(selectedVals, option) {
-      if (selectedVals) {
-        for (let i = 0; i < selectedVals.length; i++) {
-          if (option.id === selectedVals[i].id) {
-            return selectedVals[i];
-          }
+        if (to.params.movementId) {
+            vm.retrieveMovement(to.params.movementId);
         }
-      }
-      return option;
-    }
-  }
+        vm.initRelationships();
+    });
 };
 
-export default MovementUpdate;
+@Component({
+    validations,
+    beforeRouteEnter
+})
+export default class MovementUpdate extends Vue {
+    @Inject('movementService') private movementService: () => MovementService;
+    public movement: IMovement;
+
+    @Inject('movementLineService') private movementLineService: () => MovementLineService;
+    public movementLines: IMovementLine[];
+    public isSaving: boolean;
+
+    constructor() {
+        super();
+        this.movement = {
+            type: null,
+            eventTime: null,
+            registrationTime: null,
+            amount: null,
+            location: null
+        };
+        this.movementLines = [];
+        this.isSaving = false;
+    }
+
+    public save(): void {
+        this.isSaving = true;
+        this.movement.eventTime = moment(this.movement.eventTime, 'YYYY-MM-DDTHH:mm');
+        this.movement.registrationTime = moment(this.movement.registrationTime, 'YYYY-MM-DDTHH:mm');
+        if (this.movement.id) {
+            this.movementService()
+                .update(this.movement)
+                .then(() => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                });
+        } else {
+            this.movementService()
+                .create(this.movement)
+                .then(() => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                });
+        }
+    }
+
+    public retrieveMovement(movementId): void {
+        this.movementService()
+            .find(movementId)
+            .then(res => {
+                this.movement = res;
+
+                this.movement.eventTime = moment(this.movement.eventTime, 'YYYY-MM-DDTHH:mm:ssZ');
+                this.movement.registrationTime = moment(this.movement.registrationTime, 'YYYY-MM-DDTHH:mm:ssZ');
+            });
+    }
+
+    public previousState(): void {
+        this.$router.go(-1);
+    }
+
+    public initRelationships(): void {
+        this.movementLineService()
+            .retrieve()
+            .then(res => {
+                this.movementLines = res.data;
+            });
+    }
+
+    public getSelected(selectedVals, option): any {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
+    }
+}

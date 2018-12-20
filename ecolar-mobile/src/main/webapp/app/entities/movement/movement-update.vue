@@ -12,6 +12,15 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('ecolarApp.movement.type')" for="movement-type">Type</label>
+                        <select class="form-control" name="type" :class="{'valid': !$v.movement.type.$invalid, 'invalid': $v.movement.type.$invalid }" v-model="$v.movement.type.$model" id="movement-type" >
+                            <option value="ASSETS" v-bind:label="$t('ecolarApp.AccountType.ASSETS')">ASSETS</option>
+                            <option value="LIABILITIES" v-bind:label="$t('ecolarApp.AccountType.LIABILITIES')">LIABILITIES</option>
+                            <option value="REVENUE" v-bind:label="$t('ecolarApp.AccountType.REVENUE')">REVENUE</option>
+                            <option value="EXPENSE" v-bind:label="$t('ecolarApp.AccountType.EXPENSE')">EXPENSE</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="form-control-label" v-text="$t('ecolarApp.movement.eventTime')" for="movement-eventTime">Event Time</label>
                         <div class="d-flex">
                             <input id="movement-eventTime" type="datetime-local" class="form-control" name="eventTime" :class="{'valid': !$v.movement.eventTime.$invalid, 'invalid': $v.movement.eventTime.$invalid }" v-model="$v.movement.eventTime.$model" />

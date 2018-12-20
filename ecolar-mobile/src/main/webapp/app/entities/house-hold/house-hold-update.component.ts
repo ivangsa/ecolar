@@ -1,151 +1,107 @@
-import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { Component, Vue, Inject } from 'vue-property-decorator';
 
-import Vue from 'vue';
-import { mapState } from 'vuex';
-import Component, { mixins } from 'vue-class-component';
+import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
+
+import AccountCategoriesService from '../account-categories/account-categories.service';
+import { IAccountCategories } from '@/shared/model/account-categories.model';
+
+import UserService from '@/components/admin/user-management/user-management.service';
+
+import { IHouseHold } from '@/shared/model/house-hold.model';
 import HouseHoldService from './house-hold.service';
-import AccountCategoriesService from '../account-categories/account-categories.service.vue';
-import UserService from '../user/user.service.vue';
 
-const HouseHoldUpdate = {
-  mixins: [HouseHoldService, AccountCategoriesService, UserService],
-  data() {
-    return {
-      accountCategories: [],
-      users: [],
-      isSaving: false
-    };
-  },
-  computed: mapState<{HouseHoldStore}>({
-    houseHold: (state) => state.HouseHoldStore.houseHold,
-  }),
-  validations: {
+const validations: any = {
     houseHold: {
-      name: {}
+        name: {}
     }
-  },
-  beforeRouteEnter(to, from, next) {
+};
+const beforeRouteEnter = (to, from, next) => {
     next(vm => {
-      if (to.params.houseHoldId) {
-        vm.retrieveHouseHold(to.params.houseHoldId);
-      }
-      vm.initRelationships();
-    });
-  },
-  methods: {
-    save() {
-      this.isSaving = true;
-      if (this.houseHold.id) {
-        this.updateHouseHold(this.houseHold).then(() => {
-          this.$router.go(-1);
-          this.isSaving = false;
-        });
-      } else {
-        this.createHouseHold(this.houseHold).then(() => {
-          this.$router.go(-1);
-          this.isSaving = false;
-        });
-      }
-    },
-    retrieveHouseHold(houseHoldId) {
-      this.findHouseHold(houseHoldId).then(res => {
-        this.$store.commit('load', res.data);
-      });
-    },
-    previousState() {
-      this.$router.go(-1);
-    },
-    initRelationships() {
-      this.retrieveAccountCategoriess().then(res => {
-        this.accountCategoriess = res.data;
-      });
-      this.retrieveUsers().then(res => {
-        this.users = res.data;
-      });
-    },
-    getSelected(selectedVals, option) {
-      if (selectedVals) {
-        for (let i = 0; i < selectedVals.length; i++) {
-          if (option.id === selectedVals[i].id) {
-            return selectedVals[i];
-          }
+        if (to.params.houseHoldId) {
+            vm.retrieveHouseHold(to.params.houseHoldId);
         }
-      }
-      return option;
-    }
-  }
+        vm.initRelationships();
+    });
 };
 
-export default HouseHoldUpdate;
+@Component({
+    validations,
+    beforeRouteEnter
+})
+export default class HouseHoldUpdate extends Vue {
+    @Inject('houseHoldService') private houseHoldService: () => HouseHoldService;
+    public houseHold: IHouseHold;
 
-// const beforeRouteEnter = function(to, from, next) {
-//   next(vm => {
-//     if (to.params.houseHoldId) {
-//       vm.retrieveHouseHold(to.params.houseHoldId);
-//       vm.initRelationships();
-//     }
-//   });
-// }
+    @Inject('accountCategoriesService') private accountCategoriesService: () => AccountCategoriesService;
+    public accountCategories: IAccountCategories[];
 
-// const validations = {
-//   houseHold: {
-//     name: {}
-//   }
-// }
+    @Inject('userService') private userService: () => UserService;
+    public users: Array<any>;
+    public isSaving: boolean;
 
-// @Component({
-//   beforeRouteEnter: beforeRouteEnter,
-// })
-// export default class HouseHoldUpdate extends mixins(HouseHoldService, AccountCategoriesService, UserService) {
-//   houseHold: IHouseHold = {};
+    constructor() {
+        super();
+        this.houseHold = {
+            name: null,
+            members: []
+        };
+        this.accountCategories = [];
+        this.users = [];
+        this.isSaving = false;
+    }
 
-//   accountCategoriess = [];
-//   users = [];
-//   isSaving = false;
+    public save(): void {
+        this.isSaving = true;
+        if (this.houseHold.id) {
+            this.houseHoldService()
+                .update(this.houseHold)
+                .then(() => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                });
+        } else {
+            this.houseHoldService()
+                .create(this.houseHold)
+                .then(() => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                });
+        }
+    }
 
-//   save() {
-//     this.isSaving = true;
-//     if (this.houseHold.id) {
-//       this.updateHouseHold(this.houseHold).then(() => {
-//         this.$router.go(-1);
-//         this.isSaving = false;
-//       });
-//     } else {
-//       this.createHouseHold(this.houseHold).then(() => {
-//         this.$router.go(-1);
-//         this.isSaving = false;
-//       });
-//     }
-//   }
+    public retrieveHouseHold(houseHoldId): void {
+        this.houseHoldService()
+            .find(houseHoldId)
+            .then(res => {
+                this.houseHold = res;
+            });
+    }
 
-//   retrieveHouseHold(houseHoldId) {
-//     this.findHouseHold(houseHoldId).then(res => {
-//       this.houseHold = res.data;
-//     });
-//   }
+    public previousState(): void {
+        this.$router.go(-1);
+    }
 
-//   initRelationships() {
-//     this.retrieveAccountCategories().then(res => {
-//       this.accountCategoriess = res.data;
-//     });
-//     this.retrieveUsers().then(res => {
-//       this.users = res.data;
-//     });
-//   }
+    public initRelationships(): void {
+        this.accountCategoriesService()
+            .retrieve()
+            .then(res => {
+                this.accountCategories = res.data;
+            });
+        this.userService()
+            .retrieve()
+            .then(res => {
+                this.users = res.data;
+            });
+    }
 
-//   getSelected(selectedVals, option) {
-//     if (selectedVals) {
-//       for (let i = 0; i < selectedVals.length; i++) {
-//         if (option.id === selectedVals[i].id) {
-//           return selectedVals[i];
-//         }
-//       }
-//     }
-//     return option;
-//   }
-
-//   previousState() {
-//     this.$router.go(-1);
-//   }
-
-// }
+    public getSelected(selectedVals, option): any {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
+    }
+}

@@ -31,7 +31,7 @@
                             <td v-text="$t('ecolarApp.AccountType.' + eAccount.type)">{{eAccount.type}}</td>
                         <td>
                                         <div v-if="eAccount.category">
-                                            <router-link :to="'../category/' + eAccount.category.id + '/View'" >{{eAccount.category.name}}</router-link>
+                                            <router-link :to="'../entity/category/' + eAccount.category.id + '/view'" >{{eAccount.category.name}}</router-link>
                                         </div>
                         </td>
                     <td class="text-right">

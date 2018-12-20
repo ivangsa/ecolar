@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
+import com.desarrollandojuntos.ecolar.domain.enumeration.AccountType;
+
 /**
  * Movimiento contable
  */
@@ -24,6 +26,9 @@ public class Movement implements Serializable {
 
     @Id
     private String id;
+
+    @Field("type")
+    private AccountType type;
 
     @Field("event_time")
     private Instant eventTime;
@@ -48,6 +53,19 @@ public class Movement implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
+
+    public Movement type(AccountType type) {
+        this.type = type;
+        return this;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
     }
 
     public Instant getEventTime() {

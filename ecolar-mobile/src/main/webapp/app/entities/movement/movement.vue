@@ -16,6 +16,7 @@
                 <thead>
                 <tr>
                     <th><span v-text="$t('global.field.id')">ID</span></th>
+                        <th><span v-text="$t('ecolarApp.movement.type')">Type</span></th>
                         <th><span v-text="$t('ecolarApp.movement.eventTime')">Event Time</span></th>
                         <th><span v-text="$t('ecolarApp.movement.registrationTime')">Registration Time</span></th>
                         <th><span v-text="$t('ecolarApp.movement.amount')">Amount</span></th>
@@ -27,13 +28,14 @@
                 <tbody>
                 <tr v-for="movement in movements">
                     <td><router-link :to="{name: 'MovementView', params: {movementId: movement.id}}">{{movement.id}}</router-link></td>
+                            <td v-text="$t('ecolarApp.AccountType.' + movement.type)">{{movement.type}}</td>
                             <td>{{movement.eventTime | formatDate}}</td>
                             <td>{{movement.registrationTime | formatDate}}</td>
                             <td>{{movement.amount}}</td>
                             <td>{{movement.location}}</td>
                         <td>
                                     <span v-for="eventLines in movement.eventLines">
-                                        <router-link class="form-control-static" :to="'../movement-line/' + eventLines.id}} + '/View'">{{eventLines.id}}</router-link>{{last ? '' : ', '}}
+                                        <router-link class="form-control-static" :to="'../entity/movement-line/' + eventLines.id + '/view'">{{eventLines.id}}</router-link>{{last ? '' : ', '}}
                                     </span>
                         </td>
                     <td class="text-right">

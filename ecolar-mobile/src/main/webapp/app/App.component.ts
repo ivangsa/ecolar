@@ -1,20 +1,16 @@
-import Ribbon from './components/ribbon/Ribbon.vue';
-import JhiFooter from './components/jhi-footer/JhiFooter.vue';
-import JhiNavbar from './components/jhi-navbar/JhiNavbar.vue';
-import LoginForm from './components/account/login-form/LoginForm.vue';
-import { HouseHoldService } from "./ecolar/service/house-hold.service";
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import Ribbon from '@/components/ribbon/ribbon.vue';
+import JhiFooter from '@/components/jhi-footer/jhi-footer.vue';
+import JhiNavbar from '@/components/jhi-navbar/jhi-navbar.vue';
+import LoginForm from '@/components/account/login-form/login-form.vue';
 
-const App = {
-  name: 'App',
+@Component({
   components: {
     ribbon: Ribbon,
     'jhi-navbar': JhiNavbar,
     'jhi-footer': JhiFooter,
     'login-form': LoginForm
-  },
-  provide: {
-    houseHoldService: () => new HouseHoldService(),
-  },
-};
-
-export default App;
+  }
+})
+export default class App extends Vue {}

@@ -1,25 +1,47 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import axios, {AxiosPromise} from 'axios';
-import { IHouseHold } from '../../ecolar/model/house-hold.model';
+import axios from 'axios';
+
+import { IHouseHold } from '@/shared/model/house-hold.model';
 
 const baseApiUrl = 'api/house-holds';
 
-@Component({})
-export default class HouseHoldService extends Vue {
-    findHouseHold(id): AxiosPromise<IHouseHold> {
-        return axios.get(`${baseApiUrl}/${id}`);
+export default class HouseHoldService {
+    public find(id): Promise<IHouseHold> {
+        return new Promise<IHouseHold>(resolve => {
+            axios.get(`${baseApiUrl}/${id}`).then(function(res) {
+                resolve(res.data);
+            });
+        });
     }
-    retrieveHouseHolds() {
-        return axios.get(baseApiUrl);
+
+    public retrieve(paginationQuery?: any): Promise<any> {
+        return new Promise<any>(resolve => {
+            axios.get(baseApiUrl).then(function(res) {
+                resolve(res);
+            });
+        });
     }
-    deleteHouseHold(id) {
-        return axios.delete(`${baseApiUrl}/${id}`);
+
+    public delete(id): Promise<any> {
+        return new Promise<any>(resolve => {
+            axios.delete(`${baseApiUrl}/${id}`).then(function(res) {
+                resolve(res);
+            });
+        });
     }
-    createHouseHold(entity) {
-        return axios.post(`${baseApiUrl}`, entity);
+
+    public create(entity): Promise<IHouseHold> {
+        return new Promise<IHouseHold>(resolve => {
+            axios.post(`${baseApiUrl}`, entity).then(function(res) {
+                resolve(res.data);
+            });
+        });
     }
-    updateHouseHold(entity) {
-        return axios.put(`${baseApiUrl}`, entity);
+
+    public update(entity): Promise<IHouseHold> {
+        return new Promise<IHouseHold>(resolve => {
+            axios.put(`${baseApiUrl}`, entity).then(function(res) {
+                resolve(res.data);
+            });
+        });
     }
-};
+}

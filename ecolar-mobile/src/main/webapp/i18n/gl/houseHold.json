@@ -1,23 +1,23 @@
 {
-  "ecolarApp": {
-    "houseHold": {
-      "home": {
-        "title": "HouseHolds",
-        "createLabel": "Crear novo House Hold",
-        "createOrEditLabel": "Crear ou editar House Hold"
-      },
-      "created": "Un novo House Hold foi creado co identificador {{ param }}",
-      "updated": "Un House Hold foi actualizado co identificador {{ param }}",
-      "deleted": "Un House Hold foi eliminado co identificador {{ param }}",
-      "delete": {
-        "question": "Seguro que desexa eliminar House Hold {{ id }}?"
-      },
-      "detail": {
-        "title": "House Hold"
-      },
-      "name": "Name",
-      "accountCategories": "Account Categories",
-      "members": "Members"
+    "ecolarApp": {
+        "houseHold": {
+            "home": {
+                "title": "HouseHolds",
+                "createLabel": "Crear novo House Hold",
+                "createOrEditLabel": "Crear ou editar House Hold"
+            },
+            "created": "Un novo House Hold foi creado co identificador {{ param }}",
+            "updated": "Un House Hold foi actualizado co identificador {{ param }}",
+            "deleted": "Un House Hold foi eliminado co identificador {{ param }}",
+            "delete": {
+                "question": "Seguro que desexa eliminar House Hold {{ id }}?"
+            },
+            "detail": {
+                "title": "House Hold"
+            },
+            "name": "Name",
+            "accountCategories": "Account Categories",
+            "members": "Members"
+        }
     }
-  }
 }

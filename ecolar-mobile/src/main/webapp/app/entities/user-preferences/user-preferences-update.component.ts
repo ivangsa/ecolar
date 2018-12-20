@@ -1,59 +1,79 @@
-import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { Component, Vue, Inject } from 'vue-property-decorator';
 
-import UserPreferencesService from './user-preferences.service.vue';
-import UserService from '../user/user.service.vue';
+import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
-const UserPreferencesUpdate = {
-  mixins: [UserPreferencesService, UserService],
-  data() {
-    return {
-      userPreferences: {
-        users: []
-      },
-      users: [],
-      isSaving: false
-    };
-  },
-  validations: {
+import UserService from '@/components/admin/user-management/user-management.service';
+
+import { IUserPreferences } from '@/shared/model/user-preferences.model';
+import UserPreferencesService from './user-preferences.service';
+
+const validations: any = {
     userPreferences: {}
-  },
-  beforeRouteEnter(to, from, next) {
+};
+const beforeRouteEnter = (to, from, next) => {
     next(vm => {
-      if (to.params.userPreferencesId) {
-        vm.retrieveUserPreferences(to.params.userPreferencesId);
-      }
-      vm.initRelationships();
+        if (to.params.userPreferencesId) {
+            vm.retrieveUserPreferences(to.params.userPreferencesId);
+        }
+        vm.initRelationships();
     });
-  },
-  methods: {
-    save() {
-      this.isSaving = true;
-      if (this.userPreferences.id) {
-        this.updateUserPreferences(this.userPreferences).then(() => {
-          this.$router.go(-1);
-          this.isSaving = false;
-        });
-      } else {
-        this.createUserPreferences(this.userPreferences).then(() => {
-          this.$router.go(-1);
-          this.isSaving = false;
-        });
-      }
-    },
-    retrieveUserPreferences(userPreferencesId) {
-      this.findUserPreferences(userPreferencesId).then(res => {
-        this.userPreferences = res.data;
-      });
-    },
-    previousState() {
-      this.$router.go(-1);
-    },
-    initRelationships() {
-      this.retrieveUsers().then(res => {
-        this.users = res.data;
-      });
-    }
-  }
 };
 
-export default UserPreferencesUpdate;
+@Component({
+    validations,
+    beforeRouteEnter
+})
+export default class UserPreferencesUpdate extends Vue {
+    @Inject('userPreferencesService') private userPreferencesService: () => UserPreferencesService;
+    public userPreferences: IUserPreferences;
+
+    @Inject('userService') private userService: () => UserService;
+    public users: Array<any>;
+    public isSaving: boolean;
+
+    constructor() {
+        super();
+        this.userPreferences = {};
+        this.users = [];
+        this.isSaving = false;
+    }
+
+    public save(): void {
+        this.isSaving = true;
+        if (this.userPreferences.id) {
+            this.userPreferencesService()
+                .update(this.userPreferences)
+                .then(() => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                });
+        } else {
+            this.userPreferencesService()
+                .create(this.userPreferences)
+                .then(() => {
+                    this.isSaving = false;
+                    this.$router.go(-1);
+                });
+        }
+    }
+
+    public retrieveUserPreferences(userPreferencesId): void {
+        this.userPreferencesService()
+            .find(userPreferencesId)
+            .then(res => {
+                this.userPreferences = res;
+            });
+    }
+
+    public previousState(): void {
+        this.$router.go(-1);
+    }
+
+    public initRelationships(): void {
+        this.userService()
+            .retrieve()
+            .then(res => {
+                this.users = res.data;
+            });
+    }
+}

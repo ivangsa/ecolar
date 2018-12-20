@@ -29,7 +29,7 @@
                             <td v-text="$t('ecolarApp.LineType.' + movementLine.eventType)">{{movementLine.eventType}}</td>
                         <td>
                                         <div v-if="movementLine.account">
-                                            <router-link :to="'../e-account/' + movementLine.account.id + '/View'" >{{movementLine.account.accountName}}</router-link>
+                                            <router-link :to="'../entity/e-account/' + movementLine.account.id + '/view'" >{{movementLine.account.accountName}}</router-link>
                                         </div>
                         </td>
                     <td class="text-right">

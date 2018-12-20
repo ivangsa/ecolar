@@ -16,7 +16,7 @@
     "bootstrap-vue": "^2.0.0-rc.11",
     "moment": "2.22.2",
     "swagger-ui": "2.2.10",
-    "vue": "^2.5.2",
+    "vue": "2.5.17",
     "vue-class-component": "^6.3.2",
     "vue-cookie": "^1.1.4",
     "vue-i18n": "^8.0.0",
@@ -131,7 +131,7 @@
       "^@/(.*)$": "<rootDir>/src/main/webapp/app/$1"
     },
     "testMatch": [
-      "<rootDir>/src/main/webapp/app/components/**/*.test.(js|jsx|ts|tsx)"
+      "<rootDir>/src/test/javascript/spec/app/**/*.spec.(js|jsx|ts|tsx)"
     ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/jest-serializer-vue"

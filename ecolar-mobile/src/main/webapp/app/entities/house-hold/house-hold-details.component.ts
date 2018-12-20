@@ -1,32 +1,37 @@
-import Component, { mixins } from 'vue-class-component';
-import { IHouseHold } from '../../ecolar/model/house-hold.model';
+import { Component, Vue, Inject } from 'vue-property-decorator';
+
+import { IHouseHold } from '@/shared/model/house-hold.model';
 import HouseHoldService from './house-hold.service';
 
-const beforeRouteEnter = function(to, from, next) {
-  next(vm => {
-    if (to.params.houseHoldId) {
-      vm.retrieveHouseHold(to.params.houseHoldId);
-    }
-  });
-}
+const beforeRouteEnter = (to, from, next) => {
+    next(vm => {
+        if (to.params.houseHoldId) {
+            vm.retrieveHouseHold(to.params.houseHoldId);
+        }
+    });
+};
 
 @Component({
-  beforeRouteEnter
+    beforeRouteEnter
 })
-export default class HouseHoldDetails extends mixins(HouseHoldService) {
-  houseHold: IHouseHold = {};
+export default class HouseHoldDetails extends Vue {
+    @Inject('houseHoldService') private houseHoldService: () => HouseHoldService;
+    public houseHold: IHouseHold;
 
-  retrieveHouseHold(houseHoldId) {
-    let vm = this;
-    console.log(houseHoldId);
-    this.findHouseHold(houseHoldId).then(res => {
-      console.log(res.data);
-      vm.houseHold = res.data;
-    });
-  }
+    constructor() {
+        super();
+        this.houseHold = {};
+    }
 
-  previousState() {
-    this.$router.go(-1);
-  }
+    public retrieveHouseHold(houseHoldId) {
+        this.houseHoldService()
+            .find(houseHoldId)
+            .then(res => {
+                this.houseHold = res;
+            });
+    }
 
+    public previousState() {
+        this.$router.go(-1);
+    }
 }

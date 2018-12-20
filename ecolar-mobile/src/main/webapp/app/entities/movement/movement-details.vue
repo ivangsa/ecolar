@@ -6,6 +6,10 @@
                 <!--<jhi-alert-error></jhi-alert-error>-->
                 <dl class="row jh-entity-details">
 
+                        <dt><span v-text="$t('ecolarApp.movement.type')">Type</span></dt>
+                        <dd>
+                                <span v-text="$t('ecolarApp.AccountType.' + movement.type)">{{movement.type}}</span>
+                        </dd>
                         <dt><span v-text="$t('ecolarApp.movement.eventTime')">Event Time</span></dt>
                         <dd>
                                 <span>{{movement.eventTime}}</span>

@@ -8,7 +8,7 @@
             <div class="card jh-card">
                 <router-view></router-view>
             </div>
-            <b-modal id="login-page" hide-footer>
+            <b-modal id="login-page" hide-footer lazy>
                 <span slot="modal-title" id="login-title" v-text="$t('login.title')">Sign in</span>
                 <login-form></login-form>
             </b-modal>
@@ -17,7 +17,7 @@
     </div>
 </template>
 
-<script lang="ts" src="./App.component.ts">
+<script lang="ts" src="./app.component.ts">
 </script>
 
 <style>

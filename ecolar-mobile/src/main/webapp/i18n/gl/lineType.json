@@ -1,9 +1,9 @@
 {
-  "ecolarApp": {
-    "LineType": {
-      "null": "",
-      "CREDIT": "CREDIT",
-      "DEBIT": "DEBIT"
+    "ecolarApp": {
+        "LineType": {
+            "null": "",
+            "CREDIT": "CREDIT",
+            "DEBIT": "DEBIT"
+        }
     }
-  }
 }

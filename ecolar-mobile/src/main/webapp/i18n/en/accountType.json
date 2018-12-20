@@ -1,11 +1,11 @@
 {
-  "ecolarApp": {
-    "AccountType": {
-      "null": "",
-      "ASSETS": "ASSETS",
-      "LIABILITIES": "LIABILITIES",
-      "REVENUE": "REVENUE",
-      "EXPENSE": "EXPENSE"
+    "ecolarApp": {
+        "AccountType": {
+            "null": "",
+            "ASSETS": "ASSETS",
+            "LIABILITIES": "LIABILITIES",
+            "REVENUE": "REVENUE",
+            "EXPENSE": "EXPENSE"
+        }
     }
-  }
 }
