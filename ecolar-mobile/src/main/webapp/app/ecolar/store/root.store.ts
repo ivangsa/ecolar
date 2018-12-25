@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex, { MutationTree, GetterTree } from 'vuex';
 Vue.use(Vuex);
 
-import { NewMovementStore } from './new-movement.store';
+import { HouseHoldStore } from './house-hold.store';
 
 export interface RootState {
   logon: boolean;
@@ -41,6 +41,6 @@ export default new Vuex.Store({
   mutations,
   getters,
   modules: {
-    NewMovementStore
+    HouseHoldStore
   }
 });

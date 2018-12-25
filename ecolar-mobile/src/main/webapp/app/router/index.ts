@@ -21,9 +21,8 @@ const EcoUserManagementComponent = () => import('../admin/user-management/user-m
 const EcoUserManagementViewComponent = () => import('../admin/user-management/user-management-view.vue');
 const EcoUserManagementEditComponent = () => import('../admin/user-management/user-management-edit.vue');
 // // prettier-ignore
-const HouseHold = () => import('../entities/house-hold/house-hold.vue');
-const HouseHoldUpdate = () => import('../entities/house-hold/house-hold-update.vue');
-const HouseHoldDetails = () => import('../entities/house-hold/house-hold-details.vue');
+const HouseHolds = () => import('../ecolar/house-hold/house-holds.vue');
+const HouseHoldDetails = () => import('../ecolar/house-hold/house-hold-details.vue');
 const AddNewMovement = () => import('../ecolar/movement/add-movement.vue');
 // // prettier-ignore
 // const UserPreferences = () => import('../entities/user-preferences/user-preferences.vue');
@@ -160,9 +159,7 @@ export default new Router({
             component: EcoConfigurationComponent
         }, // prettier-ignore // prettier-ignore
         ,
-        { path: '/entity/house-hold', name: 'HouseHold', component: HouseHold },
-        { path: '/entity/house-hold/new', name: 'HouseHoldCreate', component: HouseHoldUpdate },
-        { path: '/entity/house-hold/:houseHoldId/edit', name: 'HouseHoldEdit', component: HouseHoldUpdate },
+        { path: '/entity/house-hold', name: 'HouseHolds', component: HouseHolds },
         { path: '/entity/house-hold/:houseHoldId/view', name: 'HouseHoldView', component: HouseHoldDetails }, // prettier-ignore
         { path: '/entity/house-hold/:houseHoldId/movement/new', name: 'AddNewMovement', component: AddNewMovement },
         // { path: '/entity/user-preferences', name: 'UserPreferences', component: UserPreferences },

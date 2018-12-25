@@ -30,7 +30,7 @@
     "skipUserManagement": false,
     "authenticationType": "jwt",
     "cacheProvider": "ehcache",
-    "serverPort": "8082",
+    "serverPort": "8083",
     "useSass": true,
     "jwtSecretKey": "YzU3ZDNkYzdkMjBhMmQyNjZmZTNmNjBlZTJjNjk1ZTQ0NjNlOWRiNjljZjE0YTgyZWMyYjhhOGQ5YzAzZjBhOGIzNTZkNGQxYWNlYTFkMzU5NTExNDliOWNmMjU2Yzc3NTAwNDExMDA1ZDAyYmFlZGExZjljNjVkMDk0YjAzOTg=",
     "jhipsterVersion": "5.7.0",

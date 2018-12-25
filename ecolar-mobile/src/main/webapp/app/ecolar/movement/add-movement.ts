@@ -5,9 +5,9 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 
-import { HouseHoldService } from "../service/house-hold.service";
+import HouseHoldService from "@/ecolar/service/house-hold.service";
 import AddNewMovementSelectAccount from './add-movement-select-account.vue';
-import { NewMovementState } from '../store/new-movement.store';
+import { HouseHoldState } from '../store/house-hold.store';
 
 const validations = {
     movement: {
@@ -18,7 +18,7 @@ const validations = {
     }
 }
 
-const NewMovementStore = namespace('NewMovementStore')
+const HouseHoldStore = namespace('HouseHoldStore')
 
 @Component({
     mixins: [validationMixin],
@@ -27,26 +27,12 @@ const NewMovementStore = namespace('NewMovementStore')
 })
 export default class AddNewMovement extends mixins(HouseHoldService) {
 
-    // @Inject()
-    // private houseHoldService!: () => HouseHoldService;
+    @Inject('houseHoldService') private houseHoldService: () => HouseHoldService;
 
     isSaving: boolean = false;
 
-    @State('NewMovementStore') state: NewMovementState;
-    @NewMovementStore.Mutation('initState') initState;
-    @NewMovementStore.Mutation('selectMovementType') selectMovementType;
+    @State('HouseHoldStore') state: HouseHoldState;
+    @HouseHoldStore.Mutation('selectMovementType') selectMovementType;
 
-    beforeRouteEnter (to, from, next) {
-        console.log('beforeRouteEnter')
-        next( _this => {
-            const houseHoldId = to.params.houseHoldId;
-            _this.findHouseHold(houseHoldId).then(res => _this.initState(res.data))
-        })
-    }
-    
-    beforeRouteLeave (to, from, next) {
-        console.log('beforeRouteLeave')
-        next() // needs to be called to confirm the navigation
-    }
 }
 

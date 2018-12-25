@@ -7,7 +7,7 @@ import { ICategory } from '@/shared/model/category.model';
 const baseApiUrl = 'api/house-holds';
 
 @Component
-export class HouseHoldService extends Vue {
+export default class HouseHoldService extends Vue {
 
     findHouseHold(id): AxiosPromise<IHouseHold> {
         return axios.get(`${baseApiUrl}/${id}`);

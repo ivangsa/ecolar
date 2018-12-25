@@ -1,16 +1,18 @@
 import Vuex, { StoreOptions, MutationTree, Module } from 'vuex';
 
-import { RootState } from '.'
+import { RootState } from './root.store'
 import { IHouseHold, HouseHold } from '@/shared/model/house-hold.model';
 import { ICategory, AccountType } from '@/shared/model/category.model';
 import { IEAccount } from '@/shared/model/e-account.model';
 import { IMovement } from '@/shared/model/movement.model';
 import { IMovementLine, LineType } from '@/shared/model/movement-line.model';
 
-export interface NewMovementState {
-  houseHold: IHouseHold;
+export interface HouseHoldState {
+  houseHolds: IHouseHold[];
 
-  movementType?:AccountType;
+  houseHold?: IHouseHold;
+
+  movementType?: AccountType;
   selectingAccountFor?: LineType;
   currentMovement?: IMovement;
   selectedCategoryFrom?: ICategory;
@@ -19,21 +21,35 @@ export interface NewMovementState {
   selectedAccountTo?: IEAccount;
 }
 
-export const mutations: MutationTree<NewMovementState> = {
+export const mutations: MutationTree<HouseHoldState> = {
 
-  initState(state: NewMovementState, houseHold: IHouseHold) {
+  setHouseHolds(state: HouseHoldState, houseHolds: IHouseHold[]) {
+    state.houseHolds = houseHolds;
+  },
+
+  selectHouseHoldById(state: HouseHoldState, houseHoldId: string) {
+    state.houseHold = null;
+    for (let i = 0; i < state.houseHolds.length; i++) {
+      const houseHold = state.houseHolds[i];
+      if(houseHold.id === houseHoldId) {
+        state.houseHold = houseHold;
+      }
+    }
+  },
+
+  selectHouseHold(state: HouseHoldState, houseHold: IHouseHold) {
     state.houseHold = houseHold;
   },
 
-  selectMovementType(state: NewMovementState, movementType:AccountType) {
+  selectMovementType(state: HouseHoldState, movementType:AccountType) {
     state.movementType = movementType;
   },
 
-  setSelectingAccountFor(state: NewMovementState, selectingAccountFor: LineType) {
+  setSelectingAccountFor(state: HouseHoldState, selectingAccountFor: LineType) {
     state.selectingAccountFor = selectingAccountFor;
   },
 
-  selectCategory(state: NewMovementState, selectedCategory: ICategory) {
+  selectCategory(state: HouseHoldState, selectedCategory: ICategory) {
     if(state.selectingAccountFor === LineType.DEBIT) {
       state.selectedCategoryFrom = selectedCategory;
     } else if(state.selectingAccountFor === LineType.CREDIT) {
@@ -42,7 +58,7 @@ export const mutations: MutationTree<NewMovementState> = {
     state.selectingAccountFor = null;
   },
 
-  selectAccount(state: NewMovementState, selectedAccount: IEAccount) {
+  selectAccount(state: HouseHoldState, selectedAccount: IEAccount) {
     if(state.selectingAccountFor === LineType.DEBIT) {
       state.selectedAccountFrom = selectedAccount;
     } if(state.selectingAccountFor === LineType.CREDIT) {
@@ -53,9 +69,10 @@ export const mutations: MutationTree<NewMovementState> = {
 };
 
 
-export const NewMovementStore: Module<NewMovementState, RootState> = {
+export const HouseHoldStore: Module<HouseHoldState, RootState> = {
   namespaced: true,
   state: {
+    houseHolds: null,
     houseHold: null,
     movementType: null,
     selectingAccountFor: null,

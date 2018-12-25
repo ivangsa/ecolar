@@ -3,14 +3,13 @@ import Component, { mixins } from 'vue-class-component';
 
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class'
 
-import { NewMovementState } from '../store/new-movement.store';
+import { HouseHoldState } from '../store/house-hold.store';
 import { IMovement, Movement } from '@/shared/model/movement.model';
 import { IMovementLine, LineType } from '@/shared/model/movement-line.model';
 import { ICategory, AccountType } from '@/shared/model/category.model';
 import { Prop } from 'vue-property-decorator';
 
-const NewMovementStore = namespace('NewMovementStore')
-
+const HouseHoldStore = namespace('HouseHoldStore');
 
 @Component({
     name: 'account-categories-tree',
@@ -34,8 +33,8 @@ class AccountCategoriesTree extends Vue {
 
     showChildren: boolean = true;
 
-    @State('NewMovementStore') state: NewMovementState;
-    @NewMovementStore.Mutation('selectCategory') selectCategory;
+    @State('HouseHoldStore') state: HouseHoldState;
+    @HouseHoldStore.Mutation('selectCategory') selectCategory;
 
     toggleChildren() {
         this.showChildren = !this.showChildren;
@@ -47,8 +46,8 @@ class AccountCategoriesTree extends Vue {
     components: {AccountCategoriesTree}
 })
 export default class AddNewMovementSelectAccount extends Vue {
-    @State('NewMovementStore') state: NewMovementState;
-    @NewMovementStore.Mutation('setSelectingAccountFor') setSelectingAccountFor;
+    @State('HouseHoldStore') state: HouseHoldState;
+    @HouseHoldStore.Mutation('setSelectingAccountFor') setSelectingAccountFor;
 
     get categories() {
         if(this.state.selectingAccountFor === LineType.DEBIT) {

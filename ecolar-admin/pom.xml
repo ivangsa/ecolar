@@ -463,7 +463,7 @@
                               <arg>chmod +x /entrypoint.sh &amp;&amp; sync &amp;&amp; /entrypoint.sh</arg>
                           </entrypoint>
                           <ports>
-                              <port>8082</port>
+                              <port>8083</port>
                           </ports>
                           <environment>
                               <SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>

@@ -3,17 +3,17 @@
 import Vue from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Modal, Pagination, Progress } from 'bootstrap-vue/es/components';
-import App from './app.vue';
-import router from './router';
-import store from './ecolar/store';
-import * as config from './shared/config';
-import JhiItemCountComponent from './shared/jhi-item-count.vue';
-import AuditsService from './admin/audits/audits.service';
-import HealthService from './admin/health/health.service';
-import LoginModalService from './account/login-modal.service';
-import MetricsService from './admin/metrics/metrics.service';
-import RegisterService from './account/register/register.service';
-import LogsService from './admin/logs/logs.service';
+import App from '@/app.vue';
+import router from '@/router';
+import store from '@/ecolar/store/root.store';
+import * as config from '@/shared/config';
+import JhiItemCountComponent from '@/shared/jhi-item-count.vue';
+import AuditsService from '@/admin/audits/audits.service';
+import HealthService from '@/admin/health/health.service';
+import LoginModalService from '@/account/login-modal.service';
+import MetricsService from '@/admin/metrics/metrics.service';
+import RegisterService from '@/account/register/register.service';
+import LogsService from '@/admin/logs/logs.service';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -21,14 +21,15 @@ import TranslationService from '@/locale/translation.service';
 import UserManagementService from '@/admin/user-management/user-management.service';
 import ConfigurationService from '@/admin/configuration/configuration.service';
 
-import HouseHoldService from '@/entities/house-hold/house-hold.service';
+import HouseHoldService from '@/ecolar/service/house-hold.service';
+
+// jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 import UserPreferencesService from '@/entities/user-preferences/user-preferences.service';
 import AccountCategoriesService from '@/entities/account-categories/account-categories.service';
 import CategoryService from '@/entities/category/category.service';
 import MovementService from '@/entities/movement/movement.service';
 import MovementLineService from '@/entities/movement-line/movement-line.service';
 import EAccountService from '@/entities/e-account/e-account.service';
-// jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 const auditsService = new AuditsService();
 const healthService = new HealthService();
