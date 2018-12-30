@@ -3,10 +3,11 @@ import { Store } from 'vuex';
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
 import TranslationService from '@/locale/translation.service';
+import { RootState } from '@/ecolar/store/root.store';
 
 export default class Principal {
     constructor(
-        private store: Store<any>,
+        private store: Store<RootState>,
         private translationService: TranslationService,
         private i18n: VueI18n,
         private router: VueRouter

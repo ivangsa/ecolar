@@ -69,7 +69,7 @@ export const mutations: MutationTree<HouseHoldState> = {
 };
 
 
-export const HouseHoldStore: Module<HouseHoldState, RootState> = {
+export const HouseHoldStore: Module<HouseHoldState, any> = {
   namespaced: true,
   state: {
     houseHolds: null,

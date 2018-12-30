@@ -4,18 +4,13 @@ import { Vue, Inject } from 'vue-property-decorator';
 
 import Principal from '../principal';
 
-@Component({
-    watch: {
-        $route() {
-            this.$root.$emit('bv::hide::modal', 'login-page');
-        }
-    }
-})
+@Component
 export default class LoginForm extends Vue {
     public authenticationError: boolean = null;
     public login: string = null;
     public password: string = null;
     public rememberMe: boolean = null;
+    public showPassword: boolean = false;
 
     @Inject('principal') private principal: () => Principal;
 
@@ -34,11 +29,15 @@ export default class LoginForm extends Vue {
                     }
                 }
                 this.authenticationError = false;
-                this.$root.$emit('bv::hide::modal', 'login-page');
+                this.$store.commit('showLoginForm', false);
                 this.principal().retrieveAccount();
             })
             .catch(() => {
                 this.authenticationError = true;
             });
+    }
+
+    public close(): void {
+        this.$store.commit('showLoginForm', false);
     }
 }

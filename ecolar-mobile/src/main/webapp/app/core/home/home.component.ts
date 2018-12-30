@@ -13,7 +13,9 @@ export default class Home extends Vue {
     }
 
     public get authenticated(): boolean {
-        return this.principal().authenticated;
+        const value = this.principal().authenticated;
+        console.log('authenticated', value, this.$store.getters.authenticated);
+        return value;
     }
 
     public get username(): string {

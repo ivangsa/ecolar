@@ -1,20 +1,25 @@
 <template>
-    <div id="app">
+    <v-app id="inspire">
         <ribbon></ribbon>
-        <div id="app-header">
-            <jhi-navbar></jhi-navbar>
-        </div>
-        <div class="container-fluid">
-            <div class="card jh-card">
-                <router-view></router-view>
-            </div>
-            <b-modal id="login-page" hide-footer lazy>
-                <span slot="modal-title" id="login-title" v-text="$t('login.title')">Sign in</span>
-                <login-form></login-form>
-            </b-modal>
-            <jhi-footer></jhi-footer>
-        </div>
-    </div>
+        <v-toolbar color="indigo" dark fixed app>
+            <v-toolbar-side-icon @click.stop="toogleDrawer()"></v-toolbar-side-icon>
+            <v-toolbar-title><span v-text="$t('global.title')" class="navbar-title">jhipster</span> <span class="navbar-version">{{version}}</span></v-toolbar-title>
+        </v-toolbar>            
+        <jhi-navbar></jhi-navbar>
+        <v-content>
+            <v-container fluid fill-height>
+                <v-layout justify-center>
+                <v-flex text-xs-center>
+                    <router-view></router-view>
+                </v-flex>
+                </v-layout>
+            </v-container>
+        </v-content>
+        <v-footer color="indigo" app>
+            <span class="white--text">&copy; 2018</span>
+        </v-footer>
+        <login-form></login-form>
+    </v-app>
 </template>
 
 <script lang="ts" src="./app.component.ts">

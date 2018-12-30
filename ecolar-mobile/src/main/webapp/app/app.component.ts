@@ -4,6 +4,7 @@ import Ribbon from '@/core/ribbon/ribbon.vue';
 import JhiFooter from '@/core/jhi-footer/jhi-footer.vue';
 import JhiNavbar from '@/core/jhi-navbar/jhi-navbar.vue';
 import LoginForm from '@/account/login-form/login-form.vue';
+import { State, Mutation } from 'vuex-class';
 
 @Component({
     components: {
@@ -13,4 +14,6 @@ import LoginForm from '@/account/login-form/login-form.vue';
         'login-form': LoginForm
     }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+    @Mutation toogleDrawer;
+}
