@@ -34,5 +34,8 @@ export default class AddNewMovement extends mixins(HouseHoldService) {
     @State('HouseHoldStore') state: HouseHoldState;
     @HouseHoldStore.Mutation('selectMovementType') selectMovementType;
 
+    save() {
+        console.log("save", this);
+    }
 }
 

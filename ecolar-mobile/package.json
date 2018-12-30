@@ -14,6 +14,7 @@
         "axios": "^0.18.0",
         "bootstrap": "^4.1.3",
         "bootstrap-vue": "^2.0.0-rc.11",
+        "material-design-icons-iconfont": "^4.0.3",
         "moment": "2.22.2",
         "swagger-ui": "2.2.10",
         "vue": "2.5.17",
@@ -24,6 +25,7 @@
         "vue-router": "^3.0.1",
         "vue2-filters": "^0.3.0",
         "vuelidate": "^0.7.4",
+        "vuetify": "^1.4.0-beta.0",
         "vuex": "^3.0.1",
         "vuex-class": "^0.3.1"
     },

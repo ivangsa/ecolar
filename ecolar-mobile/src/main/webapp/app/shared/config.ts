@@ -2,6 +2,8 @@ import Vuex from 'vuex';
 import VueI18n from 'vue-i18n';
 import setupAxiosInterceptors from '../config/axios-interceptor';
 
+import store from '@/ecolar/store/root.store';
+
 import BootstrapVue from 'bootstrap-vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -100,43 +102,5 @@ export function initI18N(vue) {
 
 export function initVueXStore(vue) {
     vue.use(Vuex);
-    return new Vuex.Store({
-        state: {
-            logon: false,
-            userIdentity: null,
-            authenticated: false,
-            currentLanguage: 'en',
-            languages: {
-                en: { name: 'English' },
-                gl: { name: 'Galego' },
-                es: { name: 'Español' }
-            }
-            // jhipster-needle-i18n-language-key-pipe - JHipster will add/remove languages in this object
-        },
-        mutations: {
-            currentLanguage(state, newLanguage) {
-                state.currentLanguage = newLanguage;
-            },
-            authenticate(state) {
-                state.logon = true;
-            },
-            authenticated(state, identity) {
-                state.userIdentity = identity;
-                state.authenticated = true;
-                state.logon = false;
-            },
-            logout(state) {
-                state.userIdentity = null;
-                state.authenticated = false;
-                state.logon = false;
-            }
-        },
-        getters: {
-            currentLanguage: state => state.currentLanguage,
-            languages: state => state.languages,
-            logon: state => state.logon,
-            account: state => state.userIdentity,
-            authenticated: state => state.authenticated
-        }
-    });
+    return store;
 }

@@ -5,10 +5,9 @@ import axios from 'axios';
 import { VERSION } from '@/constants';
 import LoginModalService from '@/account/login-modal.service';
 import Principal from '@/account/principal';
+import { State, Getter } from 'vuex-class';
 
-@Component({
-    computed: mapGetters(['authenticated'])
-})
+@Component
 export default class JhiNavbar extends mixins(Principal) {
     @Inject('loginModalService') private loginModalService: () => LoginModalService;
     public version: string;
@@ -17,6 +16,8 @@ export default class JhiNavbar extends mixins(Principal) {
     public isNavbarCollapsed: boolean;
     private currentLanguage: string;
     private languages: any;
+    @State drawer: boolean;
+    @Getter authenticated;
 
     constructor() {
         super();

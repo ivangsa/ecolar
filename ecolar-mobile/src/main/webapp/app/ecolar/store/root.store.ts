@@ -5,12 +5,22 @@ Vue.use(Vuex);
 import { HouseHoldStore } from './house-hold.store';
 
 export interface RootState {
+  title?: string;
+  drawer: boolean;
+  showLoginForm: boolean;
   logon: boolean;
   userIdentity?: any;
   authenticated:boolean;
 }
 
 export const mutations: MutationTree<RootState> = {
+  toogleDrawer(state) { 
+    state.drawer = !state.drawer;
+  },
+  showLoginForm(state, open) {
+    console.log('showLoginForm', open);
+    state.showLoginForm = open;
+  },
   authenticate(state) {
     state.logon = true;
   },
@@ -34,6 +44,8 @@ export const getters: GetterTree<RootState, RootState> = {
 
 export default new Vuex.Store({
   state: {
+    drawer: false,
+    showLoginForm: false,
     logon: false,
     userIdentity: null,
     authenticated: false
@@ -42,5 +54,5 @@ export default new Vuex.Store({
   getters,
   modules: {
     HouseHoldStore
-  }
+  },
 });

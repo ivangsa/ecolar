@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Modal, Pagination, Progress } from 'bootstrap-vue/es/components';
 import App from '@/app.vue';
 import router from '@/router';
-import store from '@/ecolar/store/root.store';
 import * as config from '@/shared/config';
 import JhiItemCountComponent from '@/shared/jhi-item-count.vue';
 import AuditsService from '@/admin/audits/audits.service';
@@ -15,8 +14,14 @@ import MetricsService from '@/admin/metrics/metrics.service';
 import RegisterService from '@/account/register/register.service';
 import LogsService from '@/admin/logs/logs.service';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap-vue/dist/bootstrap-vue.css';
+
+import Vuetify from 'vuetify'
+Vue.use(Vuetify)
+import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+
 import TranslationService from '@/locale/translation.service';
 import UserManagementService from '@/admin/user-management/user-management.service';
 import ConfigurationService from '@/admin/configuration/configuration.service';
@@ -54,6 +59,7 @@ Vue.config.productionTip = false;
 
 const i18n = config.initI18N(Vue);
 config.initVueApp(Vue);
+const store = config.initVueXStore(Vue);
 config.initBootstrapVue(Vue);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('jhi-item-count', JhiItemCountComponent);

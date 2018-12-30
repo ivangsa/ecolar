@@ -3,26 +3,13 @@ import Component, { mixins } from 'vue-class-component';
 
 import Principal from '../principal';
 
-@Component({
-    watch: {
-        $route() {
-            this.$root.$emit('bv::hide::modal', 'login-page');
-        }
-    }
-})
+@Component
 export default class LoginForm extends mixins(Principal) {
-    public authenticationError: boolean;
-    public login: string;
-    public password: string;
-    public rememberMe: boolean;
-
-    constructor() {
-        super();
-        this.authenticationError = null;
-        this.login = null;
-        this.password = null;
-        this.rememberMe = null;
-    }
+    public authenticationError: boolean = null;
+    public login: string = null;
+    public password: string = null;
+    public rememberMe: boolean = null;
+    public showPassword: boolean = false;
 
     public doLogin(): void {
         const data = { username: this.login, password: this.password, rememberMe: this.rememberMe };
@@ -39,11 +26,17 @@ export default class LoginForm extends mixins(Principal) {
                     }
                 }
                 this.authenticationError = false;
-                this.$root.$emit('bv::hide::modal', 'login-page');
+                //this.$root.$emit('bv::hide::modal', 'login-page');
+                console.log("close login form");
+                this.$store.commit('showLoginForm', false);
                 this.retrieveAccount();
             })
             .catch(() => {
                 this.authenticationError = true;
             });
+    }
+
+    public close(): void {
+        this.$store.commit('showLoginForm', false);
     }
 }
