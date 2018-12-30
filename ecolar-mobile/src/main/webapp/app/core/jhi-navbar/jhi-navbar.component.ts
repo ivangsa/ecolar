@@ -1,36 +1,22 @@
-import { mixins } from 'vue-class-component';
-import { Component, Inject } from 'vue-property-decorator';
-import { mapGetters } from 'vuex';
+import { Component, Inject, Vue } from 'vue-property-decorator';
 import axios from 'axios';
 import { VERSION } from '@/constants';
 import LoginModalService from '@/account/login-modal.service';
 import Principal from '@/account/principal';
-import { State, Getter } from 'vuex-class';
 
 @Component
-export default class JhiNavbar extends mixins(Principal) {
+export default class JhiNavbar extends Vue {
     @Inject('loginModalService') private loginModalService: () => LoginModalService;
-    public version: string;
-    public swaggerEnabled: boolean;
-    public inProduction: boolean;
-    public isNavbarCollapsed: boolean;
-    private currentLanguage: string;
-    private languages: any;
-    @State drawer: boolean;
-    @Getter authenticated;
-
-    constructor() {
-        super();
-        this.version = VERSION ? 'v' + VERSION : '';
-        this.swaggerEnabled = false;
-        this.inProduction = false;
-        this.isNavbarCollapsed = true;
-        this.currentLanguage = this.$store.getters.currentLanguage;
-        this.languages = this.$store.getters.languages;
-    }
+    @Inject('principal') private principal: () => Principal;
+    public version: string = VERSION ? 'v' + VERSION : '';
+    public swaggerEnabled: boolean = false;
+    public inProduction: boolean = false;
+    public isNavbarCollapsed: boolean = true;
+    private currentLanguage: string = this.$store.getters.currentLanguage;
+    private languages: any = this.$store.getters.languages;
 
     created() {
-        this.refreshTranslation(this.currentLanguage);
+        this.principal().refreshTranslation(this.currentLanguage);
         axios.get('management/info').then(res => {
             if (res.data && res.data.activeProfiles && res.data.activeProfiles.indexOf('swagger') > -1) {
                 this.swaggerEnabled = true;
@@ -49,8 +35,12 @@ export default class JhiNavbar extends mixins(Principal) {
         this.isNavbarCollapsed = true;
     }
 
-    public changeLanguage(newLanguage): void {
-        this.refreshTranslation(newLanguage);
+    public changeLanguage(newLanguage: string): void {
+        this.principal().refreshTranslation(newLanguage);
+    }
+
+    public isActiveLanguage(key: string): boolean {
+        return key === this.$store.getters.currentLanguage;
     }
 
     public logout(): void {
@@ -62,5 +52,13 @@ export default class JhiNavbar extends mixins(Principal) {
 
     public openLogin(): void {
         this.loginModalService().openLogin((<any>this).$root);
+    }
+
+    public get authenticated(): boolean {
+        return this.principal().authenticated;
+    }
+
+    public hasAnyAuthority(authorities: any): boolean {
+        return this.principal().hasAnyAuthority(authorities);
     }
 }

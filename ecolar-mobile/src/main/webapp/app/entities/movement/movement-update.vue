@@ -3,7 +3,7 @@
         <div class="col-8">
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
                 <h2 id="ecolarApp.movement.home.createOrEditLabel" v-text="$t('ecolarApp.movement.home.createOrEditLabel')">Create or edit a Movement</h2>
-                <div v-if="movement">
+                <div>
                     <!--<jhi-alert-error></jhi-alert-error>-->
                     <div class="form-group" v-if="movement.id">
                         <label for="id" v-text="$t('global.field.id')">ID</label>
@@ -23,13 +23,19 @@
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('ecolarApp.movement.eventTime')" for="movement-eventTime">Event Time</label>
                         <div class="d-flex">
-                            <input id="movement-eventTime" type="datetime-local" class="form-control" name="eventTime" :class="{'valid': !$v.movement.eventTime.$invalid, 'invalid': $v.movement.eventTime.$invalid }" v-model="$v.movement.eventTime.$model" />
+                            <input id="movement-eventTime" type="datetime-local" class="form-control" name="eventTime" :class="{'valid': !$v.movement.eventTime.$invalid, 'invalid': $v.movement.eventTime.$invalid }" 
+                            
+                            :value="convertDateTimeFromServer($v.movement.eventTime.$model)"
+                            @change="updateInstantField('eventTime', $event)"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('ecolarApp.movement.registrationTime')" for="movement-registrationTime">Registration Time</label>
                         <div class="d-flex">
-                            <input id="movement-registrationTime" type="datetime-local" class="form-control" name="registrationTime" :class="{'valid': !$v.movement.registrationTime.$invalid, 'invalid': $v.movement.registrationTime.$invalid }" v-model="$v.movement.registrationTime.$model" />
+                            <input id="movement-registrationTime" type="datetime-local" class="form-control" name="registrationTime" :class="{'valid': !$v.movement.registrationTime.$invalid, 'invalid': $v.movement.registrationTime.$invalid }" 
+                            
+                            :value="convertDateTimeFromServer($v.movement.registrationTime.$model)"
+                            @change="updateInstantField('registrationTime', $event)"/>
                         </div>
                     </div>
                     <div class="form-group">

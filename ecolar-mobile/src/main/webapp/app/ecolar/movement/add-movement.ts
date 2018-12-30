@@ -25,7 +25,7 @@ const HouseHoldStore = namespace('HouseHoldStore')
     validations,
     components: { AddNewMovementSelectAccount },
 })
-export default class AddNewMovement extends mixins(HouseHoldService) {
+export default class AddNewMovement extends Vue {
 
     @Inject('houseHoldService') private houseHoldService: () => HouseHoldService;
 

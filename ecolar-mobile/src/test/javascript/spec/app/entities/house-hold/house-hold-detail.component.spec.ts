@@ -2,7 +2,7 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import HouseHoldDetailComponent from '@/entities/house-hold/house-hold-details.vue';
 import HouseHoldClass from '@/entities/house-hold/house-hold-details.component';
 import HouseHoldService from '@/entities/house-hold/house-hold.service';

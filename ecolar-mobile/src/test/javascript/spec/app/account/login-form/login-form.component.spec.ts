@@ -1,7 +1,10 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
+import Principal from '@/account/principal';
+import router from '@/router';
+import TranslationService from '@/locale/translation.service';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import LoginForm from '@/account/login-form/login-form.vue';
 import LoginFormClass from '@/account/login-form/login-form.component';
 
@@ -33,7 +36,14 @@ describe('LoginForm Component', () => {
         mockedAxios.get.mockReturnValue(Promise.resolve({}));
         mockedAxios.post.mockReset();
 
-        wrapper = shallowMount<LoginFormClass>(LoginForm, { store, i18n, localVue });
+        wrapper = shallowMount<LoginFormClass>(LoginForm, {
+            store,
+            i18n,
+            localVue,
+            provide: {
+                principal: () => new Principal(store, new TranslationService(store), i18n, router)
+            }
+        });
         loginForm = wrapper.vm;
     });
 

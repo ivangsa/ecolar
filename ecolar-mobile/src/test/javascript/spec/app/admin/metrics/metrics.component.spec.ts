@@ -2,7 +2,7 @@ import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import Metrics from '@/admin/metrics/metrics.vue';
 import MetricsModal from '@/admin/metrics/metrics-modal.vue';
 import MetricsClass from '@/admin/metrics/metrics.component';
@@ -27,7 +27,7 @@ describe('Metrics Component', () => {
     let metrics: MetricsClass;
 
     beforeEach(() => {
-        mockedAxios.get.mockReturnValue(Promise.resolve({ data: {} }));
+        mockedAxios.get.mockReturnValue(Promise.resolve({ data: { timers: [], gauges: [] } }));
         wrapper = shallowMount<MetricsClass>(Metrics, {
             store,
             i18n,

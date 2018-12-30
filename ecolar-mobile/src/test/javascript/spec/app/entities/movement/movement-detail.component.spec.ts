@@ -2,7 +2,7 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import MovementDetailComponent from '@/entities/movement/movement-details.vue';
 import MovementClass from '@/entities/movement/movement-details.component';
 import MovementService from '@/entities/movement/movement.service';

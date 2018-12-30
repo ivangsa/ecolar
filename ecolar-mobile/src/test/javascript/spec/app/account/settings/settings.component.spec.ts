@@ -1,10 +1,13 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import Settings from '@/account/settings/settings.vue';
 import SettingsClass from '@/account/settings/settings.component';
 import { EMAIL_ALREADY_USED_TYPE } from '@/constants';
+import Principal from '@/account/principal';
+import router from '@/router';
+import TranslationService from '@/locale/translation.service';
 
 const localVue = createLocalVue();
 const mockedAxios: any = axios;
@@ -33,7 +36,14 @@ describe('Settings Component', () => {
         mockedAxios.post.mockReset();
 
         store.commit('authenticated', account);
-        wrapper = shallowMount<SettingsClass>(Settings, { store, i18n, localVue });
+        wrapper = shallowMount<SettingsClass>(Settings, {
+            store,
+            i18n,
+            localVue,
+            provide: {
+                principal: () => new Principal(store, new TranslationService(store), i18n, router)
+            }
+        });
         settings = wrapper.vm;
     });
 

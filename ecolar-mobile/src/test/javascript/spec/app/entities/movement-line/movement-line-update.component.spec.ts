@@ -3,7 +3,7 @@ import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 import Router from 'vue-router';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import MovementLineUpdateComponent from '@/entities/movement-line/movement-line-update.vue';
 import MovementLineClass from '@/entities/movement-line/movement-line-update.component';
 import MovementLineService from '@/entities/movement-line/movement-line.service';

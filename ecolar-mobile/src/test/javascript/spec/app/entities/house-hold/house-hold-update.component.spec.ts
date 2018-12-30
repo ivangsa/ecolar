@@ -3,7 +3,7 @@ import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 import Router from 'vue-router';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import HouseHoldUpdateComponent from '@/entities/house-hold/house-hold-update.vue';
 import HouseHoldClass from '@/entities/house-hold/house-hold-update.component';
 import HouseHoldService from '@/entities/house-hold/house-hold.service';

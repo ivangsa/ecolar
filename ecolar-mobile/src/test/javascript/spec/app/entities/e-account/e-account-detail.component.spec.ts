@@ -2,7 +2,7 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import EAccountDetailComponent from '@/entities/e-account/e-account-details.vue';
 import EAccountClass from '@/entities/e-account/e-account-details.component';
 import EAccountService from '@/entities/e-account/e-account.service';

@@ -1,42 +1,50 @@
 import axios from 'axios';
-import { Component, Inject, Vue } from 'vue-property-decorator';
+import { Store } from 'vuex';
+import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n';
 import TranslationService from '@/locale/translation.service';
 
-@Component
-export default class Principal extends Vue {
-    @Inject('translationService') private translationService: () => TranslationService;
+export default class Principal {
+    constructor(
+        private store: Store<any>,
+        private translationService: TranslationService,
+        private i18n: VueI18n,
+        private router: VueRouter
+    ) {
+        this.init();
+    }
 
-    public created(): void {
+    public init(): void {
         const token = localStorage.getItem('jhi-authenticationToken') || sessionStorage.getItem('jhi-authenticationToken');
-        if (!this.$store.getters.account && !this.$store.getters.logon && token) {
+        if (!this.store.getters.account && !this.store.getters.logon && token) {
             this.retrieveAccount();
         }
     }
 
     public retrieveAccount(): any {
-        this.$store.commit('authenticate');
+        this.store.commit('authenticate');
         axios
             .get('api/account')
             .then(response => {
                 const account = response.data;
                 if (account) {
-                    this.$store.commit('authenticated', account);
-                    if (this.$store.getters.currentLanguage !== account.langKey) {
-                        this.$store.commit('currentLanguage', account.langKey);
+                    this.store.commit('authenticated', account);
+                    if (this.store.getters.currentLanguage !== account.langKey) {
+                        this.store.commit('currentLanguage', account.langKey);
                     }
                 } else {
-                    this.$store.commit('logout');
-                    (<any>this).$router.push('/');
+                    this.store.commit('logout');
+                    this.router.push('/');
                 }
-                this.refreshTranslation(this.$store.getters.currentLanguage);
+                this.refreshTranslation(this.store.getters.currentLanguage);
             })
             .catch(() => {
-                this.$store.commit('logout');
-                (<any>this).$router.push('/');
+                this.store.commit('logout');
+                this.router.push('/');
             });
     }
 
-    public hasAnyAuthority(authorities: any): any {
+    public hasAnyAuthority(authorities: any): boolean {
         if (typeof authorities === 'string') {
             authorities = [authorities];
         }
@@ -53,19 +61,19 @@ export default class Principal extends Vue {
         return false;
     }
 
-    public get authenticated() {
-        return this.$store.getters.authenticated;
+    public get authenticated(): boolean {
+        return this.store.getters.authenticated;
     }
 
     public get userAuthorities(): any {
-        return this.$store.getters.account.authorities;
+        return this.store.getters.account.authorities;
     }
 
     public get username(): string {
-        return this.$store.getters.account ? this.$store.getters.account.login : '';
+        return this.store.getters.account ? this.store.getters.account.login : '';
     }
 
-    public refreshTranslation(newLanguage) {
-        this.translationService().refreshTranslation(this.$i18n, this.$store.getters.currentLanguage, newLanguage);
+    public refreshTranslation(newLanguage: string): void {
+        this.translationService.refreshTranslation(this.i18n, newLanguage);
     }
 }

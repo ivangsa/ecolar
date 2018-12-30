@@ -5,7 +5,8 @@ import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validator
 import CategoryService from '../category/category.service';
 import { ICategory } from '@/shared/model/category.model';
 
-import { IEAccount } from '@/shared/model/e-account.model';
+import AlertService from '@/shared/alert/alert.service';
+import { IEAccount, EAccount } from '@/shared/model/e-account.model';
 import EAccountService from './e-account.service';
 
 const validations: any = {
@@ -20,8 +21,9 @@ const validations: any = {
     validations
 })
 export default class EAccountUpdate extends Vue {
+    @Inject('alertService') private alertService: () => AlertService;
     @Inject('eAccountService') private eAccountService: () => EAccountService;
-    public eAccount: IEAccount = {};
+    public eAccount: IEAccount = new EAccount();
 
     @Inject('categoryService') private categoryService: () => CategoryService;
     public categories: ICategory[] = [];
@@ -41,16 +43,20 @@ export default class EAccountUpdate extends Vue {
         if (this.eAccount.id) {
             this.eAccountService()
                 .update(this.eAccount)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.eAccount.updated', { param: param.id });
+                    this.alertService().showAlert(message, 'info');
                 });
         } else {
             this.eAccountService()
                 .create(this.eAccount)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.eAccount.created', { param: param.id });
+                    this.alertService().showAlert(message, 'success');
                 });
         }
     }

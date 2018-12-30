@@ -2,10 +2,13 @@ import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import UserManagement from '@/admin/user-management/user-management.vue';
 import UserManagementClass from '@/admin/user-management/user-management.component';
 import UserManagementService from '@/admin/user-management/user-management.service';
+import Principal from '@/account/principal';
+import router from '@/router';
+import TranslationService from '@/locale/translation.service';
 
 const localVue = createLocalVue();
 const mockedAxios: any = axios;
@@ -36,7 +39,7 @@ describe('UserManagement Component', () => {
     beforeEach(() => {
         mockedAxios.put.mockReset();
         mockedAxios.get.mockReset();
-        mockedAxios.get.mockReturnValue(Promise.resolve({}));
+        mockedAxios.get.mockReturnValue(Promise.resolve({ headers: {} }));
 
         store.commit('authenticated', account);
         wrapper = shallowMount<UserManagementClass>(UserManagement, {
@@ -49,6 +52,7 @@ describe('UserManagement Component', () => {
                 bModal: true
             },
             provide: {
+                principal: () => new Principal(store, new TranslationService(store), i18n, router),
                 userService: () => new UserManagementService()
             }
         });
@@ -61,9 +65,6 @@ describe('UserManagement Component', () => {
 
     describe('OnInit', () => {
         it('Should call load all on init', async () => {
-            // GIVEN
-            mockedAxios.get.mockReturnValue(Promise.resolve({}));
-
             // WHEN
             userManagement.loadAll();
             await userManagement.$nextTick();
@@ -77,7 +78,6 @@ describe('UserManagement Component', () => {
         it('Should update user and call load all', async () => {
             // GIVEN
             mockedAxios.put.mockReturnValue(Promise.resolve({}));
-            mockedAxios.get.mockReturnValue(Promise.resolve({}));
 
             // WHEN
             userManagement.setActive({ id: 'test' }, true);
@@ -93,7 +93,6 @@ describe('UserManagement Component', () => {
         it('Should call delete service on confirmDelete', async () => {
             // GIVEN
             mockedAxios.delete.mockReturnValue(Promise.resolve({}));
-            mockedAxios.get.mockReturnValue(Promise.resolve({}));
 
             // WHEN
             userManagement.prepareRemove({ login: 'test' });

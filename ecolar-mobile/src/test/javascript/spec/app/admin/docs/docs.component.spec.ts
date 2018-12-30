@@ -2,7 +2,7 @@ import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import EcoDocs from '@/admin/docs/docs.vue';
 import EcoDocsClass from '@/admin/docs/docs.component';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 
 const localVue = createLocalVue();
 

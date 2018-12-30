@@ -2,7 +2,7 @@ import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import Audits from '@/admin/audits/audits.vue';
 import AuditsClass from '@/admin/audits/audits.component';
 import AuditsService from '@/admin/audits/audits.service';
@@ -25,6 +25,8 @@ describe('Audits Component', () => {
     let audits: AuditsClass;
 
     beforeEach(() => {
+        mockedAxios.get.mockReset();
+        mockedAxios.get.mockReturnValue(Promise.resolve({ headers: {} }));
         wrapper = shallowMount<AuditsClass>(Audits, {
             store,
             i18n,
@@ -60,8 +62,6 @@ describe('Audits Component', () => {
 
     describe('By default, on init', () => {
         it('should set all default values correctly', async () => {
-            mockedAxios.get.mockReturnValue(Promise.resolve({}));
-
             audits.init();
             await audits.$nextTick();
 
@@ -77,7 +77,7 @@ describe('Audits Component', () => {
     describe('OnInit', () => {
         it('Should call load all on init', async () => {
             // GIVEN
-            mockedAxios.get.mockReturnValue(Promise.resolve({ data: ['test'] }));
+            mockedAxios.get.mockReturnValue(Promise.resolve({ headers: {}, data: ['test'] }));
             const today = getDate();
             const fromDate = getDate(false);
             // WHEN

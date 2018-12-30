@@ -49,7 +49,7 @@
             "otherEntityRelationshipName": "parent"
         }
     ],
-    "changelogDate": "20181201124753",
+    "changelogDate": "20181230120108",
     "javadoc": "Categoria",
     "entityTableName": "category",
     "dto": "no",

@@ -1,37 +1,22 @@
-import { mixins } from 'vue-class-component';
-import { Component, Inject } from 'vue-property-decorator';
+import { Component, Inject, Vue } from 'vue-property-decorator';
 import UserManagementService from './user-management.service';
-import Principal from '../../account/principal';
+import Principal from '@/account/principal';
 
 @Component
-export default class EcoUserManagementComponent extends mixins(Principal) {
+export default class EcoUserManagementComponent extends Vue {
     @Inject('userService') private userManagementService: () => UserManagementService;
-    public error: string;
-    public success: string;
-    public users: any[];
-    public itemsPerPage: number;
-    public queryCount: number;
-    public page: number;
-    public previousPage: number;
-    public propOrder: string;
-    public reverse: boolean;
-    public totalItems: number;
-    public removeId: number;
-
-    constructor() {
-        super();
-        this.error = '';
-        this.success = '';
-        this.users = [];
-        this.itemsPerPage = 20;
-        this.queryCount = null;
-        this.page = 1;
-        this.previousPage = null;
-        this.propOrder = 'id';
-        this.reverse = false;
-        this.totalItems = 0;
-        this.removeId = null;
-    }
+    @Inject('principal') private principal: () => Principal;
+    public error: string = '';
+    public success: string = '';
+    public users: any[] = [];
+    public itemsPerPage: number = 20;
+    public queryCount: number = null;
+    public page: number = 1;
+    public previousPage: number = null;
+    public propOrder: string = 'id';
+    public reverse: boolean = false;
+    public totalItems: number = 0;
+    public removeId: number = null;
 
     public mounted(): void {
         this.loadAll();
@@ -102,5 +87,9 @@ export default class EcoUserManagementComponent extends mixins(Principal) {
 
     public prepareRemove(instance): void {
         this.removeId = instance.login;
+    }
+
+    public get username(): string {
+        return this.principal().username;
     }
 }

@@ -32,39 +32,22 @@ const validations: any = {
     }
 };
 
-const beforeRouteEnter = (to, from, next) => {
-    next(vm => {
-        if (to.params.userId) {
-            vm.init(to.params.userId);
-        }
-    });
-};
-
 @Component({
-    validations,
-    beforeRouteEnter
+    validations
 })
 export default class EcoUserManagementEdit extends Vue {
     @Inject('userService') private userManagementService: () => UserManagementService;
-    public userAccount: any;
-    public isSaving: boolean;
-    private authorities: any[];
-    public languages: any;
+    public userAccount: any = { authorities: [] };
+    public isSaving: boolean = false;
+    private authorities: any[] = [];
+    public languages: any = this.$store.getters.languages;
 
-    public constructor() {
-        super();
-        this.userAccount = {
-            id: null,
-            login: null,
-            firstName: null,
-            lastName: null,
-            email: null,
-            authorities: [],
-            langKey: null
-        };
-        this.isSaving = false;
-        this.authorities = [];
-        this.languages = this.$store.getters.languages;
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.userId) {
+                vm.init(to.params.userId);
+            }
+        });
     }
 
     public init(userId: number): void {

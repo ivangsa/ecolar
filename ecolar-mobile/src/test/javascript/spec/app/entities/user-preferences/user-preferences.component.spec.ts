@@ -2,7 +2,7 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import UserPreferencesComponent from '@/entities/user-preferences/user-preferences.vue';
 import UserPreferencesClass from '@/entities/user-preferences/user-preferences.component';
 import UserPreferencesService from '@/entities/user-preferences/user-preferences.service';
@@ -16,7 +16,7 @@ const store = config.initVueXStore(localVue);
 localVue.component('font-awesome-icon', {});
 localVue.component('b-badge', {});
 localVue.directive('b-modal', {});
-localVue.component('b-btn', {});
+localVue.component('b-button', {});
 localVue.component('router-link', {});
 
 jest.mock('axios', () => ({

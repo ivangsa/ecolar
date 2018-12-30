@@ -4,12 +4,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class EcoMetricsModal extends Vue {
     @Prop() threadDump!: any;
 
-    public threadDumpFilter: any;
-
-    constructor() {
-        super();
-        this.threadDumpFilter = null;
-    }
+    public threadDumpFilter: any = null;
 
     get threadDumpData(): any {
         const data = {

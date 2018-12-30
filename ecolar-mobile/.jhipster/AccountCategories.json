@@ -16,7 +16,7 @@
             "otherEntityRelationshipName": "accountCategories"
         }
     ],
-    "changelogDate": "20181201124752",
+    "changelogDate": "20181230120107",
     "entityTableName": "account_categories",
     "dto": "no",
     "pagination": "no",

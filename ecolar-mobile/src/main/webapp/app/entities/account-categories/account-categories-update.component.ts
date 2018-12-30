@@ -8,7 +8,8 @@ import { ICategory } from '@/shared/model/category.model';
 import HouseHoldService from '../house-hold/house-hold.service';
 import { IHouseHold } from '@/shared/model/house-hold.model';
 
-import { IAccountCategories } from '@/shared/model/account-categories.model';
+import AlertService from '@/shared/alert/alert.service';
+import { IAccountCategories, AccountCategories } from '@/shared/model/account-categories.model';
 import AccountCategoriesService from './account-categories.service';
 
 const validations: any = {
@@ -19,8 +20,9 @@ const validations: any = {
     validations
 })
 export default class AccountCategoriesUpdate extends Vue {
+    @Inject('alertService') private alertService: () => AlertService;
     @Inject('accountCategoriesService') private accountCategoriesService: () => AccountCategoriesService;
-    public accountCategories: IAccountCategories = {};
+    public accountCategories: IAccountCategories = new AccountCategories();
 
     @Inject('categoryService') private categoryService: () => CategoryService;
     public categories: ICategory[] = [];
@@ -43,16 +45,20 @@ export default class AccountCategoriesUpdate extends Vue {
         if (this.accountCategories.id) {
             this.accountCategoriesService()
                 .update(this.accountCategories)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.accountCategories.updated', { param: param.id });
+                    this.alertService().showAlert(message, 'info');
                 });
         } else {
             this.accountCategoriesService()
                 .create(this.accountCategories)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.accountCategories.created', { param: param.id });
+                    this.alertService().showAlert(message, 'success');
                 });
         }
     }

@@ -1,15 +1,23 @@
 import axios from 'axios';
-import Component, { mixins } from 'vue-class-component';
+import Component from 'vue-class-component';
+import { Vue, Inject } from 'vue-property-decorator';
 
 import Principal from '../principal';
 
-@Component
-export default class LoginForm extends mixins(Principal) {
+@Component({
+    watch: {
+        $route() {
+            this.$root.$emit('bv::hide::modal', 'login-page');
+        }
+    }
+})
+export default class LoginForm extends Vue {
     public authenticationError: boolean = null;
     public login: string = null;
     public password: string = null;
     public rememberMe: boolean = null;
-    public showPassword: boolean = false;
+
+    @Inject('principal') private principal: () => Principal;
 
     public doLogin(): void {
         const data = { username: this.login, password: this.password, rememberMe: this.rememberMe };
@@ -26,17 +34,11 @@ export default class LoginForm extends mixins(Principal) {
                     }
                 }
                 this.authenticationError = false;
-                //this.$root.$emit('bv::hide::modal', 'login-page');
-                console.log("close login form");
-                this.$store.commit('showLoginForm', false);
-                this.retrieveAccount();
+                this.$root.$emit('bv::hide::modal', 'login-page');
+                this.principal().retrieveAccount();
             })
             .catch(() => {
                 this.authenticationError = true;
             });
-    }
-
-    public close(): void {
-        this.$store.commit('showLoginForm', false);
     }
 }

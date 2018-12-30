@@ -1,36 +1,21 @@
-import moment from 'moment';
+import format from 'date-fns/format';
 import AuditsService from './audits.service';
 import { Component, Inject, Vue } from 'vue-property-decorator';
 
 @Component
 export default class EcoAudits extends Vue {
-    public audits: any;
-    public fromDate: any;
-    public itemsPerPage: number;
-    public queryCount: any;
-    public page: number;
-    public previousPage: number;
-    public propOrder: String;
-    public predicate: String;
-    public reverse: boolean;
-    public toDate: any;
-    public totalItems: number;
+    public audits: any = [];
+    public fromDate: any = null;
+    public itemsPerPage: number = 20;
+    public queryCount: any = null;
+    public page: number = 1;
+    public previousPage: number = null;
+    public propOrder: String = 'auditEventDate';
+    public predicate: String = 'timestamp';
+    public reverse: boolean = false;
+    public toDate: any = null;
+    public totalItems: number = 0;
     @Inject('auditsService') private auditsService: () => AuditsService;
-
-    constructor() {
-        super();
-        this.audits = [];
-        this.fromDate = null;
-        this.itemsPerPage = 20;
-        this.queryCount = null;
-        this.page = 1;
-        this.previousPage = null;
-        this.propOrder = 'auditEventDate';
-        this.predicate = 'timestamp';
-        this.reverse = false;
-        this.toDate = null;
-        this.totalItems = 0;
-    }
 
     public mounted(): void {
         this.init();
@@ -43,7 +28,7 @@ export default class EcoAudits extends Vue {
     }
 
     public previousMonth(): void {
-        const dateFormat = 'YYYY-MM-DD';
+        const dateFormat = 'yyyy-MM-dd';
         let fromDate = new Date();
 
         if (fromDate.getMonth() === 0) {
@@ -52,16 +37,17 @@ export default class EcoAudits extends Vue {
             fromDate = new Date(fromDate.getFullYear(), fromDate.getMonth() - 1, fromDate.getDate());
         }
 
-        this.fromDate = moment(fromDate).format(dateFormat);
+        this.fromDate = format(fromDate, dateFormat);
     }
 
     public today(): void {
-        const dateFormat = 'YYYY-MM-DD';
+        const dateFormat = 'yyyy-MM-dd';
         // Today + 1 day - needed if the current day must be included
         const today = new Date();
         today.setDate(today.getDate() + 1);
         const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        this.toDate = moment(date).format(dateFormat);
+
+        this.toDate = format(date, dateFormat);
     }
 
     public loadAll(): void {

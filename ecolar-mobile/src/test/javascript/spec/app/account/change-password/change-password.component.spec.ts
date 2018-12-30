@@ -1,9 +1,12 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import ChangePassword from '@/account/change-password/change-password.vue';
 import ChangePasswordClass from '@/account/change-password/change-password.component';
+import Principal from '@/account/principal';
+import router from '@/router';
+import TranslationService from '@/locale/translation.service';
 
 const localVue = createLocalVue();
 const mockedAxios: any = axios;
@@ -26,7 +29,14 @@ describe('ChangePassword Component', () => {
         mockedAxios.get.mockReturnValue(Promise.resolve({}));
         mockedAxios.post.mockReset();
 
-        wrapper = shallowMount<ChangePasswordClass>(ChangePassword, { store, i18n, localVue });
+        wrapper = shallowMount<ChangePasswordClass>(ChangePassword, {
+            store,
+            i18n,
+            localVue,
+            provide: {
+                principal: () => new Principal(store, new TranslationService(store), i18n, router)
+            }
+        });
         changePassword = wrapper.vm;
     });
 

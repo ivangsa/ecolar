@@ -7,7 +7,8 @@ import { IAccountCategories } from '@/shared/model/account-categories.model';
 
 import UserService from '@/admin/user-management/user-management.service';
 
-import { IHouseHold } from '@/shared/model/house-hold.model';
+import AlertService from '@/shared/alert/alert.service';
+import { IHouseHold, HouseHold } from '@/shared/model/house-hold.model';
 import HouseHoldService from './house-hold.service';
 
 const validations: any = {
@@ -20,8 +21,9 @@ const validations: any = {
     validations
 })
 export default class HouseHoldUpdate extends Vue {
+    @Inject('alertService') private alertService: () => AlertService;
     @Inject('houseHoldService') private houseHoldService: () => HouseHoldService;
-    public houseHold: IHouseHold = {};
+    public houseHold: IHouseHold = new HouseHold();
 
     @Inject('accountCategoriesService') private accountCategoriesService: () => AccountCategoriesService;
     public accountCategories: IAccountCategories[] = [];
@@ -44,16 +46,20 @@ export default class HouseHoldUpdate extends Vue {
         if (this.houseHold.id) {
             this.houseHoldService()
                 .update(this.houseHold)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.houseHold.updated', { param: param.id });
+                    this.alertService().showAlert(message, 'info');
                 });
         } else {
             this.houseHoldService()
                 .create(this.houseHold)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.houseHold.created', { param: param.id });
+                    this.alertService().showAlert(message, 'success');
                 });
         }
     }

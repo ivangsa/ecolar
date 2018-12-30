@@ -1,7 +1,7 @@
 /* tslint:disable max-line-length */
 import axios from 'axios';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import {} from '@/shared/date/filters';
 import HouseHoldService from '@/entities/house-hold/house-hold.service';
 import { HouseHold } from '@/shared/model/house-hold.model';
@@ -27,7 +27,7 @@ describe('Service Tests', () => {
         describe('Service methods', async () => {
             it('should find an element', async () => {
                 const returnedFromService = Object.assign({}, elemDefault);
-                mockedAxios.get.mockReturnValue(Promise.resolve(returnedFromService));
+                mockedAxios.get.mockReturnValue(Promise.resolve({ data: returnedFromService }));
 
                 service.find('123').then(res => {
                     expect(res).toMatchObject(elemDefault);
@@ -43,7 +43,7 @@ describe('Service Tests', () => {
                 );
                 const expected = Object.assign({}, returnedFromService);
 
-                mockedAxios.post.mockReturnValue(Promise.resolve(returnedFromService));
+                mockedAxios.post.mockReturnValue(Promise.resolve({ data: returnedFromService }));
                 service.create({}).then(res => {
                     expect(res).toMatchObject(expected);
                 });
@@ -58,7 +58,7 @@ describe('Service Tests', () => {
                 );
 
                 const expected = Object.assign({}, returnedFromService);
-                mockedAxios.put.mockReturnValue(Promise.resolve(returnedFromService));
+                mockedAxios.put.mockReturnValue(Promise.resolve({ data: returnedFromService }));
 
                 service.update(expected).then(res => {
                     expect(res).toMatchObject(expected);
@@ -80,7 +80,7 @@ describe('Service Tests', () => {
             });
 
             it('should delete a HouseHold', async () => {
-                mockedAxios.delete.mockReturnValue(Promise.resolve());
+                mockedAxios.delete.mockReturnValue(Promise.resolve({ ok: true }));
                 service.delete('123').then(res => {
                     expect(res.ok);
                 });

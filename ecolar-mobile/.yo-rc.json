@@ -33,7 +33,7 @@
     "serverPort": "8082",
     "useSass": true,
     "jwtSecretKey": "YzU3ZDNkYzdkMjBhMmQyNjZmZTNmNjBlZTJjNjk1ZTQ0NjNlOWRiNjljZjE0YTgyZWMyYjhhOGQ5YzAzZjBhOGIzNTZkNGQxYWNlYTFkMzU5NTExNDliOWNmMjU2Yzc3NTAwNDExMDA1ZDAyYmFlZGExZjljNjVkMDk0YjAzOTg=",
-    "jhipsterVersion": "5.7.1",
+    "jhipsterVersion": "5.7.2",
     "otherModules": [
       {
         "name": "generator-jhipster-vuejs",
@@ -44,7 +44,7 @@
     "blueprintVersion": "0.0.0"
   },
   "generator-jhipster-vuejs": {
-    "jhipsterVersion": "5.7.0",
+    "jhipsterVersion": "5.7.2",
     "applicationType": "monolith",
     "baseName": "ecolar",
     "clientFramework": "angularX",

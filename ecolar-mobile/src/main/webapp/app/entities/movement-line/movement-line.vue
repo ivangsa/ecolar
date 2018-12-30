@@ -9,7 +9,13 @@
                 </span>
             </router-link>
         </h2>
-        <!--<jhi-alert></jhi-alert>-->
+        <b-alert :show="dismissCountDown"
+            dismissible
+            :variant="alertType"
+            @dismissed="dismissCountDown=0"
+            @dismiss-count-down="countDownChanged">
+            {{alertMessage}}
+        </b-alert>
         <br/>
         <div class="table-responsive" v-if="movementLines">
             <table class="table table-striped">
@@ -23,7 +29,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="movementLine in movementLines">
+                <tr v-for="movementLine in movementLines"
+                    :key="movementLine.id">
                     <td><router-link :to="{name: 'MovementLineView', params: {movementLineId: movementLine.id}}">{{movementLine.id}}</router-link></td>
                             <td>{{movementLine.amount}}</td>
                             <td v-text="$t('ecolarApp.LineType.' + movementLine.eventType)">{{movementLine.eventType}}</td>
@@ -42,12 +49,12 @@
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
                             </router-link>
-                            <b-btn v-on:click="prepareRemove(movementLine)"
+                            <b-button v-on:click="prepareRemove(movementLine)"
                                    class="btn btn-danger btn-sm"
                                    v-b-modal.removeEntity>
                                 <font-awesome-icon icon="times"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
-                            </b-btn>
+                            </b-button>
                         </div>
                     </td>
                 </tr>

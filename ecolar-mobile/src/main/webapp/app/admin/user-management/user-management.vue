@@ -23,7 +23,7 @@
                 </tr>
                 </thead>
                 <tbody v-if ="users">
-                    <tr v-for="user of orderBy(users, propOrder, reverse === true ? 1 : -1)" :id="user.login">
+                    <tr v-for="user of orderBy(users, propOrder, reverse === true ? 1 : -1)" :key="user.id" :id="user.login">
                         <td><router-link tag="a" :to="{name: 'EcoUserView', params: {userId: user.login}}">{{user.id}}</router-link></td>
                         <td>{{user.login}}</td>
                         <td>{{user.email}}</td>
@@ -35,7 +35,7 @@
                         </td>
                         <td>{{user.langKey}}</td>
                         <td>
-                            <div v-for="authority of user.authorities">
+                            <div v-for="authority of user.authorities" :key="authority">
                                 <span class="badge badge-info">{{ authority }}</span>
                             </div>
                         </td>
@@ -52,13 +52,13 @@
                                     <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                                     <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
                                 </router-link>
-                                <b-btn v-on:click="prepareRemove(user)"
+                                <b-button v-on:click="prepareRemove(user)"
                                        class="btn btn-danger btn-sm"
                                        :disabled="username === user.login"
                                        v-b-modal.removeUser>
                                     <font-awesome-icon icon="times"></font-awesome-icon>
                                     <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
-                                </b-btn>
+                                </b-button>
                             </div>
                         </td>
                     </tr>
@@ -66,7 +66,7 @@
             </table>
             <b-modal ref="removeUser" id="removeUser" title="Confirm delete operation" v-bind:title="$t('entity.delete.title')" @ok="deleteUser()">
                 <div class="modal-body">
-                    <p id="eco-delete-user-heading" v-bind:title="$t('userManagement.delete.question')">Are you sure you want to delete this user?</p>
+                    <p id="eco-delete-user-heading" v-text="$t('userManagement.delete.question', { 'login': removeId})">Are you sure you want to delete this user?</p>
                 </div>
             </b-modal>
         </div>

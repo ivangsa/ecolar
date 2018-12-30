@@ -33,7 +33,7 @@
             "ownerSide": true
         }
     ],
-    "changelogDate": "20181201124754",
+    "changelogDate": "20181230120109",
     "javadoc": "Movimiento contable",
     "entityTableName": "movement",
     "dto": "no",

@@ -5,7 +5,8 @@ import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validator
 import EAccountService from '../e-account/e-account.service';
 import { IEAccount } from '@/shared/model/e-account.model';
 
-import { IMovementLine } from '@/shared/model/movement-line.model';
+import AlertService from '@/shared/alert/alert.service';
+import { IMovementLine, MovementLine } from '@/shared/model/movement-line.model';
 import MovementLineService from './movement-line.service';
 
 const validations: any = {
@@ -19,8 +20,9 @@ const validations: any = {
     validations
 })
 export default class MovementLineUpdate extends Vue {
+    @Inject('alertService') private alertService: () => AlertService;
     @Inject('movementLineService') private movementLineService: () => MovementLineService;
-    public movementLine: IMovementLine = {};
+    public movementLine: IMovementLine = new MovementLine();
 
     @Inject('eAccountService') private eAccountService: () => EAccountService;
     public eAccounts: IEAccount[] = [];
@@ -40,16 +42,20 @@ export default class MovementLineUpdate extends Vue {
         if (this.movementLine.id) {
             this.movementLineService()
                 .update(this.movementLine)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.movementLine.updated', { param: param.id });
+                    this.alertService().showAlert(message, 'info');
                 });
         } else {
             this.movementLineService()
                 .create(this.movementLine)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.movementLine.created', { param: param.id });
+                    this.alertService().showAlert(message, 'success');
                 });
         }
     }

@@ -1,12 +1,11 @@
 import Vuex from 'vuex';
 import VueI18n from 'vue-i18n';
-import setupAxiosInterceptors from '../config/axios-interceptor';
+import EcoFormatter from './formatter';
+import setupAxiosInterceptors from '@/shared/config/axios-interceptor';
 
 import store from '@/ecolar/store/root.store';
 
-import BootstrapVue from 'bootstrap-vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
-
 import { faSort } from '@fortawesome/free-solid-svg-icons/faSort';
 import { faEye } from '@fortawesome/free-solid-svg-icons/faEye';
 import { faSync } from '@fortawesome/free-solid-svg-icons/faSync';
@@ -44,7 +43,7 @@ import VueCookie from 'vue-cookie';
 import Vuelidate from 'vuelidate';
 import Vue2Filters from 'vue2-filters';
 
-import * as filters from './date/filters';
+import * as filters from '@/shared/date/filters';
 
 export function initVueApp(vue) {
     vue.use(VueCookie);
@@ -54,9 +53,7 @@ export function initVueApp(vue) {
     filters.initFilters();
 }
 
-export function initBootstrapVue(vue) {
-    vue.use(BootstrapVue);
-
+export function initFortAwesome(vue) {
     library.add(
         faSort,
         faEye,
@@ -96,11 +93,76 @@ export function initBootstrapVue(vue) {
 export function initI18N(vue) {
     vue.use(VueI18n);
     return new VueI18n({
-        silentTranslationWarn: true
+        silentTranslationWarn: true,
+        formatter: new EcoFormatter()
     });
 }
 
 export function initVueXStore(vue) {
     vue.use(Vuex);
+    // return new Vuex.Store({
+    //     state: {
+    //         dismissSecs: 0,
+    //         dismissCountDown: 0,
+    //         alertType: '',
+    //         alertMessage: {},
+    //         logon: false,
+    //         userIdentity: null,
+    //         authenticated: false,
+    //         currentLanguage: 'en',
+    //         languages: {
+    //             en: { name: 'English' },
+    //             gl: { name: 'Galego' },
+    //             es: { name: 'Español' }
+    //             // jhipster-needle-i18n-language-key-pipe - JHipster will add/remove languages in this object
+    //         }
+    //     },
+    //     mutations: {
+    //         initAlert(state) {
+    //             state.dismissSecs = 0;
+    //             state.dismissCountDown = 0;
+    //             state.alertType = '';
+    //             state.alertMessage = {};
+    //         },
+    //         setAlertType(state, alertType) {
+    //             state.alertType = alertType;
+    //         },
+    //         setAlertMessage(state, alertMessage) {
+    //             state.dismissSecs = 5;
+    //             state.dismissCountDown = 5;
+    //             state.alertMessage = alertMessage;
+    //         },
+    //         countDownChanged(state, newCountDown) {
+    //             state.dismissCountDown = newCountDown;
+    //         },
+    //         currentLanguage(state, newLanguage) {
+    //             state.currentLanguage = newLanguage;
+    //         },
+    //         authenticate(state) {
+    //             state.logon = true;
+    //         },
+    //         authenticated(state, identity) {
+    //             state.userIdentity = identity;
+    //             state.authenticated = true;
+    //             state.logon = false;
+    //         },
+    //         logout(state) {
+    //             state.userIdentity = null;
+    //             state.authenticated = false;
+    //             state.logon = false;
+    //         }
+    //     },
+    //     getters: {
+    //         dismissSecs: state => state.dismissSecs,
+    //         dismissCountDown: state => state.dismissCountDown,
+    //         alertType: state => state.alertType,
+    //         alertMessage: state => state.alertMessage,
+    //         currentLanguage: state => state.currentLanguage,
+    //         languages: state => state.languages,
+    //         logon: state => state.logon,
+    //         account: state => state.userIdentity,
+    //         authenticated: state => state.authenticated
+    //     }
+    // });
     return store;
 }

@@ -1,12 +1,15 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validators';
-import moment from 'moment';
+import format from 'date-fns/format';
+import parse from 'date-fns/parse';
+import { DATE_TIME_LONG_FORMAT, INSTANT_FORMAT, ZONED_DATE_TIME_FORMAT } from '@/shared/date/filters';
 
 import MovementLineService from '../movement-line/movement-line.service';
 import { IMovementLine } from '@/shared/model/movement-line.model';
 
-import { IMovement } from '@/shared/model/movement.model';
+import AlertService from '@/shared/alert/alert.service';
+import { IMovement, Movement } from '@/shared/model/movement.model';
 import MovementService from './movement.service';
 
 const validations: any = {
@@ -23,8 +26,9 @@ const validations: any = {
     validations
 })
 export default class MovementUpdate extends Vue {
+    @Inject('alertService') private alertService: () => AlertService;
     @Inject('movementService') private movementService: () => MovementService;
-    public movement: IMovement = {};
+    public movement: IMovement = new Movement();
 
     @Inject('movementLineService') private movementLineService: () => MovementLineService;
     public movementLines: IMovementLine[] = [];
@@ -41,22 +45,47 @@ export default class MovementUpdate extends Vue {
 
     public save(): void {
         this.isSaving = true;
-        this.movement.eventTime = moment(this.movement.eventTime, 'YYYY-MM-DDTHH:mm');
-        this.movement.registrationTime = moment(this.movement.registrationTime, 'YYYY-MM-DDTHH:mm');
         if (this.movement.id) {
             this.movementService()
                 .update(this.movement)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.movement.updated', { param: param.id });
+                    this.alertService().showAlert(message, 'info');
                 });
         } else {
             this.movementService()
                 .create(this.movement)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.movement.created', { param: param.id });
+                    this.alertService().showAlert(message, 'success');
                 });
+        }
+    }
+
+    public convertDateTimeFromServer(date: Date): string {
+        if (date) {
+            return format(date, DATE_TIME_LONG_FORMAT);
+        }
+        return null;
+    }
+
+    public updateInstantField(field, event) {
+        if (event.target.value) {
+            this.movement[field] = parse(event.target.value, DATE_TIME_LONG_FORMAT, new Date());
+        } else {
+            this.movement[field] = null;
+        }
+    }
+
+    public updateZonedDateTimeField(field, event) {
+        if (event.target.value) {
+            this.movement[field] = parse(event.target.value, DATE_TIME_LONG_FORMAT, new Date());
+        } else {
+            this.movement[field] = null;
         }
     }
 
@@ -66,8 +95,12 @@ export default class MovementUpdate extends Vue {
             .then(res => {
                 this.movement = res;
 
-                this.movement.eventTime = moment(this.movement.eventTime, 'YYYY-MM-DDTHH:mm:ssZ');
-                this.movement.registrationTime = moment(this.movement.registrationTime, 'YYYY-MM-DDTHH:mm:ssZ');
+                if (this.movement.eventTime) {
+                    this.movement.eventTime = parse(this.movement.eventTime.toString(), INSTANT_FORMAT, new Date());
+                }
+                if (this.movement.registrationTime) {
+                    this.movement.registrationTime = parse(this.movement.registrationTime.toString(), INSTANT_FORMAT, new Date());
+                }
             });
     }
 

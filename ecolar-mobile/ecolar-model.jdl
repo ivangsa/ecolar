@@ -1,0 +1,100 @@
+
+/**
+* Unidad econmica
+*/
+entity HouseHold {
+	name String,
+}
+relationship ManyToMany {
+	HouseHold{members(login)} to User{households}
+}
+
+relationship OneToOne {
+	HouseHold{accountCategories} to AccountCategories{household(name)}
+}
+
+entity UserPreferences {
+	// Map<key,value>
+}
+
+relationship ManyToOne {
+	UserPreferences{user(login)} to User
+}
+
+entity AccountCategories {
+	// categories -> accounts
+}
+
+relationship OneToMany {
+	AccountCategories{categories(name)} to Category{document},
+}
+
+
+/**
+ * Categoria
+ */
+entity Category {
+	name String,
+	description String,
+	path String,
+	parentId String,
+	accountType AccountType,
+}
+
+relationship ManyToOne {
+	Category{parent(name)} to Category{categories(name)},
+}
+
+relationship OneToMany {
+	Category{accounts(name)} to EAccount{category(name)}
+}
+
+
+/**
+ * Movimiento contable
+ */
+entity Movement {
+    type AccountType,
+	eventTime Instant,
+	registrationTime Instant,
+	amount BigDecimal,
+	location String
+	
+}
+
+
+/**
+ * Linea de asiento.
+ */
+entity MovementLine {
+	amount BigDecimal,
+	eventType LineType,
+}
+
+/**
+ * Cuenta contable.
+ */
+entity EAccount {
+	accountCode String,
+	accountName String,
+	type AccountType,
+}
+
+enum LineType {
+	CREDIT, DEBIT
+}
+
+enum AccountType {
+	ASSETS, LIABILITIES, REVENUE, EXPENSE
+}
+
+relationship ManyToOne {
+	/** cuenta de una linea de asiento */
+	MovementLine{account(accountName)} to EAccount,
+}
+
+relationship ManyToMany {
+	Movement{eventLines} to MovementLine,
+}
+
+service HouseHold,Movement with serviceImpl

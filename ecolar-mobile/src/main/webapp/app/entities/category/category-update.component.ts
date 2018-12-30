@@ -8,7 +8,8 @@ import { IEAccount } from '@/shared/model/e-account.model';
 import AccountCategoriesService from '../account-categories/account-categories.service';
 import { IAccountCategories } from '@/shared/model/account-categories.model';
 
-import { ICategory } from '@/shared/model/category.model';
+import AlertService from '@/shared/alert/alert.service';
+import { ICategory, Category } from '@/shared/model/category.model';
 import CategoryService from './category.service';
 
 const validations: any = {
@@ -25,8 +26,9 @@ const validations: any = {
     validations
 })
 export default class CategoryUpdate extends Vue {
+    @Inject('alertService') private alertService: () => AlertService;
     @Inject('categoryService') private categoryService: () => CategoryService;
-    public category: ICategory = {};
+    public category: ICategory = new Category();
 
     @Inject('eAccountService') private eAccountService: () => EAccountService;
     public eAccounts: IEAccount[] = [];
@@ -34,7 +36,6 @@ export default class CategoryUpdate extends Vue {
 
     @Inject('accountCategoriesService') private accountCategoriesService: () => AccountCategoriesService;
     public accountCategories: IAccountCategories[] = [];
-    //public categories: ICategory[] = [];
     public isSaving: boolean = false;
 
     beforeRouteEnter(to, from, next) {
@@ -51,16 +52,20 @@ export default class CategoryUpdate extends Vue {
         if (this.category.id) {
             this.categoryService()
                 .update(this.category)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.category.updated', { param: param.id });
+                    this.alertService().showAlert(message, 'info');
                 });
         } else {
             this.categoryService()
                 .create(this.category)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.category.created', { param: param.id });
+                    this.alertService().showAlert(message, 'success');
                 });
         }
     }

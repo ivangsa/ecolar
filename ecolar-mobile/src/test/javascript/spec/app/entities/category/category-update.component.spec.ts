@@ -3,7 +3,7 @@ import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 import Router from 'vue-router';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import CategoryUpdateComponent from '@/entities/category/category-update.vue';
 import CategoryClass from '@/entities/category/category-update.component';
 import CategoryService from '@/entities/category/category.service';

@@ -2,7 +2,7 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import HouseHoldComponent from '@/entities/house-hold/house-hold.vue';
 import HouseHoldClass from '@/entities/house-hold/house-hold.component';
 import HouseHoldService from '@/entities/house-hold/house-hold.service';
@@ -16,7 +16,7 @@ const store = config.initVueXStore(localVue);
 localVue.component('font-awesome-icon', {});
 localVue.component('b-badge', {});
 localVue.directive('b-modal', {});
-localVue.component('b-btn', {});
+localVue.component('b-button', {});
 localVue.component('router-link', {});
 
 jest.mock('axios', () => ({

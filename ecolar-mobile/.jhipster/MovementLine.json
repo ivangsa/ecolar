@@ -20,7 +20,7 @@
             "otherEntityField": "accountName"
         }
     ],
-    "changelogDate": "20181201124755",
+    "changelogDate": "20181230120110",
     "javadoc": "Linea de asiento.",
     "entityTableName": "movement_line",
     "dto": "no",

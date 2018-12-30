@@ -2,7 +2,7 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import UserPreferencesDetailComponent from '@/entities/user-preferences/user-preferences-details.vue';
 import UserPreferencesClass from '@/entities/user-preferences/user-preferences-details.component';
 import UserPreferencesService from '@/entities/user-preferences/user-preferences.service';

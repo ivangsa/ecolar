@@ -4,7 +4,8 @@ import { numeric, required, minLength, maxLength } from 'vuelidate/lib/validator
 
 import UserService from '@/admin/user-management/user-management.service';
 
-import { IUserPreferences } from '@/shared/model/user-preferences.model';
+import AlertService from '@/shared/alert/alert.service';
+import { IUserPreferences, UserPreferences } from '@/shared/model/user-preferences.model';
 import UserPreferencesService from './user-preferences.service';
 
 const validations: any = {
@@ -15,8 +16,9 @@ const validations: any = {
     validations
 })
 export default class UserPreferencesUpdate extends Vue {
+    @Inject('alertService') private alertService: () => AlertService;
     @Inject('userPreferencesService') private userPreferencesService: () => UserPreferencesService;
-    public userPreferences: IUserPreferences = {};
+    public userPreferences: IUserPreferences = new UserPreferences();
 
     @Inject('userService') private userService: () => UserService;
     public users: Array<any> = [];
@@ -36,16 +38,20 @@ export default class UserPreferencesUpdate extends Vue {
         if (this.userPreferences.id) {
             this.userPreferencesService()
                 .update(this.userPreferences)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.userPreferences.updated', { param: param.id });
+                    this.alertService().showAlert(message, 'info');
                 });
         } else {
             this.userPreferencesService()
                 .create(this.userPreferences)
-                .then(() => {
+                .then(param => {
                     this.isSaving = false;
                     this.$router.go(-1);
+                    const message = this.$t('ecolarApp.userPreferences.created', { param: param.id });
+                    this.alertService().showAlert(message, 'success');
                 });
         }
     }

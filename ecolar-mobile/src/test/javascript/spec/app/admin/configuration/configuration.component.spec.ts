@@ -1,7 +1,7 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import Configuration from '@/admin/configuration/configuration.vue';
 import ConfigurationClass from '@/admin/configuration/configuration.component';
 import ConfigurationService from '@/admin/configuration/configuration.service';
@@ -22,6 +22,8 @@ describe('Configuration Component', () => {
     let configuration: ConfigurationClass;
 
     beforeEach(() => {
+        mockedAxios.get.mockReset();
+        mockedAxios.get.mockReturnValue(Promise.resolve({ data: { contexts: { beans: {} }, propertySources: {} } }));
         wrapper = shallowMount<ConfigurationClass>(Configuration, {
             store,
             i18n,

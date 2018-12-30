@@ -9,7 +9,7 @@
             "otherEntityField": "login"
         }
     ],
-    "changelogDate": "20181201124751",
+    "changelogDate": "20181230120106",
     "entityTableName": "user_preferences",
     "dto": "no",
     "pagination": "no",

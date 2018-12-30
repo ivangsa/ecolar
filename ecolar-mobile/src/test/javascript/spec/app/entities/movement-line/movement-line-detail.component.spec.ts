@@ -2,7 +2,7 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils';
 import axios from 'axios';
 
-import * as config from '@/shared/config';
+import * as config from '@/shared/config/config';
 import MovementLineDetailComponent from '@/entities/movement-line/movement-line-details.vue';
 import MovementLineClass from '@/entities/movement-line/movement-line-details.component';
 import MovementLineService from '@/entities/movement-line/movement-line.service';

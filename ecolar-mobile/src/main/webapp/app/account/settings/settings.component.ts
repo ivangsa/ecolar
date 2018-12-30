@@ -2,7 +2,7 @@ import { email, maxLength, minLength, required } from 'vuelidate/lib/validators'
 import axios from 'axios';
 import Principal from '../principal';
 import { EMAIL_ALREADY_USED_TYPE } from '@/constants';
-import Component, { mixins } from 'vue-class-component';
+import { Vue, Component, Inject } from 'vue-property-decorator';
 
 const validations = {
     settingsAccount: {
@@ -28,19 +28,12 @@ const validations = {
 @Component({
     validations
 })
-export default class Settings extends mixins(Principal) {
-    public success: string;
-    public error: string;
-    public errorEmailExists: string;
-    public languages: any;
-
-    constructor() {
-        super();
-        this.success = null;
-        this.error = null;
-        this.errorEmailExists = null;
-        this.languages = this.$store.getters.languages;
-    }
+export default class Settings extends Vue {
+    public success: string = null;
+    public error: string = null;
+    public errorEmailExists: string = null;
+    public languages: any = this.$store.getters.languages;
+    @Inject('principal') private principal: () => Principal;
 
     public save(): void {
         this.error = null;
@@ -64,5 +57,9 @@ export default class Settings extends mixins(Principal) {
 
     public get settingsAccount(): any {
         return this.$store.getters.account;
+    }
+
+    public get username(): string {
+        return this.principal().username;
     }
 }

@@ -9,7 +9,13 @@
                 </span>
             </router-link>
         </h2>
-        <!--<jhi-alert></jhi-alert>-->
+        <b-alert :show="dismissCountDown"
+            dismissible
+            :variant="alertType"
+            @dismissed="dismissCountDown=0"
+            @dismiss-count-down="countDownChanged">
+            {{alertMessage}}
+        </b-alert>
         <br/>
         <div class="table-responsive" v-if="userPreferences">
             <table class="table table-striped">
@@ -21,7 +27,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="userPreferences in userPreferences">
+                <tr v-for="userPreferences in userPreferences"
+                    :key="userPreferences.id">
                     <td><router-link :to="{name: 'UserPreferencesView', params: {userPreferencesId: userPreferences.id}}">{{userPreferences.id}}</router-link></td>
                         <td>
                                         {{userPreferences.user.login}}
@@ -36,12 +43,12 @@
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
                             </router-link>
-                            <b-btn v-on:click="prepareRemove(userPreferences)"
+                            <b-button v-on:click="prepareRemove(userPreferences)"
                                    class="btn btn-danger btn-sm"
                                    v-b-modal.removeEntity>
                                 <font-awesome-icon icon="times"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
-                            </b-btn>
+                            </b-button>
                         </div>
                     </td>
                 </tr>

@@ -1,8 +1,9 @@
 import { maxLength, minLength, required } from 'vuelidate/lib/validators';
 import axios from 'axios';
-import Principal from '../principal';
 import { mapGetters } from 'vuex';
-import Component, { mixins } from 'vue-class-component';
+import Component from 'vue-class-component';
+import { Vue, Inject } from 'vue-property-decorator';
+import Principal from '../principal';
 
 const validations = {
     resetPassword: {
@@ -28,23 +29,16 @@ const validations = {
         ...mapGetters(['account'])
     }
 })
-export default class ChangePassword extends mixins(Principal) {
-    success: string;
-    error: string;
-    doNotMatch: string;
-    resetPassword: any;
-
-    constructor() {
-        super();
-        this.success = null;
-        this.error = null;
-        this.doNotMatch = null;
-        this.resetPassword = {
-            currentPassword: null,
-            newPassword: null,
-            confirmPassword: null
-        };
-    }
+export default class ChangePassword extends Vue {
+    success: string = null;
+    error: string = null;
+    doNotMatch: string = null;
+    resetPassword: any = {
+        currentPassword: null,
+        newPassword: null,
+        confirmPassword: null
+    };
+    @Inject('principal') private principal: () => Principal;
 
     public changePassword(): void {
         if (this.resetPassword.newPassword !== this.resetPassword.confirmPassword) {
@@ -68,5 +62,9 @@ export default class ChangePassword extends mixins(Principal) {
                     vm.error = 'ERROR';
                 });
         }
+    }
+
+    public get username(): string {
+        return this.principal().username;
     }
 }

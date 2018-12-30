@@ -23,7 +23,7 @@
             "otherEntityField": "name"
         }
     ],
-    "changelogDate": "20181201124756",
+    "changelogDate": "20181230120111",
     "javadoc": "Cuenta contable.",
     "entityTableName": "e_account",
     "dto": "no",
