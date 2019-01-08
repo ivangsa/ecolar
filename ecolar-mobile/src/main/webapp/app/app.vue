@@ -1,22 +1,20 @@
 <template>
     <v-app id="inspire">
         <ribbon></ribbon>
+        <jhi-navbar></jhi-navbar>
         <v-toolbar color="indigo" dark fixed app>
             <v-toolbar-side-icon @click.stop="toogleDrawer()"></v-toolbar-side-icon>
-            <v-toolbar-title><span v-text="$t('global.title')" class="navbar-title">jhipster</span> <span class="navbar-version">{{version}}</span></v-toolbar-title>
+            <v-toolbar-title><span v-text="$t('global.title')" class="navbar-title">jhipster</span></v-toolbar-title>
         </v-toolbar>            
-        <jhi-navbar></jhi-navbar>
         <v-content>
-            <v-container fluid fill-height>
-                <v-layout justify-center>
-                <v-flex text-xs-center>
+            <v-container fluid>
+                <transition name="slide">
                     <router-view></router-view>
-                </v-flex>
-                </v-layout>
+                </transition>
             </v-container>
         </v-content>
         <v-footer color="indigo" app>
-            <span class="white--text">&copy; 2018</span>
+            <span class="white--text version">{{version}}</span> <span class="white--text">&copy; 2019</span>
         </v-footer>
         <login-form></login-form>
     </v-app>

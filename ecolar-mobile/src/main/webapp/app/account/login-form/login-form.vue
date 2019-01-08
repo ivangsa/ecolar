@@ -40,11 +40,11 @@
                 </v-flex>
                 <v-flex xs12>
                     <v-alert show variant="warning">
-                        <v-link :to="'/resetPassword'" class="alert-link" v-text="$t('login.password.forgot')">Did you forget your password ?</v-link>
+                        <a :href="'#resetPassword'" class="alert-link" v-text="$t('login.password.forgot')">Did you forget your password ?</a>
                     </v-alert>
                     <v-alert show variant="warning">
                         You don't have an account yet ?
-                        <v-link :to="'/register'" class="alert-link" v-text="$t('global.messages.info.register.link')">Register a new account</v-link>
+                        <a :href="'#register'" class="alert-link" v-text="$t('global.messages.info.register.link')">Register a new account</a>
                     </v-alert>
                 </v-flex>
             </v-layout>

@@ -25,6 +25,9 @@ export const mutations: MutationTree<HouseHoldState> = {
 
   setHouseHolds(state: HouseHoldState, houseHolds: IHouseHold[]) {
     state.houseHolds = houseHolds;
+    if(state.houseHolds != null && state.houseHolds.length == 1){
+      state.houseHold = state.houseHolds[0];
+    }
   },
 
   selectHouseHoldById(state: HouseHoldState, houseHoldId: string) {

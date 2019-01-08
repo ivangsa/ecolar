@@ -8,6 +8,7 @@ import { IMovement, Movement } from '@/shared/model/movement.model';
 import { IMovementLine, LineType } from '@/shared/model/movement-line.model';
 import { ICategory, AccountType } from '@/shared/model/category.model';
 import { Prop } from 'vue-property-decorator';
+import HouseHoldDetails from '../house-hold/house-hold-details.component';
 
 const HouseHoldStore = namespace('HouseHoldStore');
 
@@ -43,6 +44,7 @@ class AccountCategoriesTree extends Vue {
 }
 
 @Component({
+    mixins: [HouseHoldDetails],
     components: {AccountCategoriesTree}
 })
 export default class AddNewMovementSelectAccount extends Vue {

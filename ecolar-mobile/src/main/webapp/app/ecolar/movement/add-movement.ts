@@ -8,6 +8,7 @@ import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import HouseHoldService from "@/ecolar/service/house-hold.service";
 import AddNewMovementSelectAccount from './add-movement-select-account.vue';
 import { HouseHoldState } from '../store/house-hold.store';
+import HouseHoldDetails from '../house-hold/house-hold-details.component';
 
 const validations = {
     movement: {
@@ -21,16 +22,14 @@ const validations = {
 const HouseHoldStore = namespace('HouseHoldStore')
 
 @Component({
-    mixins: [validationMixin],
+    mixins: [validationMixin, HouseHoldDetails],
     validations,
     components: { AddNewMovementSelectAccount },
 })
 export default class AddNewMovement extends Vue {
 
-    @Inject('houseHoldService') private houseHoldService: () => HouseHoldService;
-
     isSaving: boolean = false;
-
+    @Inject('houseHoldService') private houseHoldService: () => HouseHoldService;
     @State('HouseHoldStore') state: HouseHoldState;
     @HouseHoldStore.Mutation('selectMovementType') selectMovementType;
 

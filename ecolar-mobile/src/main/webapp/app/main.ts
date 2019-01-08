@@ -74,6 +74,12 @@ new Vue({
     components: { App },
     template: '<App/>',
     router,
+    created: function() {
+        houseHoldService.retrieveHouseHolds()
+            .then(res => {
+                store.commit('HouseHoldStore/setHouseHolds', res.data);
+            });
+    },
     provide: {
         activateService: () => activateService,
         auditsService: () => auditsService,

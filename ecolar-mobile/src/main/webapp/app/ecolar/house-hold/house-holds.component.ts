@@ -12,25 +12,5 @@ export default class HouseHolds extends Vue {
 
     @State('HouseHoldStore') state: HouseHoldState;
     @HouseHoldStore.Mutation('setHouseHolds') setHouseHolds;
-    @HouseHoldStore.Mutation('selectHouseHold') selectHouseHold;
 
-    public mounted(): void {
-        this.loadHouseHolds();
-    }
-
-    public clear(): void {
-        this.loadHouseHolds();
-    }
-
-    public loadHouseHolds(): void {
-        this.houseHoldService().retrieveHouseHolds()
-            .then(res => {
-                this.setHouseHolds(res.data);
-            });
-    }
-
-    public loadHouseHold(houseHold: IHouseHold) {
-        this.selectHouseHold(houseHold);
-        this.$router.push({ name: 'HouseHoldView', params: { houseHoldId: houseHold.id } })
-    }
 }

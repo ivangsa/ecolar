@@ -3,7 +3,7 @@ import axios from 'axios';
 import { VERSION } from '@/constants';
 import LoginModalService from '@/account/login-modal.service';
 import Principal from '@/account/principal';
-import { State, Getter } from 'vuex-class';
+import { State, Getter, Mutation } from 'vuex-class';
 
 @Component
 export default class JhiNavbar extends Vue {
@@ -16,6 +16,7 @@ export default class JhiNavbar extends Vue {
     private currentLanguage: string = this.$store.getters.currentLanguage;
     private languages: any = this.$store.getters.languages;
     @State drawer: boolean;
+    @Mutation toogleDrawer;
     @Getter authenticated;
 
     created() {
@@ -55,6 +56,7 @@ export default class JhiNavbar extends Vue {
 
     public openLogin(): void {
         this.loginModalService().openLogin((<any>this).$root);
+        this.toogleDrawer();
     }
 
     public hasAnyAuthority(authorities: any): boolean {
