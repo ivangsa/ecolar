@@ -1,8 +1,5 @@
 <template>
 <v-dialog v-model="$store.state.showLoginForm" persistent max-width="390">
-    <v-alert show variant="danger" v-if="authenticationError" v-html="$t('login.messages.error.authentication')">
-        <strong>Failed to sign in!</strong> Please check your credentials and try again.
-    </v-alert>
     <v-card>
         <v-card-title>
             <v-toolbar color="indigo" dark fixed app>
@@ -13,15 +10,26 @@
         <v-card-text>
             <v-container grid-list-md>
             <v-layout wrap>
+                <v-alert show variant="danger" v-if="authenticationError" v-html="$t('login.messages.error.authentication')">
+                    <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                </v-alert>
                 <v-flex xs12>
-                    <v-text-field v-model="login" :label="$t('global.form.username')" required></v-text-field>
+                    <v-text-field v-model="login" :label="$t('global.form.username')" 
+                        :error-messages="errorMessage('login')"
+                        @input="$v.login.$touch()"
+                        @blur="$v.login.$touch()"
+                        required></v-text-field>
                 </v-flex>
                 <v-flex xs12>
                     <v-text-field v-model="password" 
-                        :append-icon="showPassword ? 'visibility_off' : 'visibility'"
                         :type="showPassword ? 'text' : 'password'" 
+                        :append-icon="showPassword ? 'visibility_off' : 'visibility'"
                         @click:append="showPassword = !showPassword"
-                        :label="$t('login.form.password')" required></v-text-field>
+                        :error-messages="errorMessage('password')"
+                        @input="$v.password.$touch()"
+                        @blur="$v.password.$touch()"
+                        :label="$t('login.form.password')" 
+                        required></v-text-field>
                 </v-flex>
                 <v-flex xs12>
                     <v-checkbox v-model="rememberMe" :label="$t('login.form.rememberme')" checked>Remember me</v-checkbox>

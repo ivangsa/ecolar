@@ -1,10 +1,25 @@
 import axios from 'axios';
 import Component from 'vue-class-component';
 import { Vue, Inject } from 'vue-property-decorator';
+import { email, maxLength, minLength, required } from 'vuelidate/lib/validators';
+import { User, IUser } from '@/core/user/user.model';
 
 import Principal from '../principal';
+import ValidationMixin from '@/ecolar/service/vuelidate-vuetify.mixin';
 
-@Component
+const validations: any = {
+    login: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(254),
+    },
+    password: { required }
+};
+
+@Component({
+    validations,
+    mixins: [ValidationMixin]
+})
 export default class LoginForm extends Vue {
     public authenticationError: boolean = null;
     public login: string = null;
@@ -40,4 +55,5 @@ export default class LoginForm extends Vue {
     public close(): void {
         this.$store.commit('showLoginForm', false);
     }
+
 }
