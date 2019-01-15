@@ -8,9 +8,9 @@
         </v-toolbar>            
         <v-content>
             <v-container fluid>
-                <transition name="slide">
-                    <router-view></router-view>
-                </transition>
+            <v-slide-y-transition mode="out-in">
+                <router-view></router-view>
+            </v-slide-y-transition>
             </v-container>
         </v-content>
         <v-footer color="indigo" app>

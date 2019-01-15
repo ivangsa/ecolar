@@ -1,13 +1,48 @@
 <template>
 <div>
-    <div v-if="!state.movementType" class="row justify-content-center">
-        <div class="col-8">
-            <div @click="selectMovementType('EXPENSE')">{{ $t('ecolarApp.AccountType.EXPENSE') }}</div>
-            <div @click="selectMovementType('REVENUE')">{{ $t('ecolarApp.AccountType.REVENUE') }}</div>
-            <div @click="selectMovementType('ASSETS')">{{ $t('ecolarApp.AccountType.ASSETS') }}</div>
-            <div @click="selectMovementType('LIABILITIES')">{{ $t('ecolarApp.AccountType.LIABILITIES') }}</div>
-        </div>
-    </div>
+<v-layout align-start justify-center>
+  <v-flex fluid  xs12>
+    <v-layout row xs12 wrap v-if="!state.movementType">
+      <v-card class="ma-4" @click="selectMovementType('EXPENSE')">
+        <v-img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" aspect-ratio="2.75"></v-img>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">{{ $t('ecolarApp.AccountType.EXPENSE') }}</h3>
+            <div>{{ $t('ecolarApp.AccountType.EXPENSE') }}</div>
+          </div>
+        </v-card-title>
+      </v-card>
+      <v-card class="ma-4" @click="selectMovementType('REVENUE')">
+        <v-img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" aspect-ratio="2.75"></v-img>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">{{ $t('ecolarApp.AccountType.REVENUE') }}</h3>
+            <div>{{ $t('ecolarApp.AccountType.REVENUE') }}</div>
+          </div>
+        </v-card-title>
+      </v-card>
+      <v-card class="ma-4" @click="selectMovementType('ASSETS')">
+        <v-img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" aspect-ratio="2.75"></v-img>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">{{ $t('ecolarApp.AccountType.ASSETS') }}</h3>
+            <div>{{ $t('ecolarApp.AccountType.ASSETS') }}</div>
+          </div>
+        </v-card-title>
+      </v-card>
+      <v-card class="ma-4" @click="selectMovementType('LIABILITIES')">
+        <v-img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" aspect-ratio="2.75"></v-img>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">{{ $t('ecolarApp.AccountType.LIABILITIES') }}</h3>
+            <div>{{ $t('ecolarApp.AccountType.LIABILITIES') }}</div>
+          </div>
+        </v-card-title>
+      </v-card>
+    </v-layout>
+  </v-flex>
+</v-layout>        
+
     <div v-if="state.movementType">
         <add-new-movement-select-account></add-new-movement-select-account>
         <div v-if="!state.selectingAccountFor" class="row justify-content-center">

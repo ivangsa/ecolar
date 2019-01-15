@@ -36,11 +36,11 @@ class AccountCategoriesTree extends Vue {
 
     @State('HouseHoldStore') state: HouseHoldState;
     @HouseHoldStore.Mutation('selectCategory') selectCategory;
-
+    
     toggleChildren() {
         this.showChildren = !this.showChildren;
     }
-
+    
 }
 
 @Component({
@@ -49,6 +49,7 @@ class AccountCategoriesTree extends Vue {
 })
 export default class AddNewMovementSelectAccount extends Vue {
     @State('HouseHoldStore') state: HouseHoldState;
+    @HouseHoldStore.Mutation('selectMovementType') selectMovementType;
     @HouseHoldStore.Mutation('setSelectingAccountFor') setSelectingAccountFor;
 
     get categories() {
