@@ -15,7 +15,7 @@
                 </v-alert>
                 <v-flex xs12>
                     <v-text-field v-model="login" :label="$t('global.form.username')" 
-                        :error-messages="errorMessage('login')"
+                        :error-messages="validationMessages('login')"
                         @input="$v.login.$touch()"
                         @blur="$v.login.$touch()"
                         required></v-text-field>
@@ -25,7 +25,7 @@
                         :type="showPassword ? 'text' : 'password'" 
                         :append-icon="showPassword ? 'visibility_off' : 'visibility'"
                         @click:append="showPassword = !showPassword"
-                        :error-messages="errorMessage('password')"
+                        :error-messages="validationMessages('password')"
                         @input="$v.password.$touch()"
                         @blur="$v.password.$touch()"
                         :label="$t('login.form.password')" 

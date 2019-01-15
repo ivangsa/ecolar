@@ -2,10 +2,9 @@ import axios from 'axios';
 import Component from 'vue-class-component';
 import { Vue, Inject } from 'vue-property-decorator';
 import { email, maxLength, minLength, required } from 'vuelidate/lib/validators';
-import { User, IUser } from '@/core/user/user.model';
 
 import Principal from '../principal';
-import ValidationMixin from '@/ecolar/service/vuelidate-vuetify.mixin';
+import ValidationMixin from '@/shared/validation/vuelidate-vuetify.mixin';
 
 const validations: any = {
     login: {
