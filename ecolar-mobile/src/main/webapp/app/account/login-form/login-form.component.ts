@@ -4,7 +4,7 @@ import { Vue, Inject } from 'vue-property-decorator';
 import { email, maxLength, minLength, required } from 'vuelidate/lib/validators';
 
 import Principal from '../principal';
-import ValidationMixin from '@/shared/validation/vuelidate-vuetify.mixin';
+import VuelidateVuetifyMixin from '@/shared/validation/vuelidate-vuetify.mixin';
 
 const validations: any = {
     login: {
@@ -17,7 +17,7 @@ const validations: any = {
 
 @Component({
     validations,
-    mixins: [ValidationMixin]
+    mixins: [VuelidateVuetifyMixin]
 })
 export default class LoginForm extends Vue {
     public authenticationError: boolean = null;

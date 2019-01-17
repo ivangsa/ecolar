@@ -16,7 +16,7 @@
                 "title": "Movement Line"
             },
             "amount": "Amount",
-            "eventType": "Event Type",
+            "lineType": "Event Type",
             "account": "Account"
         }
     }

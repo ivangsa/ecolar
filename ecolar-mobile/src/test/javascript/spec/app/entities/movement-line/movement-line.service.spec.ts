@@ -53,7 +53,7 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         amount: 1,
-                        eventType: 'BBBBBB'
+                        lineType: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -70,7 +70,7 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         amount: 1,
-                        eventType: 'BBBBBB'
+                        lineType: 'BBBBBB'
                     },
                     elemDefault
                 );

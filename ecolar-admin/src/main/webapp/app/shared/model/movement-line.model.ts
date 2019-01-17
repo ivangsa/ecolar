@@ -8,10 +8,10 @@ export const enum LineType {
 export interface IMovementLine {
     id?: string;
     amount?: number;
-    eventType?: LineType;
+    lineType?: LineType;
     account?: IEAccount;
 }
 
 export class MovementLine implements IMovementLine {
-    constructor(public id?: string, public amount?: number, public eventType?: LineType, public account?: IEAccount) {}
+    constructor(public id?: string, public amount?: number, public lineType?: LineType, public account?: IEAccount) {}
 }

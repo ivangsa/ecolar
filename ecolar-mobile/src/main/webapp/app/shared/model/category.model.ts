@@ -1,13 +1,6 @@
-import { IEAccount } from '@/shared/model//e-account.model';
+import { IEAccount, AccountType } from '@/shared/model//e-account.model';
 import { ICategory } from '@/shared/model//category.model';
 import { IAccountCategories } from '@/shared/model//account-categories.model';
-
-export const enum AccountType {
-    ASSETS = 'ASSETS',
-    LIABILITIES = 'LIABILITIES',
-    REVENUE = 'REVENUE',
-    EXPENSE = 'EXPENSE'
-}
 
 export interface ICategory {
     id?: string;

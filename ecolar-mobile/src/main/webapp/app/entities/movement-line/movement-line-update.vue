@@ -17,8 +17,8 @@
                             :class="{'valid': !$v.movementLine.amount.$invalid, 'invalid': $v.movementLine.amount.$invalid }" v-model="$v.movementLine.amount.$model" />
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" v-text="$t('ecolarApp.movementLine.eventType')" for="movement-line-eventType">Event Type</label>
-                        <select class="form-control" name="eventType" :class="{'valid': !$v.movementLine.eventType.$invalid, 'invalid': $v.movementLine.eventType.$invalid }" v-model="$v.movementLine.eventType.$model" id="movement-line-eventType" >
+                        <label class="form-control-label" v-text="$t('ecolarApp.movementLine.lineType')" for="movement-line-lineType">Event Type</label>
+                        <select class="form-control" name="lineType" :class="{'valid': !$v.movementLine.lineType.$invalid, 'invalid': $v.movementLine.lineType.$invalid }" v-model="$v.movementLine.lineType.$model" id="movement-line-lineType" >
                             <option value="CREDIT" v-bind:label="$t('ecolarApp.LineType.CREDIT')">CREDIT</option>
                             <option value="DEBIT" v-bind:label="$t('ecolarApp.LineType.DEBIT')">DEBIT</option>
                         </select>

@@ -16,7 +16,7 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="ecolarApp.movementLine.amount">Amount</span></th>
-            <th><span jhiTranslate="ecolarApp.movementLine.eventType">Event Type</span></th>
+            <th><span jhiTranslate="ecolarApp.movementLine.lineType">Event Type</span></th>
             <th><span jhiTranslate="ecolarApp.movementLine.account">Account</span></th>
             <th></th>
             </tr>
@@ -25,7 +25,7 @@
             <tr *ngFor="let movementLine of movementLines ;trackBy: trackId">
                 <td><a [routerLink]="['/movement-line', movementLine.id, 'view' ]">{{movementLine.id}}</a></td>
                 <td>{{movementLine.amount}}</td>
-                <td jhiTranslate="{{'ecolarApp.LineType.' + movementLine.eventType}}">{{movementLine.eventType}}</td>
+                <td jhiTranslate="{{'ecolarApp.LineType.' + movementLine.lineType}}">{{movementLine.lineType}}</td>
                 <td>
                     <div *ngIf="movementLine.account">
                         <a [routerLink]="['../e-account', movementLine.account?.id, 'view' ]" >{{movementLine.account?.accountName}}</a>

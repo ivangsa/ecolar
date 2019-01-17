@@ -29,8 +29,8 @@ public class MovementLine implements Serializable {
     @Field("amount")
     private BigDecimal amount;
 
-    @Field("event_type")
-    private LineType eventType;
+    @Field("line_type")
+    private LineType lineType;
 
     /**
      * cuenta de una linea de asiento
@@ -63,17 +63,17 @@ public class MovementLine implements Serializable {
         this.amount = amount;
     }
 
-    public LineType getEventType() {
-        return eventType;
+    public LineType getLineType() {
+        return lineType;
     }
 
-    public MovementLine eventType(LineType eventType) {
-        this.eventType = eventType;
+    public MovementLine lineType(LineType lineType) {
+        this.lineType = lineType;
         return this;
     }
 
-    public void setEventType(LineType eventType) {
-        this.eventType = eventType;
+    public void setLineType(LineType lineType) {
+        this.lineType = lineType;
     }
 
     public EAccount getAccount() {
@@ -115,7 +115,7 @@ public class MovementLine implements Serializable {
         return "MovementLine{" +
             "id=" + getId() +
             ", amount=" + getAmount() +
-            ", eventType='" + getEventType() + "'" +
+            ", lineType='" + getLineType() + "'" +
             "}";
     }
 }

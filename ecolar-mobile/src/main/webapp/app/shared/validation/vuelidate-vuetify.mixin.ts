@@ -1,8 +1,11 @@
 import Vue from 'vue';
+import { validationMixin } from 'vuelidate'
 import Component from 'vue-class-component';
 
-@Component
-export default class ValidationMixin extends Vue {
+@Component({
+    mixins: [validationMixin]
+})
+export default class VuelidateVuetifyMixin extends Vue {
     validationMessages (fieldName: string) {
         const field = this._nestedField(this.$v, fieldName);
         const errors = [];

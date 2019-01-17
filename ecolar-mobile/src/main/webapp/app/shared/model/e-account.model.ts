@@ -1,4 +1,4 @@
-import { ICategory } from '@/shared/model//category.model';
+import { ICategory } from '@/shared/model/category.model';
 
 export const enum AccountType {
     ASSETS = 'ASSETS',

@@ -12,7 +12,7 @@ import MovementLineService from './movement-line.service';
 const validations: any = {
     movementLine: {
         amount: {},
-        eventType: {}
+        lineType: {}
     }
 };
 

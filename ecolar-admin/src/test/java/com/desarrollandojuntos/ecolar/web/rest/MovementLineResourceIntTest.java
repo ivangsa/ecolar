@@ -81,7 +81,7 @@ public class MovementLineResourceIntTest {
     public static MovementLine createEntity() {
         MovementLine movementLine = new MovementLine()
             .amount(DEFAULT_AMOUNT)
-            .eventType(DEFAULT_EVENT_TYPE);
+            .lineType(DEFAULT_EVENT_TYPE);
         return movementLine;
     }
 
@@ -138,7 +138,7 @@ public class MovementLineResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(movementLine.getId())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
-            .andExpect(jsonPath("$.[*].eventType").value(hasItem(DEFAULT_EVENT_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].lineType").value(hasItem(DEFAULT_EVENT_TYPE.toString())));
     }
     
     @Test
@@ -152,7 +152,7 @@ public class MovementLineResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(movementLine.getId()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
-            .andExpect(jsonPath("$.eventType").value(DEFAULT_EVENT_TYPE.toString()));
+            .andExpect(jsonPath("$.lineType").value(DEFAULT_EVENT_TYPE.toString()));
     }
 
     @Test
@@ -173,7 +173,7 @@ public class MovementLineResourceIntTest {
         MovementLine updatedMovementLine = movementLineRepository.findById(movementLine.getId()).get();
         updatedMovementLine
             .amount(UPDATED_AMOUNT)
-            .eventType(UPDATED_EVENT_TYPE);
+            .lineType(UPDATED_EVENT_TYPE);
 
         restMovementLineMockMvc.perform(put("/api/movement-lines")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)

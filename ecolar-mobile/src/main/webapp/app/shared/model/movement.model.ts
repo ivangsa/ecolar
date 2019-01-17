@@ -1,11 +1,5 @@
-import { IMovementLine } from '@/shared/model//movement-line.model';
-
-export const enum AccountType {
-    ASSETS = 'ASSETS',
-    LIABILITIES = 'LIABILITIES',
-    REVENUE = 'REVENUE',
-    EXPENSE = 'EXPENSE'
-}
+import { IMovementLine } from '@/shared/model/movement-line.model';
+import { AccountType } from '@/shared/model/e-account.model';
 
 export interface IMovement {
     id?: string;

@@ -5,7 +5,8 @@ import format from 'date-fns/format';
 import * as config from '@/shared/config/config';
 import { DATE_TIME_FORMAT } from '@/shared/date/filters';
 import MovementService from '@/entities/movement/movement.service';
-import { Movement, AccountType } from '@/shared/model/movement.model';
+import { Movement } from '@/shared/model/movement.model';
+import { AccountType } from '@/shared/model/e-account.model';
 
 const mockedAxios: any = axios;
 jest.mock('axios', () => ({

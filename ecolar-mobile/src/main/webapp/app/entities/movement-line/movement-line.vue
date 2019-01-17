@@ -23,7 +23,7 @@
                 <tr>
                     <th><span v-text="$t('global.field.id')">ID</span></th>
                         <th><span v-text="$t('ecolarApp.movementLine.amount')">Amount</span></th>
-                        <th><span v-text="$t('ecolarApp.movementLine.eventType')">Event Type</span></th>
+                        <th><span v-text="$t('ecolarApp.movementLine.lineType')">Event Type</span></th>
                             <th><span v-text="$t('ecolarApp.movementLine.account')">Account</span></th>
                     <th></th>
                 </tr>
@@ -33,7 +33,7 @@
                     :key="movementLine.id">
                     <td><router-link :to="{name: 'MovementLineView', params: {movementLineId: movementLine.id}}">{{movementLine.id}}</router-link></td>
                             <td>{{movementLine.amount}}</td>
-                            <td v-text="$t('ecolarApp.LineType.' + movementLine.eventType)">{{movementLine.eventType}}</td>
+                            <td v-text="$t('ecolarApp.LineType.' + movementLine.lineType)">{{movementLine.lineType}}</td>
                         <td>
                                         <div v-if="movementLine.account">
                                             <router-link :to="'../entity/e-account/' + movementLine.account.id + '/view'" >{{movementLine.account.accountName}}</router-link>

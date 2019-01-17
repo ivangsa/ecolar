@@ -10,9 +10,9 @@
                         <dd>
                                 <span>{{movementLine.amount}}</span>
                         </dd>
-                        <dt><span v-text="$t('ecolarApp.movementLine.eventType')">Event Type</span></dt>
+                        <dt><span v-text="$t('ecolarApp.movementLine.lineType')">Event Type</span></dt>
                         <dd>
-                                <span v-text="$t('ecolarApp.LineType.' + movementLine.eventType)">{{movementLine.eventType}}</span>
+                                <span v-text="$t('ecolarApp.LineType.' + movementLine.lineType)">{{movementLine.lineType}}</span>
                         </dd>
 
                         <dt><span v-text="$t('ecolarApp.movementLine.account')">Account</span></dt>

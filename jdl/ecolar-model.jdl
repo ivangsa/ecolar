@@ -68,7 +68,7 @@ entity Movement {
  */
 entity MovementLine {
 	amount BigDecimal,
-	eventType LineType,
+	lineType LineType,
 }
 
 /**

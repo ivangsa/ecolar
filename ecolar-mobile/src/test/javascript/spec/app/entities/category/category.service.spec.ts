@@ -4,7 +4,8 @@ import axios from 'axios';
 import * as config from '@/shared/config/config';
 import {} from '@/shared/date/filters';
 import CategoryService from '@/entities/category/category.service';
-import { Category, AccountType } from '@/shared/model/category.model';
+import { Category } from '@/shared/model/category.model';
+import { AccountType } from '@/shared/model/e-account.model';
 
 const mockedAxios: any = axios;
 jest.mock('axios', () => ({
