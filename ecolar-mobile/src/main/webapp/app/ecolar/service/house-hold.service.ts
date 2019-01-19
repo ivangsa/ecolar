@@ -3,6 +3,7 @@ import Component from 'vue-class-component';
 import axios, {AxiosPromise} from 'axios';
 import { IHouseHold } from '@/shared/model/house-hold.model';
 import { ICategory } from '@/shared/model/category.model';
+import { IMovement } from '@/shared/model/movement.model';
 
 const baseApiUrl = 'api/house-holds';
 
@@ -31,6 +32,14 @@ export default class HouseHoldService extends Vue {
 
     findCategory(houseHoldId: string, id: string): AxiosPromise<IHouseHold> {
         return axios.get(`${baseApiUrl}/${houseHoldId}/categories/${id}`);
+    }
+
+    getAllMovements(houseHoldId: string): AxiosPromise<IMovement[]> {
+        return axios.get(`${baseApiUrl}/${houseHoldId}/movements`);
+    }
+    
+    createMovement(movement: IMovement): AxiosPromise<IMovement> {
+        return axios.post(`${baseApiUrl}/movements`, movement);
     }
 
 }

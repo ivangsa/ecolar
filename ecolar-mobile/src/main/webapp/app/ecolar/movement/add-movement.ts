@@ -60,12 +60,13 @@ export default class AddNewMovement extends Vue {
         if(this.movement) {
             this.movement.eventTime = new Date();
             this.movement.eventLines = [];
-            this.movement.eventLines.push(new MovementLine(null, null, LineType.DEBIT));
-            this.movement.eventLines.push(new MovementLine(null, null, LineType.CREDIT));
+            this.movement.eventLines.push(new MovementLine(null, 0.00, LineType.DEBIT));
+            this.movement.eventLines.push(new MovementLine(null, 0.00, LineType.CREDIT));
         }
     }
 
     selectMovementType(movementType: AccountType) {
+        this.newMovement(new Movement());
         this.movement.type = movementType;
         this.selectingAccountFor = null;
     }
@@ -121,6 +122,10 @@ export default class AddNewMovement extends Vue {
         this.movement.eventLines[0].amount = this.movement.amount;
         this.movement.eventLines[1].amount = this.movement.amount;
         console.log("movement", this.movement);
+        this.houseHoldService().createMovement(this.movement)
+            .then(response => {
+                console.log("saved movement", response.data);
+            });
     }
 }
 
