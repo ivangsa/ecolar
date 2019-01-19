@@ -111,7 +111,7 @@ public class MovementLineResourceIntTest {
         assertThat(movementLineList).hasSize(databaseSizeBeforeCreate + 1);
         MovementLine testMovementLine = movementLineList.get(movementLineList.size() - 1);
         assertThat(testMovementLine.getAmount()).isEqualTo(DEFAULT_AMOUNT);
-        assertThat(testMovementLine.getEventType()).isEqualTo(DEFAULT_EVENT_TYPE);
+        assertThat(testMovementLine.getLineType()).isEqualTo(DEFAULT_EVENT_TYPE);
     }
 
     @Test
@@ -190,7 +190,7 @@ public class MovementLineResourceIntTest {
         assertThat(movementLineList).hasSize(databaseSizeBeforeUpdate);
         MovementLine testMovementLine = movementLineList.get(movementLineList.size() - 1);
         assertThat(testMovementLine.getAmount()).isEqualTo(UPDATED_AMOUNT);
-        assertThat(testMovementLine.getEventType()).isEqualTo(UPDATED_EVENT_TYPE);
+        assertThat(testMovementLine.getLineType()).isEqualTo(UPDATED_EVENT_TYPE);
     }
 
     @Test

@@ -18,6 +18,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.Validator;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -57,6 +58,9 @@ public class MovementLineResourceIntTest {
     @Autowired
     private ExceptionTranslator exceptionTranslator;
 
+    @Autowired
+    private Validator validator;
+
     private MockMvc restMovementLineMockMvc;
 
     private MovementLine movementLine;
@@ -69,7 +73,8 @@ public class MovementLineResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
     }
 
     /**
@@ -106,7 +111,7 @@ public class MovementLineResourceIntTest {
         assertThat(movementLineList).hasSize(databaseSizeBeforeCreate + 1);
         MovementLine testMovementLine = movementLineList.get(movementLineList.size() - 1);
         assertThat(testMovementLine.getAmount()).isEqualTo(DEFAULT_AMOUNT);
-        assertThat(testMovementLine.getEventType()).isEqualTo(DEFAULT_EVENT_TYPE);
+        assertThat(testMovementLine.getLineType()).isEqualTo(DEFAULT_EVENT_TYPE);
     }
 
     @Test
@@ -185,7 +190,7 @@ public class MovementLineResourceIntTest {
         assertThat(movementLineList).hasSize(databaseSizeBeforeUpdate);
         MovementLine testMovementLine = movementLineList.get(movementLineList.size() - 1);
         assertThat(testMovementLine.getAmount()).isEqualTo(UPDATED_AMOUNT);
-        assertThat(testMovementLine.getEventType()).isEqualTo(UPDATED_EVENT_TYPE);
+        assertThat(testMovementLine.getLineType()).isEqualTo(UPDATED_EVENT_TYPE);
     }
 
     @Test
