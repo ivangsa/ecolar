@@ -54,6 +54,7 @@ relationship OneToMany {
  * Movimiento contable
  */
 entity Movement {
+    houseHoldId string,
     type AccountType,
 	eventTime Instant,
 	registrationTime Instant,

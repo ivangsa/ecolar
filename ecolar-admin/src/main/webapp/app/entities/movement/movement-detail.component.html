@@ -21,10 +21,18 @@
                 <dd>
                     <span>{{movement.location}}</span>
                 </dd>
-                <dt><span jhiTranslate="ecolarApp.movement.eventLines">Event Lines</span></dt>
+                <dt><span jhiTranslate="ecolarApp.movement.houseHoldId">House Hold Id</span></dt>
                 <dd>
-                    <span *ngFor="let eventLines of movement.eventLines; let last = last">
-                        <a [routerLink]="['/movement-line', eventLines?.id, 'view' ]">{{eventLines.id}}</a>{{last ? '' : ', '}}
+                    <span>{{movement.houseHoldId}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.movement.type">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'ecolarApp.AccountType.' + movement.type}}">{{movement.type}}</span>
+                </dd>
+                <dt><span jhiTranslate="ecolarApp.movement.movementLines">Movement Lines</span></dt>
+                <dd>
+                    <span *ngFor="let movementLines of movement.movementLines; let last = last">
+                        <a [routerLink]="['/movement-line', movementLines?.id, 'view' ]">{{movementLines.id}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
             </dl>

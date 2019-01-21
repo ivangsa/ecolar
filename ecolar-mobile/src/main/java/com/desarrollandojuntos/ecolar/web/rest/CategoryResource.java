@@ -109,7 +109,7 @@ public class CategoryResource {
         if(!houseHold.isPresent()) {
             return Collections.emptyList();
         }
-        return houseHoldService.getCategoriesAsList(houseHoldId);
+        return houseHoldService.getCategoriesAsList(houseHold.get());
     }
 
     /**

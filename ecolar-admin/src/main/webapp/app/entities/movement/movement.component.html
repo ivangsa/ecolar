@@ -19,7 +19,9 @@
             <th><span jhiTranslate="ecolarApp.movement.registrationTime">Registration Time</span></th>
             <th><span jhiTranslate="ecolarApp.movement.amount">Amount</span></th>
             <th><span jhiTranslate="ecolarApp.movement.location">Location</span></th>
-            <th><span jhiTranslate="ecolarApp.movement.eventLines">Event Lines</span></th>
+            <th><span jhiTranslate="ecolarApp.movement.houseHoldId">House Hold Id</span></th>
+            <th><span jhiTranslate="ecolarApp.movement.type">Type</span></th>
+            <th><span jhiTranslate="ecolarApp.movement.movementLines">Movement Lines</span></th>
             <th></th>
             </tr>
             </thead>
@@ -30,9 +32,11 @@
                 <td>{{movement.registrationTime | date:'medium'}}</td>
                 <td>{{movement.amount}}</td>
                 <td>{{movement.location}}</td>
+                <td>{{movement.houseHoldId}}</td>
+                <td jhiTranslate="{{'ecolarApp.AccountType.' + movement.type}}">{{movement.type}}</td>
                 <td>
-                    <span *ngFor="let eventLines of movement.eventLines; let last = last">
-                            <a class="form-control-static" [routerLink]="['../movement-line', eventLines?.id, 'view' ]">{{eventLines.id}}</a>{{last ? '' : ', '}}
+                    <span *ngFor="let movementLines of movement.movementLines; let last = last">
+                            <a class="form-control-static" [routerLink]="['../movement-line', movementLines?.id, 'view' ]">{{movementLines.id}}</a>{{last ? '' : ', '}}
                         </span>
                 </td>
                 <td class="text-right">

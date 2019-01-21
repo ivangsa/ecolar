@@ -27,7 +27,7 @@
         {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "",
-            "relationshipName": "eventLines",
+            "relationshipName": "movementLines",
             "otherEntityName": "movementLine",
             "otherEntityField": "id",
             "ownerSide": true

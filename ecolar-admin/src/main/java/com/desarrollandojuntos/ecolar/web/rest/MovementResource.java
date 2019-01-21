@@ -1,34 +1,45 @@
 package com.desarrollandojuntos.ecolar.web.rest;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.codahale.metrics.annotation.Timed;
 import com.desarrollandojuntos.ecolar.domain.Movement;
 import com.desarrollandojuntos.ecolar.service.MovementService;
 import com.desarrollandojuntos.ecolar.web.rest.errors.BadRequestAlertException;
 import com.desarrollandojuntos.ecolar.web.rest.util.HeaderUtil;
+
 import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * REST controller for managing Movement.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/house-holds/{houseHoldId}")
 public class MovementResource {
 
     private final Logger log = LoggerFactory.getLogger(MovementResource.class);
 
     private static final String ENTITY_NAME = "movement";
 
-    private MovementService movementService;
+    private final MovementService movementService;
 
     public MovementResource(MovementService movementService) {
         this.movementService = movementService;
@@ -43,7 +54,7 @@ public class MovementResource {
      */
     @PostMapping("/movements")
     @Timed
-    public ResponseEntity<Movement> createMovement(@RequestBody Movement movement) throws URISyntaxException {
+    public ResponseEntity<Movement> createMovement(@PathVariable String houseHoldId, @Valid @RequestBody Movement movement) throws URISyntaxException {
         log.debug("REST request to save Movement : {}", movement);
         if (movement.getId() != null) {
             throw new BadRequestAlertException("A new movement cannot already have an ID", ENTITY_NAME, "idexists");
@@ -65,7 +76,7 @@ public class MovementResource {
      */
     @PutMapping("/movements")
     @Timed
-    public ResponseEntity<Movement> updateMovement(@RequestBody Movement movement) throws URISyntaxException {
+    public ResponseEntity<Movement> updateMovement(@Valid @RequestBody Movement movement) throws URISyntaxException {
         log.debug("REST request to update Movement : {}", movement);
         if (movement.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -84,7 +95,7 @@ public class MovementResource {
      */
     @GetMapping("/movements")
     @Timed
-    public List<Movement> getAllMovements(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<Movement> getAllMovements(@PathVariable String houseHoldId, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Movements");
         return movementService.findAll();
     }
@@ -97,7 +108,7 @@ public class MovementResource {
      */
     @GetMapping("/movements/{id}")
     @Timed
-    public ResponseEntity<Movement> getMovement(@PathVariable String id) {
+    public ResponseEntity<Movement> getMovement(@PathVariable String houseHoldId, @PathVariable String id) {
         log.debug("REST request to get Movement : {}", id);
         Optional<Movement> movement = movementService.findOne(id);
         return ResponseUtil.wrapOrNotFound(movement);
@@ -111,7 +122,7 @@ public class MovementResource {
      */
     @DeleteMapping("/movements/{id}")
     @Timed
-    public ResponseEntity<Void> deleteMovement(@PathVariable String id) {
+    public ResponseEntity<Void> deleteMovement(@PathVariable String houseHoldId, @PathVariable String id) {
         log.debug("REST request to delete Movement : {}", id);
         movementService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();

@@ -26,6 +26,7 @@
           <v-list-tile-action><v-icon>sign-in-alt</v-icon></v-list-tile-action>
           <v-list-tile-title v-text="$t('global.menu.entities.houseHold')">HouseHold</v-list-tile-title>
         </v-list-tile>
+        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->        
       </v-list-group>
 
       <v-list-group

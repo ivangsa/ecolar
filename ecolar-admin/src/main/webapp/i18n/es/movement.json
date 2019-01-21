@@ -19,7 +19,9 @@
             "registrationTime": "Registration Time",
             "amount": "Amount",
             "location": "Location",
-            "eventLines": "Event Lines"
+            "houseHoldId": "House Hold Id",
+            "type": "Type",
+            "movementLines": "Movement Lines"
         }
     }
 }

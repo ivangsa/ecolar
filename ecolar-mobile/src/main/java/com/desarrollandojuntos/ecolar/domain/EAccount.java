@@ -2,6 +2,8 @@ package com.desarrollandojuntos.ecolar.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
+
+import org.mapstruct.ap.shaded.freemarker.template.utility.StringUtil;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,7 +23,7 @@ public class EAccount implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    @Field
     private String id;
 
     @Field("account_code")
@@ -33,14 +35,20 @@ public class EAccount implements Serializable {
     @Field("type")
     private AccountType type;
 
-    @DBRef
-    @Field("category")
-    @JsonIgnoreProperties("accounts")
-    private Category category;
+    @Field("categoryId")
+    private String categoryId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        if(id != null) {
+            this.id = String.valueOf(id);
+        } else {
+            this.id = null;
+        }
     }
 
     public void setId(String id) {
@@ -86,17 +94,17 @@ public class EAccount implements Serializable {
         this.type = type;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public EAccount category(Category category) {
-        this.category = category;
+    public EAccount categoryId(String categoryId) {
+        this.categoryId = categoryId;
         return this;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

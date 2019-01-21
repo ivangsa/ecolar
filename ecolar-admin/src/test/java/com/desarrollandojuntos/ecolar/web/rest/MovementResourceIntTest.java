@@ -37,6 +37,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.desarrollandojuntos.ecolar.domain.enumeration.AccountType;
 /**
  * Test class for the MovementResource REST controller.
  *
@@ -57,6 +58,12 @@ public class MovementResourceIntTest {
 
     private static final String DEFAULT_LOCATION = "AAAAAAAAAA";
     private static final String UPDATED_LOCATION = "BBBBBBBBBB";
+
+    private static final String DEFAULT_HOUSE_HOLD_ID = "AAAAAAAAAA";
+    private static final String UPDATED_HOUSE_HOLD_ID = "BBBBBBBBBB";
+
+    private static final AccountType DEFAULT_TYPE = AccountType.ASSETS;
+    private static final AccountType UPDATED_TYPE = AccountType.LIABILITIES;
 
     @Autowired
     private MovementRepository movementRepository;
@@ -105,7 +112,9 @@ public class MovementResourceIntTest {
             .eventTime(DEFAULT_EVENT_TIME)
             .registrationTime(DEFAULT_REGISTRATION_TIME)
             .amount(DEFAULT_AMOUNT)
-            .location(DEFAULT_LOCATION);
+            .location(DEFAULT_LOCATION)
+            .houseHoldId(DEFAULT_HOUSE_HOLD_ID)
+            .type(DEFAULT_TYPE);
         return movement;
     }
 
@@ -133,6 +142,8 @@ public class MovementResourceIntTest {
         assertThat(testMovement.getRegistrationTime()).isEqualTo(DEFAULT_REGISTRATION_TIME);
         assertThat(testMovement.getAmount()).isEqualTo(DEFAULT_AMOUNT);
         assertThat(testMovement.getLocation()).isEqualTo(DEFAULT_LOCATION);
+        assertThat(testMovement.getHouseHoldId()).isEqualTo(DEFAULT_HOUSE_HOLD_ID);
+        assertThat(testMovement.getType()).isEqualTo(DEFAULT_TYPE);
     }
 
     @Test
@@ -154,6 +165,40 @@ public class MovementResourceIntTest {
     }
 
     @Test
+    public void checkHouseHoldIdIsRequired() throws Exception {
+        int databaseSizeBeforeTest = movementRepository.findAll().size();
+        // set the field null
+        movement.setHouseHoldId(null);
+
+        // Create the Movement, which fails.
+
+        restMovementMockMvc.perform(post("/api/movements")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(movement)))
+            .andExpect(status().isBadRequest());
+
+        List<Movement> movementList = movementRepository.findAll();
+        assertThat(movementList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    public void checkTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = movementRepository.findAll().size();
+        // set the field null
+        movement.setType(null);
+
+        // Create the Movement, which fails.
+
+        restMovementMockMvc.perform(post("/api/movements")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(movement)))
+            .andExpect(status().isBadRequest());
+
+        List<Movement> movementList = movementRepository.findAll();
+        assertThat(movementList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void getAllMovements() throws Exception {
         // Initialize the database
         movementRepository.save(movement);
@@ -166,7 +211,9 @@ public class MovementResourceIntTest {
             .andExpect(jsonPath("$.[*].eventTime").value(hasItem(DEFAULT_EVENT_TIME.toString())))
             .andExpect(jsonPath("$.[*].registrationTime").value(hasItem(DEFAULT_REGISTRATION_TIME.toString())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
-            .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION.toString())));
+            .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION.toString())))
+            .andExpect(jsonPath("$.[*].houseHoldId").value(hasItem(DEFAULT_HOUSE_HOLD_ID.toString())))
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -215,7 +262,9 @@ public class MovementResourceIntTest {
             .andExpect(jsonPath("$.eventTime").value(DEFAULT_EVENT_TIME.toString()))
             .andExpect(jsonPath("$.registrationTime").value(DEFAULT_REGISTRATION_TIME.toString()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
-            .andExpect(jsonPath("$.location").value(DEFAULT_LOCATION.toString()));
+            .andExpect(jsonPath("$.location").value(DEFAULT_LOCATION.toString()))
+            .andExpect(jsonPath("$.houseHoldId").value(DEFAULT_HOUSE_HOLD_ID.toString()))
+            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()));
     }
 
     @Test
@@ -238,7 +287,9 @@ public class MovementResourceIntTest {
             .eventTime(UPDATED_EVENT_TIME)
             .registrationTime(UPDATED_REGISTRATION_TIME)
             .amount(UPDATED_AMOUNT)
-            .location(UPDATED_LOCATION);
+            .location(UPDATED_LOCATION)
+            .houseHoldId(UPDATED_HOUSE_HOLD_ID)
+            .type(UPDATED_TYPE);
 
         restMovementMockMvc.perform(put("/api/movements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -253,6 +304,8 @@ public class MovementResourceIntTest {
         assertThat(testMovement.getRegistrationTime()).isEqualTo(UPDATED_REGISTRATION_TIME);
         assertThat(testMovement.getAmount()).isEqualTo(UPDATED_AMOUNT);
         assertThat(testMovement.getLocation()).isEqualTo(UPDATED_LOCATION);
+        assertThat(testMovement.getHouseHoldId()).isEqualTo(UPDATED_HOUSE_HOLD_ID);
+        assertThat(testMovement.getType()).isEqualTo(UPDATED_TYPE);
     }
 
     @Test

@@ -1,5 +1,16 @@
 {
-    "name": "Movement",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "movementLines",
+            "otherEntityName": "movementLine",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
     "fields": [
         {
             "fieldName": "eventTime",
@@ -16,26 +27,29 @@
         {
             "fieldName": "location",
             "fieldType": "String"
-        }
-    ],
-    "relationships": [
+        },
         {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "",
-            "relationshipName": "eventLines",
-            "otherEntityName": "movementLine",
-            "otherEntityField": "id",
-            "ownerSide": true
+            "fieldName": "houseHoldId",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "AccountType",
+            "fieldValues": "ASSETS,LIABILITIES,REVENUE,EXPENSE",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20181129204457",
-    "javadoc": "Movimiento contable",
-    "entityTableName": "movement",
     "dto": "no",
-    "pagination": "no",
+    "searchEngine": false,
     "service": "serviceImpl",
+    "entityTableName": "movement",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "no",
+    "javadoc": "Movimiento contable"
 }

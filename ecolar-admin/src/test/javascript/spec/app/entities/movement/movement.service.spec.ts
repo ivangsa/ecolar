@@ -7,7 +7,7 @@ import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { MovementService } from 'app/entities/movement/movement.service';
-import { IMovement, Movement } from 'app/shared/model/movement.model';
+import { IMovement, Movement, AccountType } from 'app/shared/model/movement.model';
 
 describe('Service Tests', () => {
     describe('Movement Service', () => {
@@ -25,7 +25,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new Movement('ID', currentDate, currentDate, 0, 'AAAAAAA');
+            elemDefault = new Movement('ID', currentDate, currentDate, 0, 'AAAAAAA', 'AAAAAAA', AccountType.ASSETS);
         });
 
         describe('Service methods', async () => {
@@ -76,7 +76,9 @@ describe('Service Tests', () => {
                         eventTime: currentDate.format(DATE_TIME_FORMAT),
                         registrationTime: currentDate.format(DATE_TIME_FORMAT),
                         amount: 1,
-                        location: 'BBBBBB'
+                        location: 'BBBBBB',
+                        houseHoldId: 'BBBBBB',
+                        type: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -102,7 +104,9 @@ describe('Service Tests', () => {
                         eventTime: currentDate.format(DATE_TIME_FORMAT),
                         registrationTime: currentDate.format(DATE_TIME_FORMAT),
                         amount: 1,
-                        location: 'BBBBBB'
+                        location: 'BBBBBB',
+                        houseHoldId: 'BBBBBB',
+                        type: 'BBBBBB'
                     },
                     elemDefault
                 );

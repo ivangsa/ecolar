@@ -43,7 +43,7 @@ module.exports = merge(baseWebpackConfig, {
                     '/h2-console',
                     '/auth'
                 ],
-                target: 'http://127.0.0.1:8082',
+                target: 'http://127.0.0.1:8083',
                 secure: false,
                 headers: { host: 'localhost:9000' }
             }

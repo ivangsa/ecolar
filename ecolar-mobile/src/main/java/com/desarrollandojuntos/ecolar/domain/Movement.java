@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -27,6 +28,11 @@ public class Movement implements Serializable {
     @Id
     private String id;
 
+    @NotNull
+    @Field("house_hold_id")
+    private String houseHoldId;
+
+    @NotNull
     @Field("type")
     private AccountType type;
 
@@ -43,8 +49,8 @@ public class Movement implements Serializable {
     private String location;
 
     @DBRef
-    @Field("eventLines")
-    private Set<MovementLine> eventLines = new HashSet<>();
+    @Field("movementLines")
+    private Set<MovementLine> movementLines = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -53,19 +59,6 @@ public class Movement implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public AccountType getType() {
-        return type;
-    }
-
-    public Movement type(AccountType type) {
-        this.type = type;
-        return this;
-    }
-
-    public void setType(AccountType type) {
-        this.type = type;
     }
 
     public Instant getEventTime() {
@@ -120,27 +113,53 @@ public class Movement implements Serializable {
         this.location = location;
     }
 
-    public Set<MovementLine> getEventLines() {
-        return eventLines;
+    public String getHouseHoldId() {
+        return houseHoldId;
     }
 
-    public Movement eventLines(Set<MovementLine> movementLines) {
-        this.eventLines = movementLines;
+    public Movement houseHoldId(String houseHoldId) {
+        this.houseHoldId = houseHoldId;
         return this;
     }
 
-    public Movement addEventLines(MovementLine movementLine) {
-        this.eventLines.add(movementLine);
+    public void setHouseHoldId(String houseHoldId) {
+        this.houseHoldId = houseHoldId;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
+
+    public Movement type(AccountType type) {
+        this.type = type;
         return this;
     }
 
-    public Movement removeEventLines(MovementLine movementLine) {
-        this.eventLines.remove(movementLine);
+    public void setType(AccountType type) {
+        this.type = type;
+    }
+
+    public Set<MovementLine> getMovementLines() {
+        return movementLines;
+    }
+
+    public Movement movementLines(Set<MovementLine> movementLines) {
+        this.movementLines = movementLines;
         return this;
     }
 
-    public void setEventLines(Set<MovementLine> movementLines) {
-        this.eventLines = movementLines;
+    public Movement addMovementLines(MovementLine movementLine) {
+        this.movementLines.add(movementLine);
+        return this;
+    }
+
+    public Movement removeMovementLines(MovementLine movementLine) {
+        this.movementLines.remove(movementLine);
+        return this;
+    }
+
+    public void setMovementLines(Set<MovementLine> movementLines) {
+        this.movementLines = movementLines;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -172,6 +191,8 @@ public class Movement implements Serializable {
             ", registrationTime='" + getRegistrationTime() + "'" +
             ", amount=" + getAmount() +
             ", location='" + getLocation() + "'" +
+            ", houseHoldId='" + getHouseHoldId() + "'" +
+            ", type='" + getType() + "'" +
             "}";
     }
 }
