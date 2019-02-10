@@ -15,7 +15,7 @@ export interface IMovement {
 export class Movement implements IMovement {
     constructor(
         public id?: string,
-        public houseHoldId?: string,
+        // public houseHoldId?: string,
         public type?: AccountType,
         public eventTime?: Date,
         public registrationTime?: Date,
